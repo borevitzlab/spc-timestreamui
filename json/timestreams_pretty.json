@@ -1,37 +1,37 @@
 [
   {
     "name": "BVZ0012-GC05L-CN650D-Cam05~fullres-orig", 
-    "ts_end": "2013_04_26_12_40_00_00", 
-    "ts_start": "2013_03_04_17_40_00_00", 
+    "ts_end": "2013_04_26_12_40_00", 
+    "ts_start": "2013_03_04_17_40_00", 
     "ts_version": 1, 
-    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+    "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
     "name": "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
-    "ts_end": "2013_08_26_16_00_00_00", 
-    "ts_start": "2013_03_05_15_40_00_00", 
+    "ts_end": "2013_08_26_16_00_00", 
+    "ts_start": "2013_03_05_15_40_00", 
     "ts_version": 1, 
-    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+    "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
     "name": "BVZ0012-GC05R-CN650D-Cam06~fullres-orig", 
-    "ts_end": "2013_04_13_16_40_00_00", 
-    "ts_start": "2013_03_04_17_40_00_00", 
+    "ts_end": "2013_04_13_16_40_00", 
+    "ts_start": "2013_03_04_17_40_00", 
     "ts_version": 1, 
-    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+    "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
     "name": "BVZ0012-GC02R-CN650D-Cam02~fullres-orig", 
-    "ts_end": "2013_04_20_14_00_00_00", 
-    "ts_start": "2013_03_02_09_20_00_00", 
+    "ts_end": "2013_04_20_14_00_00", 
+    "ts_start": "2013_03_02_09_20_00", 
     "ts_version": 1, 
-    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+    "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
     "name": "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
-    "ts_end": "2013_04_26_09_20_00_00", 
-    "ts_start": "2013_02_22_17_20_00_00", 
+    "ts_end": "2013_04_26_09_20_00", 
+    "ts_start": "2013_02_22_17_20_00", 
     "ts_version": 1, 
-    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+    "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }
 ]
