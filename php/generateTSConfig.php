@@ -1,26 +1,35 @@
 <?php
-
+// incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
+// read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 $xml = new SimpleXMLElement($xmlstr);
-$config_id = "ts8";
-$start_day = 5;
-$start_month = 05;
-$start_year = 2555;
-$start_time = "00:00";
-$end_day = 7;
-$end_month = 10;
-$end_year = 2745;
-$end_time = "00:00";
+// getting json data and decode into php object
+$expts_decoded = json_decode(file_get_contents("json/expts_pretty.json"));
+// make a filename
+$filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
+// check if the filename exists
+if (!file_exists($filename)){
+	// setting the config name to the expt id (assuming all the config files)
+	$xml->globals['config_id'] = $expts_decoded[0]->experiments[0]->expt_id;
+	
+	//should functionalise this date string screwery.
+	$full_backwards_start_date = $expts_decoded[0]->experiments[0]->start_date;
+	$start_day = substr($full_backwards_start_date, 8, 2);
+	$start_month = substr($full_backwards_start_date, 5, 2);
+	$start_year = substr($full_backwards_start_date, 0 , 4);
+	$start_time = "00:00";
 
-//$config = new SimpleXMLElement($xmlstr);
-$xml->globals['config_id'] = $config_id;
-$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
-$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
+	$full_backwards_end_date = $expts_decoded[0]->experiments[0]->end_date;
+	$end_day = substr($full_backwards_end_date, 8, 2);
+	$end_month = substr($full_backwards_end_date, 5, 2);
+	$end_year = substr($full_backwards_end_date, 0 , 4);
+	$end_time = "00:00";
 
-echo $xml->globals['config_id'];
-//echo $config_id;
+	// more date string concat screwery setting up the dates for the globals
+	$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
+	$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
 
-$xml->asXML("config/$config_id.xml");
-//echo$xml) ;
-
+	// save the output.
+	$xml->asXML($filename);
+}
 ?>
