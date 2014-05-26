@@ -85,6 +85,144 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 			}
 		}	
 	}
+	// 
+	// psuedocode for UI
+	//
+	//
+	//
+
+// 
+// if single config = 1 exactly
+// 
+/*
+  <layout>
+	
+	<column  width="150" >	
+		<panel height="100%" components_node_id="o_calendar"/>
+		<panel height="180px" components_node_id="o_zoom"/>	
+		<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
+	</column>
+	
+    <!-- Cam column-->
+	
+    <column  width="100%" >
+		<row height="100%">
+			<panel width="100%" components_node_id="o_timecam"/>
+		</row>
+		<panel width = "100%" height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
+		<panel width = "100%" height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
+    </column>
+   </layout>
+
+*/
+
+
+// 
+// if grid config = 4 exactly
+// 
+	/*
+				  <layout>
+			<column  width="150" >	
+				<panel height="100%" components_node_id="o_calendar"/>
+				<panel height="180px" components_node_id="o_zoom"/>	
+				<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
+			</column>
+			
+		    <!-- Cam column-->
+			
+		    <column  width="100%" >
+				<row height="20%">
+					<panel width="50%" height="100%" components_node_id="o_timecam_GC02-1_cam01"/>
+					<panel width="50%" height="100%" components_node_id="o_timecam_GC05-1_cam01"/>
+				</row>
+
+				<row height="20%">
+					<panel width="50%" height="100%" components_node_id="o_timecam_GC04-1_cam02"/>
+					<panel width="50%" height="100%" components_node_id="o_timecam_GC04-2_cam02"/>
+				</row>
+
+				<panel height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
+				<panel height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
+		    </column>
+		    </layout>
+    */
+
+// 
+// if Horizontal config = 2 exactly
+// 
+		/*
+		 <layout>
+	
+	<column  width="150" >	
+		<panel height="100%" components_node_id="o_calendar"/>
+		<panel height="180px" components_node_id="o_zoom"/>	
+		<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
+	</column>
+	
+    <!-- Cam column-->
+	
+    <column  width="100%" >
+		<row height="100%">
+			<panel width="20%" height="100%" components_node_id="o_timecam_GC02-1_cam01"/>
+			<panel width="20%" height="100%" components_node_id="o_timecam_GC04-1_cam02"/>
+			<panel width="20%" height="100%" components_node_id="o_timecam_GC04-2_cam02"/>
+			<panel width="20%" height="100%" components_node_id="o_timecam_GC05-1_cam01"/>
+		</row>
+
+		<panel height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
+		<panel height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
+    </column>
+	</layout>
+    */
+
+// 
+// if V Configuration = 3 exactly
+// 
+    	/*
+    	  <layout>
+	
+	<column  width="150" >	
+		<panel height="100%" components_node_id="o_calendar"/>
+		<panel height="180px" components_node_id="o_zoom"/>	
+		<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
+	</column>
+	
+    <!-- Cam column-->
+	
+    <column  width="100%" >
+		<row height="20%">
+			<panel width="25%" height="100%" components_node_id="o_timecam_GC02-1_cam01"/>
+		</row>
+
+		<row height="20%">
+			<panel width="100%" height="100%" components_node_id="o_timecam_GC04-1_cam02"/>
+		</row>
+		<row height="20%">
+			<panel width="100%" height="100%" components_node_id="o_timecam_GC04-2_cam02"/>
+		</row>
+		<row height="20%">
+			<panel width="100%" height="100%" components_node_id="o_timecam_GC05-1_cam01"/>
+		</row>
+
+		<panel height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
+		<panel height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
+    </column>
+	</layout>	*/
+
+// 
+// Layout and tools
+// 
+/*
+    <!-- Info and tools column-->
+  <!--  <column width="240px" >
+
+		<panel height="150px" components_node_id="o_info"/>
+		<panel height="100%" components_node_id="o_bookmarks"/>
+		<!--<panel height="125px" components_node_id="o_toolbox"/>
+    </column> 
+-->
+
+*/
 
 	//
 	// Todo here:
