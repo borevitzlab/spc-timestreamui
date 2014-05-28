@@ -26,7 +26,7 @@
     "ts_start": "2013_03_02_09_20_00", 
     "ts_version": 1, 
     "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
-  }, 
+  },
   {
     "name": "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
     "ts_end": "2013_04_26_09_20_00", 
