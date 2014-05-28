@@ -3,15 +3,16 @@
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 $xml = new SimpleXMLElement($xmlstr);
-$layoutType = $_POST["layoutType"];
+//$layoutType = $_POST["layoutType"];
+$layoutType = "hr";
 // layoutType = hr horizontal
 // layoutType = vr vertical
 // layoutType = gr grid
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/expts_pretty.json"));//"https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
+$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
 // Maybe load this once the eperiment has been selected.
-$timestreams_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/timestreams_pretty.json"));//"https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
+$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
 // make a filename
 $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 // check if the filename exists
@@ -182,6 +183,9 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	// 
 	// Grid layout
 	// 
+	// DOESNT WORK YET AND I DONT KNOW WHY!
+	// ANYTHING OVER 4 PLAYERS IS MESSED UP!
+	// 
 	function is_whole_number($var){
 		return (is_numeric($var)&&(intval($var)==(floatval($var))));
 	}
@@ -189,14 +193,13 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 		return (is_whole_number(sqrt($var)));
 	}
 
-
 	if (count($timestreams_decoded)>1&&$layoutType=="gr") {
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 
 		$number_of_streams = count($timestreams_decoded);
+		$tsc = 0;
 		if(is_square_number($number_of_streams)){
-
 			for($x = 0; $x<sqrt($number_of_streams); $x++){
 				$cam_row = $cam_column->addChild('row');
 				$cam_row->addAttribute('height', 100/sqrt($number_of_streams)."%");
@@ -204,7 +207,8 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 					$cam_panel = $cam_row->addChild('panel');
 					$cam_panel->addAttribute('width', 100/sqrt($number_of_streams)."%");
 					$cam_panel->addAttribute('height', "100%");
-					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$x*$y]->name);
+					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+					$tsc++;
 				}
 			}
 		}else{
@@ -212,6 +216,30 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 			// TODO here, some cool elegance that does layout for uneven grid.
 			// needs to have desired ratio w:h, and take care of odd number of streams. 
 			// 
+			// EDIT: this cool elegance should make sure that the number of rows vs columns will be
+			// appropriately sized. It might be good to take care of primes numbered timestreams
+			// 
+			$rows=1;
+			$panels_per_row=1;
+			while ($panels_per_row*$rows <= $number_of_streams) {
+				$panels_per_row++;
+				if($panels_per_row>=$rows*2){
+					$rows++;
+					$panels_per_row=1;
+				}
+			}
+			for ($x=0; $x < $rows; $x++) { 
+				$cam_row = $cam_column->addChild('row');
+				$cam_row->addAttribute('height', 100/$rows."%");
+				for ($y=0; $y < $panels_per_row; $y++) { 
+					$cam_panel = $cam_row->addChild('panel');
+					$cam_panel->addAttribute('width', 100/$panels_per_row."%");
+					$cam_panel->addAttribute('height', "100%");
+					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$x*$y]->name);
+					$tsc++;
+				}
+			}
+
 		}
 	$timebar_panel = $cam_column->addChild('panel');
 	$timebar_panel->addAttribute('height', '25px');
