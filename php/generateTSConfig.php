@@ -5,9 +5,9 @@ include "template.php";
 $xml = new SimpleXMLElement($xmlstr);
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/expts_pretty.json"));
+$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
 // Maybe load this once the eperiment has been selected.
-$timestreams_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/timestreams_pretty.json"));
+$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
 // make a filename
 $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 // check if the filename exists
@@ -81,7 +81,6 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 				$tc->addAttribute('play_num_images_hires', '50');
 				$tc->addAttribute('no_header', 'false');
 				$tc->addAttribute('show_timestream_selector', 'false');
-					
 			}
 		}	
 	}
@@ -89,7 +88,12 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	// psuedocode for UI
 	//
 	//
-	//
+	// up to 6 cameras
+	// 
+	// make it get horizontal strips, vertical strips and a grid.
+	// need extra variable for this.
+	// 
+
 
 // 
 // if single config = 1 exactly
