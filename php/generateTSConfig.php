@@ -3,11 +3,15 @@
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 $xml = new SimpleXMLElement($xmlstr);
+$layoutType = $_POST["layoutType"];
+// layoutType = hr horizontal
+// layoutType = vr vertical
+// layoutType = gr grid
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
+$expts_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/expts_pretty.json"));//"https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
 // Maybe load this once the eperiment has been selected.
-$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
+$timestreams_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/timestreams_pretty.json"));//"https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
 // make a filename
 $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 // check if the filename exists
@@ -85,133 +89,140 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 		}	
 	}
 	// 
-	// psuedocode for UI
-	//
-	//
-	// up to 6 cameras
+	// Apparently this must come after timecam nodes (?)
 	// 
-	// make it get horizontal strips, vertical strips and a grid.
-	// need extra variable for this.
+	$tbmedia = $xml->components->addChild('timebarmedia');
+	$tbmedia->addAttribute('id', 'o_timebarmedia');
+	$tbmedia->addAttribute('show_timeline', 'false');
+	$tbmedia->addAttribute('show_date', 'true');
+
+	// making calendar and zoom layout
+	$layout = $xml->addChild('layout');
+		$calendar_col1 = $layout->addChild('column');
+		$calendar_col1->addAttribute('width', '150');
+			$calendar_panel1 = $calendar_col1->addChild('panel');
+			$calendar_panel1->addAttribute('height', '100%');
+			$calendar_panel1->addAttribute('components_node_id', 'o_calendar');
+			$calendar_panel2 = $calendar_col1->addChild('panel');
+			$calendar_panel2->addAttribute('height', '180px');
+			$calendar_panel2->addAttribute('components_node_id', 'o_zoom');
+
+
 	// 
+	// single config, exactly 1
+	// 
+	if(count($timestreams_decoded)==1){
 
-
-// 
-// if single config = 1 exactly
-// 
-/*
-  <layout>
+		$cam_column = $layout->addChild('column');
+		$cam_column->addAttribute('width', '100%');
+			$cam_row = $cam_column->addChild('row');
+			$cam_row->addAttribute('height', '100%');
+				$cam_panel = $cam_row->addChild('panel');
+				$cam_panel->addAttribute('height', "100%");
+				$cam_panel->addAttribute('width', "100%");
+				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[0]->name);
 	
-	<column  width="150" >	
-		<panel height="100%" components_node_id="o_calendar"/>
-		<panel height="180px" components_node_id="o_zoom"/>	
-		<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
-	</column>
-	
-    <!-- Cam column-->
-	
-    <column  width="100%" >
-		<row height="100%">
-			<panel width="100%" components_node_id="o_timecam"/>
-		</row>
-		<panel width = "100%" height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
-		<panel width = "100%" height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
-    </column>
-   </layout>
+	}
 
-*/
+	// 
+	// Horizontal strips config
+	// 
+	if(count($timestreams_decoded)>1&&$layoutType=="hr"){
+
+		$cam_column = $layout->addChild('column');
+		$cam_column->addAttribute('width', '100%');
+			$cam_row = $cam_column->addChild('row');
+			$cam_row->addAttribute('height', '100%');
+			for($i = 0; $i < count($timestreams_decoded); $i++){
+				$cam_panel = $cam_row->addChild('panel');
+				$cam_panel->addAttribute('width', 100/count($timestreams_decoded)."%");
+				$cam_panel->addAttribute('height', "100%");
+				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$i]->name);
+			}
+
+	$timebar_panel = $cam_column->addChild('panel');
+	$timebar_panel->addAttribute('height', '25px');
+	$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+	$timebar_panel->addAttribute('panel_padding_top', '0px');
+
+	$timebar = $cam_column->addChild('panel');
+	$timebar->addAttribute('height', '100px');
+	$timebar->addAttribute('components_node_id', 'o_timebar');
+	$timebar->addAttribute('panel_padding_top', '0px');
+	}
+
+	// 
+	// Vertical Strips layout
+	// 
+	if (count($timestreams_decoded)>1&&$layoutType=="vr") {
+
+		$cam_column = $layout->addChild('column');
+		$cam_column->addAttribute('width', '100%');
+		for($i = 0; $i < count($timestreams_decoded); $i++){
+			$cam_row = $cam_column->addChild('row');
+			$cam_row->addAttribute('height', 100/count($timestreams_decoded)."%");
+				$cam_panel = $cam_row->addChild('panel');
+				$cam_panel->addAttribute('width', "100%");
+				$cam_panel->addAttribute('height', "100%");
+				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$i]->name);
+
+		}
+
+	$timebar_panel = $cam_column->addChild('panel');
+	$timebar_panel->addAttribute('height', '25px');
+	$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+	$timebar_panel->addAttribute('panel_padding_top', '0px');
+
+	$timebar = $cam_column->addChild('panel');
+	$timebar->addAttribute('height', '100px');
+	$timebar->addAttribute('components_node_id', 'o_timebar');
+	$timebar->addAttribute('panel_padding_top', '0px');
+	}
+
+	// 
+	// Grid layout
+	// 
+	function is_whole_number($var){
+		return (is_numeric($var)&&(intval($var)==(floatval($var))));
+	}
+	function is_square_number($var){
+		return (is_whole_number(sqrt($var)));
+	}
 
 
-// 
-// if grid config = 4 exactly
-// 
-	/*
-				  <layout>
-			<column  width="150" >	
-				<panel height="100%" components_node_id="o_calendar"/>
-				<panel height="180px" components_node_id="o_zoom"/>	
-				<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
-			</column>
-			
-		    <!-- Cam column-->
-			
-		    <column  width="100%" >
-				<row height="20%">
-					<panel width="50%" height="100%" components_node_id="o_timecam_GC02-1_cam01"/>
-					<panel width="50%" height="100%" components_node_id="o_timecam_GC05-1_cam01"/>
-				</row>
+	if (count($timestreams_decoded)>1&&$layoutType=="gr") {
+		$cam_column = $layout->addChild('column');
+		$cam_column->addAttribute('width', '100%');
 
-				<row height="20%">
-					<panel width="50%" height="100%" components_node_id="o_timecam_GC04-1_cam02"/>
-					<panel width="50%" height="100%" components_node_id="o_timecam_GC04-2_cam02"/>
-				</row>
+		$number_of_streams = count($timestreams_decoded);
+		if(is_square_number($number_of_streams)){
 
-				<panel height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
-				<panel height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
-		    </column>
-		    </layout>
-    */
+			for($x = 0; $x<sqrt($number_of_streams); $x++){
+				$cam_row = $cam_column->addChild('row');
+				$cam_row->addAttribute('height', 100/sqrt($number_of_streams)."%");
+				for($y = 0; $y < sqrt($number_of_streams); $y++){
+					$cam_panel = $cam_row->addChild('panel');
+					$cam_panel->addAttribute('width', 100/sqrt($number_of_streams)."%");
+					$cam_panel->addAttribute('height', "100%");
+					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$x*$y]->name);
+				}
+			}
+		}else{
+			// 
+			// TODO here, some cool elegance that does layout for uneven grid.
+			// needs to have desired ratio w:h, and take care of odd number of streams. 
+			// 
+		}
+	$timebar_panel = $cam_column->addChild('panel');
+	$timebar_panel->addAttribute('height', '25px');
+	$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+	$timebar_panel->addAttribute('panel_padding_top', '0px');
 
-// 
-// if Horizontal config = 2 exactly
-// 
-		/*
-		 <layout>
-	
-	<column  width="150" >	
-		<panel height="100%" components_node_id="o_calendar"/>
-		<panel height="180px" components_node_id="o_zoom"/>	
-		<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
-	</column>
-	
-    <!-- Cam column-->
-	
-    <column  width="100%" >
-		<row height="100%">
-			<panel width="20%" height="100%" components_node_id="o_timecam_GC02-1_cam01"/>
-			<panel width="20%" height="100%" components_node_id="o_timecam_GC04-1_cam02"/>
-			<panel width="20%" height="100%" components_node_id="o_timecam_GC04-2_cam02"/>
-			<panel width="20%" height="100%" components_node_id="o_timecam_GC05-1_cam01"/>
-		</row>
-
-		<panel height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
-		<panel height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
-    </column>
-	</layout>
-    */
-
-// 
-// if V Configuration = 3 exactly
-// 
-    	/*
-    	  <layout>
-	
-	<column  width="150" >	
-		<panel height="100%" components_node_id="o_calendar"/>
-		<panel height="180px" components_node_id="o_zoom"/>	
-		<!--<panel height="80px" components_node_id="trayscan_demo_image"/>-->
-	</column>
-	
-    <!-- Cam column-->
-	
-    <column  width="100%" >
-		<row height="20%">
-			<panel width="25%" height="100%" components_node_id="o_timecam_GC02-1_cam01"/>
-		</row>
-
-		<row height="20%">
-			<panel width="100%" height="100%" components_node_id="o_timecam_GC04-1_cam02"/>
-		</row>
-		<row height="20%">
-			<panel width="100%" height="100%" components_node_id="o_timecam_GC04-2_cam02"/>
-		</row>
-		<row height="20%">
-			<panel width="100%" height="100%" components_node_id="o_timecam_GC05-1_cam01"/>
-		</row>
-
-		<panel height="25px" components_node_id="o_timebarmedia" panel_padding_top="0px"   />
-		<panel height="100px" components_node_id="o_timebar"  panel_padding_top="0px"  />
-    </column>
-	</layout>	*/
+	$timebar = $cam_column->addChild('panel');
+	$timebar->addAttribute('height', '100px');
+	$timebar->addAttribute('components_node_id', 'o_timebar');
+	$timebar->addAttribute('panel_padding_top', '0px');
+	}	
 
 // 
 // Layout and tools
@@ -224,19 +235,9 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 		<panel height="100%" components_node_id="o_bookmarks"/>
 		<!--<panel height="125px" components_node_id="o_toolbox"/>
     </column> 
--->
+	-->
 
 */
-
-	//
-	// Todo here:
-	// Functionalise the layouts to take a list of timestreams and create the appropriate layout
-	// 
-	
-	$tbmedia = $xml->components->addChild('timebarmedia');
-	$tbmedia->addAttribute('id', 'o_timebarmedia');
-	$tbmedia->addAttribute('show_timeline', 'false');
-	$tbmedia->addAttribute('show_date', 'true');
 
 	// uncomment this next line to save a config file to server (maybe save future configs for later use?).
 	// $xml->asXML($filename);
