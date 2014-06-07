@@ -221,20 +221,75 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 			// EDIT: this cool elegance should make sure that the number of rows vs columns will be
 			// appropriately sized. It might be good to take care of primes numbered timestreams
 			// EDIT: this bullsh*t is not working for some unknown reason (URL handling)
+			// 
 
-			//if($rows*$columns == $number_of_streams){
-			for($x = 0; $x<$nRows; $x++){
-				$cam_row = $cam_column->addChild('row');
-				$cam_row->addAttribute('height', 100/$nColumns.'%');
-				for($y = 0; $y < $nColumns; $y++){
-					$cam_panel = $cam_row->addChild('panel');
-					$cam_panel->addAttribute('width', 100/$nRows."%");
-					$cam_panel->addAttribute('height', "100%");
-					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
-					$tsc++;
+			if($nRows*$nColumns == $number_of_streams){
+				for($x = 0; $x<$nRows; $x++){
+					$cam_row = $cam_column->addChild('row');
+					$cam_row->addAttribute('height', 100/$nColumns.'%');
+					for($y = 0; $y < $nColumns; $y++){
+						$cam_panel = $cam_row->addChild('panel');
+						$cam_panel->addAttribute('width', 100/$nRows."%");
+						$cam_panel->addAttribute('height', "100%");
+						$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+						$tsc++;
+					}
 				}
+			}else{
+				if($nColumns > $number_of_streams/$nRows){
+					for($x = 0; $x<$nRows; $x++){
+						$cam_row = $cam_column->addChild('row');
+						
+						if($x==0){
+
+							$ncol_subone = $nColumns-intval($number_of_streams/$nRows);
+							$cam_row->addAttribute('height', 100/$ncol_subone.'%');
+							for($y = 0; $y < $ncol_subone; $y++){
+								$cam_panel = $cam_row->addChild('panel');
+								$cam_panel->addAttribute('width', 100/$nRows."%");
+								$cam_panel->addAttribute('height', "100%");
+								$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+								$tsc++;
+							}
+						}
+						else{
+							$cam_row->addAttribute('height', 100/$nColumns.'%');
+							for($y = 0; $y < $nColumns; $y++){
+								$cam_panel = $cam_row->addChild('panel');
+								$cam_panel->addAttribute('width', 100/$nRows."%");
+								$cam_panel->addAttribute('height', "100%");
+								$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+								$tsc++;
+							}
+						}
+					}
+				}elseif ($nRows > $number_of_streams/$nColumns) {
+					for($x = 0; $x<$nRows; $x++){
+						$cam_row = $cam_column->addChild('row');
+						
+						if($x==$nColumns){
+							$nrow_plusone = $nRows+intval($number_of_streams/$nColumns);
+							$cam_row->addAttribute('height', 100/$nColumns.'%');
+							for($y = 0; $y < $nColumns; $y++){
+								if($y==0){
+									$cam_panel = $cam_row->addChild('panel');
+									$cam_panel->addAttribute('width', 100/$nrow_plusone."%");
+									$cam_panel->addAttribute('height', "100%");
+									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$tsc++;
+								}else{
+									$cam_row->addAttribute('height', 100/$nColumns.'%');
+									$cam_panel = $cam_row->addChild('panel');
+									$cam_panel->addAttribute('width', 100/$nRows."%");
+									$cam_panel->addAttribute('height', "100%");
+									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$tsc++;
+							}
+						}
+					}
+				}
+
 			}
-			// }
 		}
 	$timebar_panel = $cam_column->addChild('panel');
 	$timebar_panel->addAttribute('height', '25px');
