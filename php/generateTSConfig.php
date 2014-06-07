@@ -12,8 +12,8 @@ $layoutType = $_GET["layoutType"];
 // layoutType = gr grid
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
-$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
+$expts_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/expts_pretty.json"));
+$timestreams_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/timestreams_pretty.json"));
 // make a filename
 $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 // check if the filename exists
@@ -142,15 +142,15 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$i]->name);
 			}
 
-	$timebar_panel = $cam_column->addChild('panel');
-	$timebar_panel->addAttribute('height', '25px');
-	$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
-	$timebar_panel->addAttribute('panel_padding_top', '0px');
+		$timebar_panel = $cam_column->addChild('panel');
+		$timebar_panel->addAttribute('height', '25px');
+		$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+		$timebar_panel->addAttribute('panel_padding_top', '0px');
 
-	$timebar = $cam_column->addChild('panel');
-	$timebar->addAttribute('height', '100px');
-	$timebar->addAttribute('components_node_id', 'o_timebar');
-	$timebar->addAttribute('panel_padding_top', '0px');
+		$timebar = $cam_column->addChild('panel');
+		$timebar->addAttribute('height', '100px');
+		$timebar->addAttribute('components_node_id', 'o_timebar');
+		$timebar->addAttribute('panel_padding_top', '0px');
 	}
 
 	// 
@@ -170,15 +170,15 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 
 		}
 
-	$timebar_panel = $cam_column->addChild('panel');
-	$timebar_panel->addAttribute('height', '25px');
-	$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
-	$timebar_panel->addAttribute('panel_padding_top', '0px');
+		$timebar_panel = $cam_column->addChild('panel');
+		$timebar_panel->addAttribute('height', '25px');
+		$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+		$timebar_panel->addAttribute('panel_padding_top', '0px');
 
-	$timebar = $cam_column->addChild('panel');
-	$timebar->addAttribute('height', '100px');
-	$timebar->addAttribute('components_node_id', 'o_timebar');
-	$timebar->addAttribute('panel_padding_top', '0px');
+		$timebar = $cam_column->addChild('panel');
+		$timebar->addAttribute('height', '100px');
+		$timebar->addAttribute('components_node_id', 'o_timebar');
+		$timebar->addAttribute('panel_padding_top', '0px');
 	}
 
 	// 
@@ -221,8 +221,7 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 			// EDIT: this cool elegance should make sure that the number of rows vs columns will be
 			// appropriately sized. It might be good to take care of primes numbered timestreams
 			// EDIT: this bullsh*t is not working for some unknown reason (URL handling)
-			// 
-
+			// improved as of 1pm 7 jun.
 			if($nRows*$nColumns == $number_of_streams){
 				for($x = 0; $x<$nRows; $x++){
 					$cam_row = $cam_column->addChild('row');
@@ -235,24 +234,24 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 						$tsc++;
 					}
 				}
-			}else{
-				if($nColumns > $number_of_streams/$nRows){
-					for($x = 0; $x<$nRows; $x++){
+			}
+			if($nColumns*$nRows > $number_of_streams){
+				for($x = 0; $x<$nRows; $x++){
+					if($tsc<$number_of_streams){
 						$cam_row = $cam_column->addChild('row');
-						
 						if($x==0){
-
-							$ncol_subone = $nColumns-intval($number_of_streams/$nRows);
-							$cam_row->addAttribute('height', 100/$ncol_subone.'%');
+							$n_missing = $nColumns*$nRows - $number_of_streams;
+							if($n_missing<=$nColumns) $ncol_subone = $nColumns-$n_missing;
+							else $ncol_subone = $nColumns-1;
+							$cam_row->addAttribute('height', 100/$nRows.'%');
 							for($y = 0; $y < $ncol_subone; $y++){
 								$cam_panel = $cam_row->addChild('panel');
-								$cam_panel->addAttribute('width', 100/$nRows."%");
+								$cam_panel->addAttribute('width', 100/$ncol_subone."%");
 								$cam_panel->addAttribute('height', "100%");
 								$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
 								$tsc++;
 							}
-						}
-						else{
+						}else{
 							$cam_row->addAttribute('height', 100/$nColumns.'%');
 							for($y = 0; $y < $nColumns; $y++){
 								$cam_panel = $cam_row->addChild('panel');
@@ -260,46 +259,21 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 								$cam_panel->addAttribute('height', "100%");
 								$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
 								$tsc++;
-							}
-						}
-					}
-				}elseif ($nRows > $number_of_streams/$nColumns) {
-					for($x = 0; $x<$nRows; $x++){
-						$cam_row = $cam_column->addChild('row');
-						
-						if($x==$nColumns){
-							$nrow_plusone = $nRows+intval($number_of_streams/$nColumns);
-							$cam_row->addAttribute('height', 100/$nColumns.'%');
-							for($y = 0; $y < $nColumns; $y++){
-								if($y==0){
-									$cam_panel = $cam_row->addChild('panel');
-									$cam_panel->addAttribute('width', 100/$nrow_plusone."%");
-									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
-									$tsc++;
-								}else{
-									$cam_row->addAttribute('height', 100/$nColumns.'%');
-									$cam_panel = $cam_row->addChild('panel');
-									$cam_panel->addAttribute('width', 100/$nRows."%");
-									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
-									$tsc++;
 							}
 						}
 					}
 				}
-
 			}
 		}
-	$timebar_panel = $cam_column->addChild('panel');
-	$timebar_panel->addAttribute('height', '25px');
-	$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
-	$timebar_panel->addAttribute('panel_padding_top', '0px');
+		$timebar_panel = $cam_column->addChild('panel');
+		$timebar_panel->addAttribute('height', '25px');
+		$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+		$timebar_panel->addAttribute('panel_padding_top', '0px');
 
-	$timebar = $cam_column->addChild('panel');
-	$timebar->addAttribute('height', '100px');
-	$timebar->addAttribute('components_node_id', 'o_timebar');
-	$timebar->addAttribute('panel_padding_top', '0px');
+		$timebar = $cam_column->addChild('panel');
+		$timebar->addAttribute('height', '100px');
+		$timebar->addAttribute('components_node_id', 'o_timebar');
+		$timebar->addAttribute('panel_padding_top', '0px');
 	}	
 
 // 
