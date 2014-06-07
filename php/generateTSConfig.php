@@ -2,10 +2,8 @@
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
-$xml = new SimpleXMLElement($xmlstr);
+
 $layoutType = $_GET["layoutType"];
-			$nRows = intval($_REQUEST['nRows']);
-			$nColumns = intval($_REQUEST['nColumns']);
 
 // layoutType = hr horizontal
 // layoutType = vr vertical
@@ -14,104 +12,150 @@ $layoutType = $_GET["layoutType"];
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/expts_pretty.json"));
 $timestreams_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/timestreams_pretty.json"));
-// make a filename
-$filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
-// check if the filename exists
-
-	// setting the config name to the expt id (assuming all the config files)
-	$xml->globals['config_id'] = $expts_decoded[0]->experiments[0]->expt_id;
-
-	//should functionalise this date string screwery.
-	$full_backwards_start_date = $expts_decoded[0]->experiments[0]->start_date;
-	$start_day = substr($full_backwards_start_date, 8, 2);
-	$start_month = substr($full_backwards_start_date, 5, 2);
-	$start_year = substr($full_backwards_start_date, 0 , 4);
-	$start_time = "00:00";
-
-	$full_backwards_end_date = $expts_decoded[0]->experiments[0]->end_date;
-	$end_day = substr($full_backwards_end_date, 8, 2);
-	$end_month = substr($full_backwards_end_date, 5, 2);
-	$end_year = substr($full_backwards_end_date, 0 , 4);
-	$end_time = "00:00";
-
-	// more date string concat screwery setting up the dates for the globals
-	$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
-	$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
-
-
-	// iterating through the first experiment and then the list of timestreams
-	// change this to POST/GET user selection later
-	for ($check=0; $check < count($expts_decoded[0]->experiments[0]->timestreams); $check++) { 
-
-		for ($i=0; $i < count($timestreams_decoded); $i++) { 
-
-			// check against the string names of the timestreams to make a list of the streams 
-			// available for the experiment
-			if ( strcmp($expts_decoded[0]->experiments[0]->timestreams[$check], $timestreams_decoded[$i]->name) ==0) {
-				// add new xml child under "components".
-
-				$tc = $xml->components->addChild('timecam');
-				// anything under "components" does not show up under "view source" in chrome, 
-				// but it is there. 
-				
-				// "exploding" the stream name for the title
-				list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
-				// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
-				$datapath = substr($timestreams_decoded[$i]->webroot, 6);
-
-				// ALL the attribute setting!
-				$tc->addAttribute('id', $timestreams_decoded[$i]->name);
-				$tc->addAttribute('image_access_mode', 'TIMESTREAM');
-				$tc->addAttribute('title', $prefixname);
-				
-
-				// If stream_name and stream_name_hires is important and breaks things, look HERE1 to fix
-				$tc->addAttribute('url_image_list', "$datapath"."~640/full/");
-				$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name);
-
-				$tc->addAttribute('url_hires', "$datapath"."full/");
-				$tc->addAttribute('stream_name_hires', $timestreams_decoded->name."~hires");
-
-				$tc->addAttribute('period', '5 minute');
-				$tc->addAttribute('num_images_to_load', 50);
-				$tc->addAttribute('utc', 'false');
-				$tc->addAttribute('timezone', '0');
-
-				// this here could very well be checked by this php script using getimagesize().
-				$tc->addAttribute('width', '480');
-				$tc->addAttribute('height', '640');
-				$tc->addAttribute('width_hires', '3072');
-				$tc->addAttribute('height_hires', '1728');
-				$tc->addAttribute('image_type', 'JPG');
-				$tc->addAttribute('play_num_images', '100');
-				$tc->addAttribute('play_num_images_hires', '50');
-				$tc->addAttribute('no_header', 'false');
-				$tc->addAttribute('show_timestream_selector', 'false');
-			}
-		}	
+$number_of_streams = count($timestreams_decoded);
+// useful functions
+	// checks to see whether a number is whole
+	function is_whole_number($var){
+		return (is_numeric($var)&&(intval($var)==(floatval($var))));
 	}
-	// 
-	// Apparently this must come after timecam nodes (?)
-	// 
-	$tbmedia = $xml->components->addChild('timebarmedia');
-	$tbmedia->addAttribute('id', 'o_timebarmedia');
-	$tbmedia->addAttribute('show_timeline', 'false');
-	$tbmedia->addAttribute('show_date', 'true');
+	// checks to see if a number is a square number
+	function is_square_number($var){
+		return (is_whole_number(sqrt($var)));
+	}
+	// checks to see whether a number is a prime
+	function is_prime($num) {
+	    if($num == 1)
+	        return false;
+	    if($num == 2)
+	        return false;
+	    if($num % 2 == 0) {
+	        return false;
+	    }
+	    for($i = 3; $i <= ceil(sqrt($num)); $i = $i + 2) {
+	        if($num % $i == 0)
+	            return false;
+	    }
 
-	// making calendar and zoom layout
-	$layout = $xml->addChild('layout');
-		$calendar_col1 = $layout->addChild('column');
-		$calendar_col1->addAttribute('width', '150');
-			$calendar_panel1 = $calendar_col1->addChild('panel');
-			$calendar_panel1->addAttribute('height', '100%');
-			$calendar_panel1->addAttribute('components_node_id', 'o_calendar');
-			$calendar_panel2 = $calendar_col1->addChild('panel');
-			$calendar_panel2->addAttribute('height', '180px');
-			$calendar_panel2->addAttribute('components_node_id', 'o_zoom');
+	    return true;
+	}
+	// returns an array of th factors of a number
+	function get_factors($n){
+		$factors = array(1, $n);
+	  	for($i = 2; $i * $i <= $n; $i++){
+	    	if($n % $i == 0){
+	        	$factors[] = $i;
+	        	if($i * $i != $n){
+	            	$factors[] = $n/$i;
+	            }
+	      }
+	   }
+	   sort($factors);
+	   return $factors;
+	}
+	// returns an array of the two median factors
+	function find_median_factors($array) {
+		    $result = array(0,0);
+	        $result[0] = $array[-1+count($array)/2];
+	        $result[1] = $array[count($array)/2];
+	    return $result;
+	}
+
+// all the timecam node stuff and xml setup
+		$xml = new SimpleXMLElement($xmlstr);
+		// setting the config name to the expt id (assuming all the config files)
+		$xml->globals['config_id'] = $expts_decoded[0]->experiments[0]->expt_id;
+
+		//should functionalise this date string screwery.
+		$full_backwards_start_date = $expts_decoded[0]->experiments[0]->start_date;
+		$start_day = substr($full_backwards_start_date, 8, 2);
+		$start_month = substr($full_backwards_start_date, 5, 2);
+		$start_year = substr($full_backwards_start_date, 0 , 4);
+		$start_time = "00:00";
+
+		$full_backwards_end_date = $expts_decoded[0]->experiments[0]->end_date;
+		$end_day = substr($full_backwards_end_date, 8, 2);
+		$end_month = substr($full_backwards_end_date, 5, 2);
+		$end_year = substr($full_backwards_end_date, 0 , 4);
+		$end_time = "00:00";
+
+		// more date string concat screwery setting up the dates for the globals
+		$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
+		$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
 
 
+		// iterating through the first experiment and then the list of timestreams
+		// change this to POST/GET user selection later
+		for ($check=0; $check < count($expts_decoded[0]->experiments[0]->timestreams); $check++) { 
+
+			for ($i=0; $i < count($timestreams_decoded); $i++) { 
+
+				// check against the string names of the timestreams to make a list of the streams 
+				// available for the experiment
+				if ( strcmp($expts_decoded[0]->experiments[0]->timestreams[$check], $timestreams_decoded[$i]->name) ==0) {
+					// add new xml child under "components".
+
+					$tc = $xml->components->addChild('timecam');
+					// anything under "components" does not show up under "view source" in chrome, 
+					// but it is there. 
+					
+					// "exploding" the stream name for the title
+					list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
+					// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
+					$datapath = substr($timestreams_decoded[$i]->webroot, 6);
+
+					// ALL the attribute setting!
+					$tc->addAttribute('id', $timestreams_decoded[$i]->name);
+					$tc->addAttribute('image_access_mode', 'TIMESTREAM');
+					$tc->addAttribute('title', $prefixname);
+					
+
+					// If stream_name and stream_name_hires is important and breaks things, look HERE1 to fix
+					$tc->addAttribute('url_image_list', "$datapath"."~640/full/");
+					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name);
+
+					$tc->addAttribute('url_hires', "$datapath"."full/");
+					$tc->addAttribute('stream_name_hires', $timestreams_decoded->name."~hires");
+
+					$tc->addAttribute('period', '5 minute');
+					$tc->addAttribute('num_images_to_load', 50);
+					$tc->addAttribute('utc', 'false');
+					$tc->addAttribute('timezone', '0');
+
+					// this here could very well be checked by this php script using getimagesize().
+					$tc->addAttribute('width', '480');
+					$tc->addAttribute('height', '640');
+					$tc->addAttribute('width_hires', '3072');
+					$tc->addAttribute('height_hires', '1728');
+					$tc->addAttribute('image_type', 'JPG');
+					$tc->addAttribute('play_num_images', '100');
+					$tc->addAttribute('play_num_images_hires', '50');
+					$tc->addAttribute('no_header', 'false');
+					$tc->addAttribute('show_timestream_selector', 'false');
+				}
+			}	
+		}
+		// 
+		// Apparently this must come after timecam nodes (?)
+		// 
+		$tbmedia = $xml->components->addChild('timebarmedia');
+		$tbmedia->addAttribute('id', 'o_timebarmedia');
+		$tbmedia->addAttribute('show_timeline', 'false');
+		$tbmedia->addAttribute('show_date', 'true');
+
+		// making calendar and zoom layout
+		$layout = $xml->addChild('layout');
+			$calendar_col1 = $layout->addChild('column');
+			$calendar_col1->addAttribute('width', '150');
+				$calendar_panel1 = $calendar_col1->addChild('panel');
+				$calendar_panel1->addAttribute('height', '100%');
+				$calendar_panel1->addAttribute('components_node_id', 'o_calendar');
+				$calendar_panel2 = $calendar_col1->addChild('panel');
+				$calendar_panel2->addAttribute('height', '180px');
+				$calendar_panel2->addAttribute('components_node_id', 'o_zoom');
+
+// layouts
 	// 
-	// single config, exactly 1
+	// single
 	// 
 	if(count($timestreams_decoded)==1){
 
@@ -127,7 +171,7 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	}
 
 	// 
-	// Vertical strips config
+	// Vertical 
 	// 
 	if(count($timestreams_decoded)>1&&$layoutType=="vr"){
 
@@ -154,7 +198,7 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	}
 
 	// 
-	// horizontal Strips layout
+	// horizontal
 	// 
 	if (count($timestreams_decoded)>1&&$layoutType=="hr") {
 
@@ -182,23 +226,13 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	}
 
 	// 
-	// Grid layout
+	// Grid
 	// 
-	// DOESNT WORK YET AND I DONT KNOW WHY!
-	// ANYTHING OVER 4 PLAYERS IS MESSED UP!
-	// 
-	function is_whole_number($var){
-		return (is_numeric($var)&&(intval($var)==(floatval($var))));
-	}
-	function is_square_number($var){
-		return (is_whole_number(sqrt($var)));
-	}
-
 	if ($layoutType=="gr") {
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 
-		$number_of_streams = count($timestreams_decoded);
+
 		$tsc = 0;
 
 		if(is_square_number($number_of_streams)){
@@ -214,57 +248,79 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 				}
 			}
 		}else{
-			// 
-			// TODO here, some cool elegance that does layout for uneven grid.
-			// needs to have desired ratio w:h, and take care of odd number of streams. 
-			// 
-			// EDIT: this cool elegance should make sure that the number of rows vs columns will be
-			// appropriately sized. It might be good to take care of primes numbered timestreams
-			// EDIT: this bullsh*t is not working for some unknown reason (URL handling)
-			// improved as of 1pm 7 jun.
-			if($nRows*$nColumns == $number_of_streams){
-				for($x = 0; $x<$nRows; $x++){
-					$cam_row = $cam_column->addChild('row');
-					$cam_row->addAttribute('height', 100/$nColumns.'%');
-					for($y = 0; $y < $nColumns; $y++){
-						$cam_panel = $cam_row->addChild('panel');
-						$cam_panel->addAttribute('width', 100/$nRows."%");
-						$cam_panel->addAttribute('height', "100%");
-						$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
-						$tsc++;
-					}
-				}
-			}
-			if($nColumns*$nRows > $number_of_streams){
-				for($x = 0; $x<$nRows; $x++){
-					if($tsc<$number_of_streams){
-						$cam_row = $cam_column->addChild('row');
-						if($x==0){
-							$n_missing = $nColumns*$nRows - $number_of_streams;
-							if($n_missing<=$nColumns) $ncol_subone = $nColumns-$n_missing;
-							else $ncol_subone = $nColumns-1;
-							$cam_row->addAttribute('height', 100/$nRows.'%');
-							for($y = 0; $y < $ncol_subone; $y++){
-								$cam_panel = $cam_row->addChild('panel');
-								$cam_panel->addAttribute('width', 100/$ncol_subone."%");
-								$cam_panel->addAttribute('height', "100%");
-								$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
-								$tsc++;
+			if(is_prime($number_of_streams)){
+				$closest_factors = find_median_factors(get_factors($number_of_streams+1));
+				$number_of_columns = $closest_factors[0];
+				$number_of_rows = $closest_factors[1];
+					for($x = 0; $x<$number_of_rows; $x++){
+							$cam_row = $cam_column->addChild('row');
+							if($x==0){
+								$n_missing = $number_of_columns*$number_of_rows - $number_of_streams;
+								$num_col_sub = $number_of_columns-$n_missing;
+								$cam_row->addAttribute('height', 100/$number_of_rows.'%');
+								for($y = 0; $y < $num_col_sub; $y++){
+									$cam_panel = $cam_row->addChild('panel');
+									$cam_panel->addAttribute('width', 100/$num_col_sub."%");
+									$cam_panel->addAttribute('height', "100%");
+									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$tsc++;
+								}
+							}else{
+								$cam_row->addAttribute('height', 100/$number_of_columns.'%');
+								for($y = 0; $y < $number_of_columns; $y++){
+									$cam_panel = $cam_row->addChild('panel');
+									$cam_panel->addAttribute('width', 100/$number_of_rows."%");
+									$cam_panel->addAttribute('height', "100%");
+									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$tsc++;
+								}
 							}
-						}else{
-							$cam_row->addAttribute('height', 100/$nColumns.'%');
-							for($y = 0; $y < $nColumns; $y++){
-								$cam_panel = $cam_row->addChild('panel');
-								$cam_panel->addAttribute('width', 100/$nRows."%");
-								$cam_panel->addAttribute('height', "100%");
-								$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
-								$tsc++;
+						}
+			}else{
+				$closest_factors = find_median_factors(get_factors($number_of_streams));
+				$number_of_columns = $closest_factors[0];
+				$number_of_rows = $closest_factors[1];
+				if($number_of_rows*$number_of_columns == $number_of_streams){
+					for($x = 0; $x<$number_of_rows; $x++){
+						$cam_row = $cam_column->addChild('row');
+						$cam_row->addAttribute('height', 100/$number_of_columns.'%');
+						$cam_row->addAttribute('rows&cols', $number_of_rows."&".$number_of_columns);
+						for($y = 0; $y < $number_of_columns; $y++){
+							$cam_panel = $cam_row->addChild('panel');
+							$cam_panel->addAttribute('width', 100/$number_of_rows."%");
+							$cam_panel->addAttribute('height', "100%");
+							$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+							$tsc++;
+						}
+					}
+				}else{
+					for($x = 0; $x<$number_of_rows; $x++){
+							$cam_row = $cam_column->addChild('row');
+							if($x==0){
+								$n_missing = $number_of_columns*$number_of_rows - $number_of_streams;
+								$num_col_sub = $number_of_columns-$n_missing;
+								$cam_row->addAttribute('height', 100/$number_of_rows.'%');
+								for($y = 0; $y < $num_col_sub; $y++){
+									$cam_panel = $cam_row->addChild('panel');
+									$cam_panel->addAttribute('width', 100/$num_col_sub."%");
+									$cam_panel->addAttribute('height', "100%");
+									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$tsc++;
+								}
+							}else{
+								$cam_row->addAttribute('height', 100/$number_of_columns.'%');
+								for($y = 0; $y < $number_of_columns; $y++){
+									$cam_panel = $cam_row->addChild('panel');
+									$cam_panel->addAttribute('width', 100/$number_of_rows."%");
+									$cam_panel->addAttribute('height', "100%");
+									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$tsc++;
+								}
 							}
 						}
 					}
-				}
+				}	
 			}
-		}
 		$timebar_panel = $cam_column->addChild('panel');
 		$timebar_panel->addAttribute('height', '25px');
 		$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');

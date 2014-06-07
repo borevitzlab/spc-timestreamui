@@ -1,12 +1,6 @@
  <?php
-// get json so we can iterate and know mak number of columns.
- 	$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
-	$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
-	
 	$layoutType = $_POST["layoutType"];
-	$nColumns = $_POST["nColumns"];
-	$nRows = $_POST['nRows'];
-	$generateURL = urlencode('generateTSConfig.php?layoutType='.$layoutType.'&nColumns='.$nColumns.'&nRows='.$nRows);
+	$generateURL = urlencode('generateTSConfig.php?layoutType='.$layoutType);
 	// echo the first bit (headers, start of body tag, etc).
  	echo '<html lang="en">
 	<head>
@@ -43,26 +37,6 @@
 		                <option value="hr">Horizontal</option>
 		                <option value="gr">Grid</option>
 		            </select>
-		        </div>
-		        <div class="hide" id="hide1">
-		            <div class="input select">
-		            <label for="nRows">Rows: </label>
-		          	<select name="nRows" id="nRows">';
-			            for ($i=1; $i < count($timestreams_decoded)+1; $i++) { 
-		            		echo '<option value="'.$i.'">'.$i.'</option>';
-		            	}
-
-		            echo '</select>
-		            </div>
-		            <div class="input select">
-		            <label for="nColumns">Columns: </label>
-		            <select name="nColumns" id="nColumns">';
-		            	for ($i=1; $i < count($timestreams_decoded)+1; $i++) { 
-		            		echo '<option value="'.$i.'">'.$i.'</option>';
-		            	}
-		        
-		            echo '</select>
-		            </div>
 		        </div>
 		    </fieldset>
 		    <div class="submit">
