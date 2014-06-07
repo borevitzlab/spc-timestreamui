@@ -10,8 +10,8 @@ $layoutType = $_GET["layoutType"];
 // layoutType = gr grid
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/expts_pretty.json"));
-$timestreams_decoded = json_decode(file_get_contents("http://localhost/~stormaes/BOREVITZ/json/timestreams_pretty.json"));
+$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
+$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
 $number_of_streams = count($timestreams_decoded);
 // useful functions
 	// checks to see whether a number is whole
