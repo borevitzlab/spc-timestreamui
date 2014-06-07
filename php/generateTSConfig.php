@@ -3,15 +3,16 @@
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 $xml = new SimpleXMLElement($xmlstr);
-//$layoutType = $_POST["layoutType"];
-$layoutType = "hr";
+$layoutType = $_GET["layoutType"];
+			$nRows = intval($_REQUEST['nRows']);
+			$nColumns = intval($_REQUEST['nColumns']);
+
 // layoutType = hr horizontal
 // layoutType = vr vertical
 // layoutType = gr grid
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
-// Maybe load this once the eperiment has been selected.
 $timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
 // make a filename
 $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
@@ -126,9 +127,9 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	}
 
 	// 
-	// Horizontal strips config
+	// Vertical strips config
 	// 
-	if(count($timestreams_decoded)>1&&$layoutType=="hr"){
+	if(count($timestreams_decoded)>1&&$layoutType=="vr"){
 
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
@@ -153,9 +154,9 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	}
 
 	// 
-	// Vertical Strips layout
+	// horizontal Strips layout
 	// 
-	if (count($timestreams_decoded)>1&&$layoutType=="vr") {
+	if (count($timestreams_decoded)>1&&$layoutType=="hr") {
 
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
@@ -193,12 +194,13 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 		return (is_whole_number(sqrt($var)));
 	}
 
-	if (count($timestreams_decoded)>1&&$layoutType=="gr") {
+	if ($layoutType=="gr") {
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 
 		$number_of_streams = count($timestreams_decoded);
 		$tsc = 0;
+
 		if(is_square_number($number_of_streams)){
 			for($x = 0; $x<sqrt($number_of_streams); $x++){
 				$cam_row = $cam_column->addChild('row');
@@ -218,28 +220,21 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 			// 
 			// EDIT: this cool elegance should make sure that the number of rows vs columns will be
 			// appropriately sized. It might be good to take care of primes numbered timestreams
-			// 
-			$rows=1;
-			$panels_per_row=1;
-			while ($panels_per_row*$rows <= $number_of_streams) {
-				$panels_per_row++;
-				if($panels_per_row>=$rows*2){
-					$rows++;
-					$panels_per_row=1;
-				}
-			}
-			for ($x=0; $x < $rows; $x++) { 
+			// EDIT: this bullsh*t is not working for some unknown reason (URL handling)
+
+			//if($rows*$columns == $number_of_streams){
+			for($x = 0; $x<$nRows; $x++){
 				$cam_row = $cam_column->addChild('row');
-				$cam_row->addAttribute('height', 100/$rows."%");
-				for ($y=0; $y < $panels_per_row; $y++) { 
+				$cam_row->addAttribute('height', 100/$nColumns.'%');
+				for($y = 0; $y < $nColumns; $y++){
 					$cam_panel = $cam_row->addChild('panel');
-					$cam_panel->addAttribute('width', 100/$panels_per_row."%");
+					$cam_panel->addAttribute('width', 100/$nRows."%");
 					$cam_panel->addAttribute('height', "100%");
-					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$x*$y]->name);
+					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
 					$tsc++;
 				}
 			}
-
+			// }
 		}
 	$timebar_panel = $cam_column->addChild('panel');
 	$timebar_panel->addAttribute('height', '25px');
@@ -270,7 +265,7 @@ $filename = "config/".$expts_decoded[0]->experiments[0]->expt_id.".xml";
 	// uncomment this next line to save a config file to server (maybe save future configs for later use?).
 	// $xml->asXML($filename);
 	
-	// echo the data. May need to make sure that the corrcect http headers are attached,
-	// but it might just need to be raw data.
+	// echo the data. this script needs to be passed directly into the url. it doesnt work otherwise. 
+	// I dont know why.
 	echo $xml->asXML();
 ?>
