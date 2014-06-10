@@ -1,9 +1,12 @@
 <?php 
 session_start(); 
 if(isset($_SESSION['layoutType']))
-	$_SESSION['layoutType'] = $_POST['layoutType'];
+	$_SESSION['layoutType'] = $_SESSION['layoutType'];
 else
 	$_SESSION['layoutType']='hr';
+if (isset($_POST['layoutType'])) {
+	$_SESSION['layoutType'] = $_POST['layoutType'];
+}
 ?>
 <html lang="en">
 	<head>
@@ -69,6 +72,14 @@ else
 		        }
 		    });
 		});
+
+
+	var expts;
+	 $.getJSON('../json/expts_pretty.json', function(response){
+	       expts = response;
+	       alert(expts[0].experiments[0].end_date);
+	 });
+
  	</script>
 
 	</html>
