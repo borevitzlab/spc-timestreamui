@@ -1,10 +1,9 @@
 <?php
+session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
-
-$layoutType = $_GET["layoutType"];
-
+$layoutType = $_SESSION["layoutType"];
 // layoutType = hr horizontal
 // layoutType = vr vertical
 // layoutType = gr grid

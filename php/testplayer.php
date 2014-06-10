@@ -1,8 +1,11 @@
- <?php
-	$layoutType = $_POST["layoutType"];
-	$generateURL = urlencode('generateTSConfig.php?layoutType='.$layoutType);
-	// echo the first bit (headers, start of body tag, etc).
- 	echo '<html lang="en">
+<?php 
+session_start(); 
+if(isset($_SESSION['layoutType'])==1)
+	$_SESSION['layoutType']='hr';
+else
+	$_SESSION['layoutType'] = $_POST['layoutType'];
+?>
+<html lang="en">
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -45,7 +48,7 @@
 		</form>
 
 		<div id="TimeGraphDiv">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config='.$generateURL.'" 
+		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" 
 			  	width="100%" height="100%">
 				</embed>
 			</div>
@@ -68,6 +71,4 @@
 		});
  	</script>
 
-	</html>';
-
-?>
+	</html>
