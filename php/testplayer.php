@@ -29,7 +29,7 @@ if (isset($_POST['layoutType'])) {
 	.hide{
 		display: none;
 	}
-	
+
 
 	</style>
 	</head>
@@ -81,8 +81,7 @@ if (isset($_POST['layoutType'])) {
 		    			}
 		    		}
 		    	}
-		     	
-		     	$("#hiddenStreams").slideDown("fast"); //Slide Down Effect
+		     	$("#hiddenStreams").slideDown("slow"); //Slide Down Effect
 		 
 		    });
 		//});
@@ -91,14 +90,12 @@ if (isset($_POST['layoutType'])) {
 	var expts;
 	 $.getJSON('../json/expts_pretty.json', function(response){
 	       expts = response;
-	       alert(expts[0].experiments[0].expt_id);
 	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
-    			var element = document.createElement("option");
-	    		   // element.setAttribute("type", type);
-	    		   element.innerHTML= expts[0].experiments[i].expt_id;
-				    element.setAttribute("name", expts[0].experiments[i].expt_id);
-				    element.setAttribute("value", expts[0].experiments[i].expt_id);
-		    	var foo = document.getElementById("experimentID");
+			var element = document.createElement("option");
+    		    element.innerHTML= expts[0].experiments[i].expt_id;
+			    element.setAttribute("name", expts[0].experiments[i].expt_id);
+			    element.setAttribute("value", expts[0].experiments[i].expt_id);
+	    	var foo = document.getElementById("experimentID");
 	    	foo.appendChild(element);
 			}
 	 });
