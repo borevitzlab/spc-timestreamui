@@ -10,8 +10,8 @@ $layoutType = $_GET["layoutType"];
 // layoutType = gr grid
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts.json"));
-$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams.json"));
+$expts_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts_pretty.json"));
+$timestreams_decoded = json_decode(file_get_contents("https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/timestreams_pretty.json"));
 $number_of_streams = count($timestreams_decoded);
 // useful functions
 	// checks to see whether a number is whole
@@ -35,7 +35,6 @@ $number_of_streams = count($timestreams_decoded);
 	        if($num % $i == 0)
 	            return false;
 	    }
-
 	    return true;
 	}
 	// returns an array of th factors of a number
@@ -70,23 +69,24 @@ $number_of_streams = count($timestreams_decoded);
 		$start_day = substr($full_backwards_start_date, 8, 2);
 		$start_month = substr($full_backwards_start_date, 5, 2);
 		$start_year = substr($full_backwards_start_date, 0 , 4);
-		$start_time = "00:00";
+		// 
+		// TODO:change this to be got from the json
+		// 
+		$start_time = $expts_decoded[0]->experiments[0]->start_time;
 
 		$full_backwards_end_date = $expts_decoded[0]->experiments[0]->end_date;
 		$end_day = substr($full_backwards_end_date, 8, 2);
 		$end_month = substr($full_backwards_end_date, 5, 2);
 		$end_year = substr($full_backwards_end_date, 0 , 4);
-		$end_time = "00:00";
+		$end_time = $expts_decoded[0]->experiments[0]->end_time;
 
 		// more date string concat screwery setting up the dates for the globals
 		$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
 		$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
 
-
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
 		for ($check=0; $check < count($expts_decoded[0]->experiments[0]->timestreams); $check++) { 
-
 			for ($i=0; $i < count($timestreams_decoded); $i++) { 
 
 				// check against the string names of the timestreams to make a list of the streams 
@@ -116,19 +116,26 @@ $number_of_streams = count($timestreams_decoded);
 					$tc->addAttribute('url_hires', "$datapath"."full/");
 					$tc->addAttribute('stream_name_hires', $timestreams_decoded->name."~hires");
 
-					$tc->addAttribute('period', '5 minute');
-					$tc->addAttribute('num_images_to_load', 50);
-					$tc->addAttribute('utc', 'false');
-					$tc->addAttribute('timezone', '0');
+					// 
+					// TODO: push these changes to the json schema/get from json
+					// 
+					$tc->addAttribute('period', $timestreams_decoded[$i]->period_in_minutes." minute");
+					$tc->addAttribute('utc', $timestreams_decoded[$i]->utc);
+					$tc->addAttribute('timezone', $timestreams_decoded[$i]->timezone);
+					$tc->addAttribute('width', $timestreams_decoded[$i]->width);
+					$tc->addAttribute('height', $timestreams_decoded[$i]->height);
+					$tc->addAttribute('width_hires', $timestreams_decoded[$i]->width_hires);
+					$tc->addAttribute('height_hires', $timestreams_decoded[$i]->height_hires);
+					$tc->addAttribute('image_type', $timestreams_decoded[$i]->image_type);
 
-					// this here could very well be checked by this php script using getimagesize().
-					$tc->addAttribute('width', '480');
-					$tc->addAttribute('height', '640');
-					$tc->addAttribute('width_hires', '3072');
-					$tc->addAttribute('height_hires', '1728');
-					$tc->addAttribute('image_type', 'JPG');
+					// 
+					// TODO: server globals, push to serverglobals.php
+					// 
+					$tc->addAttribute('num_images_to_load', 50);
 					$tc->addAttribute('play_num_images', '100');
 					$tc->addAttribute('play_num_images_hires', '50');
+
+
 					$tc->addAttribute('no_header', 'false');
 					$tc->addAttribute('show_timestream_selector', 'false');
 				}
