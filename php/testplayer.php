@@ -29,6 +29,8 @@ if (isset($_POST['layoutType'])) {
 	.hide{
 		display: none;
 	}
+	
+
 	</style>
 	</head>
 	<body>
@@ -36,13 +38,21 @@ if (isset($_POST['layoutType'])) {
 		<form id="form" method="POST" action="?">
 		    <fieldset>
 		        <legend>Setup</legend>
-		        <div class="input select">
+		        <div class="input select" id=>
 		            <label for="layoutType">Layout: </label>
 		            <select name="layoutType" id="layoutType">
 		                <option value="vr">Vertical</option>
 		                <option value="hr">Horizontal</option>
 		                <option value="gr">Grid</option>
 		            </select>
+		        </div>
+		        <div class="input select" id="exprimentselect">
+		        	<select name="experimentID" id="experimentID">
+		        		<!--stuff goes in here!-->
+		        	</select>
+		        </div>
+		        <div id="hiddenStreams">
+		        	<!--More stuff goes in here!-->
 		        </div>
 		    </fieldset>
 		    <div class="submit">
@@ -58,27 +68,44 @@ if (isset($_POST['layoutType'])) {
 		</body>
 
 	<script type="text/javascript">
-		$(document).ready(function(){
-		    $("#layoutType").change(function(){
+		//$(document).ready(function(){
+		    $("#experimentID").change(function(){
+		    	$("#hiddenStreams").slideUp("fast");
+		    	$("div").remove(".removeme");
+		    	$("#hiddenStreams").append("<div class='removeme'></div>");
+		    	for(var i = 0; i < expts[0].experiments.length; i++){
+		    		if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
+		    			for (var d = 0; d < expts[0].experiments[i].timestreams.length; d++) {
+		    				var str = expts[0].experiments[i].timestreams[d];
+		    				$(".removeme").append("<input type='checkbox' name='streamselect' value='"+str+ "'>"+str+"</input><br />");
+		    			}
+		    		}
+		    	}
+		     	
+		     	$("#hiddenStreams").slideDown("fast"); //Slide Down Effect
 		 
-		        if ($(this).val() == "gr" ) {
-		 
-		            $("#hide1").slideDown("fast"); //Slide Down Effect
-		 
-		        } else {
-		 
-		            $("#hide1").slideUp("fast");    //Slide Up Effect
-		 
-		        }
 		    });
-		});
+		//});
 
 
 	var expts;
 	 $.getJSON('../json/expts_pretty.json', function(response){
 	       expts = response;
-	       alert(expts[0].experiments[0].end_date);
+	       alert(expts[0].experiments[0].expt_id);
+	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
+    			var element = document.createElement("option");
+	    		   // element.setAttribute("type", type);
+	    		   element.innerHTML= expts[0].experiments[i].expt_id;
+				    element.setAttribute("name", expts[0].experiments[i].expt_id);
+				    element.setAttribute("value", expts[0].experiments[i].expt_id);
+		    	var foo = document.getElementById("experimentID");
+	    	foo.appendChild(element);
+			}
 	 });
+
+
+ 	</script>
+ 	<script type="text/javascript">
 
  	</script>
 

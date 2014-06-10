@@ -9,9 +9,22 @@ $layoutType = $_SESSION["layoutType"];
 // layoutType = gr grid
 
 // getting json data and decode into php object
+
+// 
+// REMOVE THIS
+// USE THE SESSION FORM DATA!!!!!
+// 
 $expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
+
+// 
+// KEEP THIS, NEED A MASTER TIMESTREAM JSON!
+// 
 $timestreams_decoded = json_decode(file_get_contents("../json/timestreams_pretty.json"));
-$number_of_streams = count($timestreams_decoded);
+
+// 
+// CHECK THIS WHEN YU MOVE TO SESSIO DATA, NEEDS TO CHANGE! 
+// 
+$number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 // useful functions
 	// checks to see whether a number is whole
 	function is_whole_number($var){
@@ -85,11 +98,17 @@ $number_of_streams = count($timestreams_decoded);
 
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
+		// TODO!!!:::::!!! get these from session variables!
+		// PAY ATTENTION HERE!
+		// YOU NEED TO MAKE THIS WORK WITH THE FORM FROM THE HTML PAGE!
+		// 
 		for ($check=0; $check < count($expts_decoded[0]->experiments[0]->timestreams); $check++) { 
 			for ($i=0; $i < count($timestreams_decoded); $i++) { 
 
-				// check against the string names of the timestreams to make a list of the streams 
-				// available for the experiment
+				// 
+				// PAY ATTENTION HERE!
+				// COMPARE TO THE SESSION DATA!
+				// 
 				if ( strcmp($expts_decoded[0]->experiments[0]->timestreams[$check], $timestreams_decoded[$i]->name) ==0) {
 					// add new xml child under "components".
 
