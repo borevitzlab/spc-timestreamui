@@ -2,15 +2,19 @@
   {
     "experiments": [
       {
-        "end_date": "2013-04-01", 
+        "end_date": "2013-04-01",
+        "end_time": "14:45", 
         "expt_id": "BVZ0012", 
         "start_date": "2013-02-12", 
+        "start_time": "08:45",
         "timestreams": [
           "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
           "BVZ0012-GC02R-CN650D-Cam02~fullres-orig", 
           "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
-          "BVZ0012-GC05L-CN650D-Cam05~fullres-orig", 
-          "BVZ0012-GC05R-CN650D-Cam06~fullres-orig"
+          "BVZ0012-GC05L-CN650D-Cam04~fullres-orig", 
+          "BVZ0012-GC05R-CN650D-Cam05~fullres-orig",          
+          "BVZ0012-GC05L-CN650D-Cam06~fullres-orig",          
+          "BVZ0012-GC05L-CN650D-Cam07~fullres-orig"
         ]
       }
     ]
