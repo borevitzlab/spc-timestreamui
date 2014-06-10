@@ -10,8 +10,7 @@
     "height_hires": 1728,
     "period_in_minutes": "5",
     "utc": false,
-    "timezone": 1000,
-    "image_type": "JPG",
+    "timezone": 0,
     "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
@@ -25,8 +24,7 @@
     "height_hires": 1728,
     "period_in_minutes": "5",
     "utc": false,
-    "timezone": 1000,
-    "image_type": "JPG",
+    "timezone": 0,
     "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
@@ -40,8 +38,7 @@
     "height_hires": 1728,
     "period_in_minutes": "5",
     "utc": false,
-    "timezone": 1000,
-    "image_type": "JPG",
+    "timezone": 0,
     "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }, 
   {
@@ -55,8 +52,7 @@
     "height_hires": 1728,
     "period_in_minutes": "5",
     "utc": false,
-    "timezone": 1000,
-    "image_type": "JPG",
+    "timezone": 0,
     "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   },
   {
@@ -70,8 +66,7 @@
     "height_hires": 1728,
     "period_in_minutes": "5",
     "utc": false,
-    "timezone": 1000,
-    "image_type": "JPG",
+    "timezone": 0,
     "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
   }
 ]

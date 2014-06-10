@@ -120,18 +120,19 @@ $number_of_streams = count($timestreams_decoded);
 					// TODO: push these changes to the json schema/get from json
 					// 
 					$tc->addAttribute('period', $timestreams_decoded[$i]->period_in_minutes." minute");
+
+					$tc->addAttribute('num_images_to_load', 50);
 					$tc->addAttribute('utc', $timestreams_decoded[$i]->utc);
 					$tc->addAttribute('timezone', $timestreams_decoded[$i]->timezone);
 					$tc->addAttribute('width', $timestreams_decoded[$i]->width);
 					$tc->addAttribute('height', $timestreams_decoded[$i]->height);
 					$tc->addAttribute('width_hires', $timestreams_decoded[$i]->width_hires);
 					$tc->addAttribute('height_hires', $timestreams_decoded[$i]->height_hires);
-					$tc->addAttribute('image_type', $timestreams_decoded[$i]->image_type);
+					$tc->addAttribute('image_type', "JPG");
 
 					// 
 					// TODO: server globals, push to serverglobals.php
 					// 
-					$tc->addAttribute('num_images_to_load', 50);
 					$tc->addAttribute('play_num_images', '100');
 					$tc->addAttribute('play_num_images_hires', '50');
 
