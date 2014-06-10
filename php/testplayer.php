@@ -1,9 +1,9 @@
 <?php 
 session_start(); 
-if(isset($_SESSION['layoutType'])==1)
-	$_SESSION['layoutType']='hr';
-else
+if(isset($_SESSION['layoutType']))
 	$_SESSION['layoutType'] = $_POST['layoutType'];
+else
+	$_SESSION['layoutType']='hr';
 ?>
 <html lang="en">
 	<head>
