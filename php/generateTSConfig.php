@@ -215,7 +215,7 @@ $number_of_streams = count($streams);
 
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
-		for($i = 0; $i < count($timestreams_decoded); $i++){
+		for($i = 0; $i < count($streams); $i++){
 			$cam_row = $cam_column->addChild('row');
 			$cam_row->addAttribute('height', 100/count($streams)."%");
 				$cam_panel = $cam_row->addChild('panel');

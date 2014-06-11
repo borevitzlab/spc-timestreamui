@@ -31,7 +31,24 @@ session_start();
 	.hide{
 		display: none;
 	}
+	input[type="submit"], button {
+	  background: #383838;
+	  border:none;
+	  border-radius: 4px;
+	  color:white;
+	  border: 1px solid rgba(0,0,0,.1);
+	  box-shadow: inset 0 0 1em rgba(0,0,0,.07);
+	  padding: 1em;
+	  width: 7em;
+	}
 
+	input[type="submit"]:hover, button:hover {
+	  box-shadow: inset 0 0 .5em rgba(255,255,255,.3);
+	}
+
+	input[type="submit"]:active, button:active {
+	  box-shadow: inset 0 0 .5em rgba(255,255,255,.8);
+	}
 
 	</style>
 	</head>
@@ -56,10 +73,11 @@ session_start();
 		        <div id="hiddenStreams">
 		        	<!--More stuff goes in here!-->
 		        </div>
-		    </fieldset>
 		    <div class="submit">
 		        <input type="submit" value="Submit" />
 		    </div>
+		    </fieldset>
+
 		</form>
 
 		<div id="TimeGraphDiv">
