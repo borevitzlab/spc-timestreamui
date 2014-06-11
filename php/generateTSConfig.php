@@ -3,28 +3,20 @@ session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
+
+//$layoutType = $_POST["layoutType"];
 $layoutType = $_SESSION["layoutType"];
+$streams = $_SESSION['streamselect'];
+$expriment_ID = $_SESSION['experimentID'];
 // layoutType = hr horizontal
 // layoutType = vr vertical
 // layoutType = gr grid
 
 // getting json data and decode into php object
-
-// 
-// REMOVE THIS
-// USE THE SESSION FORM DATA!!!!!
-// 
 $expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
-
-// 
-// KEEP THIS, NEED A MASTER TIMESTREAM JSON!
-// 
 $timestreams_decoded = json_decode(file_get_contents("../json/timestreams_pretty.json"));
-
-// 
-// CHECK THIS WHEN YU MOVE TO SESSIO DATA, NEEDS TO CHANGE! 
-// 
-$number_of_streams = count($expts_decoded->experiments[0]->timestreams);
+$number_of_streams = count($streams);
+//echo $streams[1];
 // useful functions
 	// checks to see whether a number is whole
 	function is_whole_number($var){
@@ -74,23 +66,23 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 // all the timecam node stuff and xml setup
 		$xml = new SimpleXMLElement($xmlstr);
 		// setting the config name to the expt id (assuming all the config files)
-		$xml->globals['config_id'] = $expts_decoded[0]->experiments[0]->expt_id;
+		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experimentID]->expt_id;
 
 		//should functionalise this date string screwery.
-		$full_backwards_start_date = $expts_decoded[0]->experiments[0]->start_date;
+		$full_backwards_start_date = $expts_decoded[0]->experiments[$experimentID]->start_date;
 		$start_day = substr($full_backwards_start_date, 8, 2);
 		$start_month = substr($full_backwards_start_date, 5, 2);
 		$start_year = substr($full_backwards_start_date, 0 , 4);
 		// 
 		// TODO:change this to be got from the json
 		// 
-		$start_time = $expts_decoded[0]->experiments[0]->start_time;
+		$start_time = $expts_decoded[0]->experiments[$experimentID]->start_time;
 
-		$full_backwards_end_date = $expts_decoded[0]->experiments[0]->end_date;
+		$full_backwards_end_date = $expts_decoded[0]->experiments[$experimentID]->end_date;
 		$end_day = substr($full_backwards_end_date, 8, 2);
 		$end_month = substr($full_backwards_end_date, 5, 2);
 		$end_year = substr($full_backwards_end_date, 0 , 4);
-		$end_time = $expts_decoded[0]->experiments[0]->end_time;
+		$end_time = $expts_decoded[0]->experiments[$experimentID]->end_time;
 
 		// more date string concat screwery setting up the dates for the globals
 		$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
@@ -98,18 +90,12 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
-		// TODO!!!:::::!!! get these from session variables!
-		// PAY ATTENTION HERE!
-		// YOU NEED TO MAKE THIS WORK WITH THE FORM FROM THE HTML PAGE!
-		// 
-		for ($check=0; $check < count($expts_decoded[0]->experiments[0]->timestreams); $check++) { 
+		for ($check=0; $check < count($streams); $check++) { 
 			for ($i=0; $i < count($timestreams_decoded); $i++) { 
 
-				// 
-				// PAY ATTENTION HERE!
-				// COMPARE TO THE SESSION DATA!
-				// 
-				if ( strcmp($expts_decoded[0]->experiments[0]->timestreams[$check], $timestreams_decoded[$i]->name) ==0) {
+				// check against the string names of the timestreams to make a list of the streams 
+				// available for the experiment
+				if ( strcmp($streams[$check], $timestreams_decoded[$i]->name) ==0) {
 					// add new xml child under "components".
 
 					$tc = $xml->components->addChild('timecam');
@@ -182,7 +168,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 	// 
 	// single
 	// 
-	if(count($timestreams_decoded)==1){
+	if(count($streams)==1){
 
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
@@ -191,24 +177,24 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 				$cam_panel = $cam_row->addChild('panel');
 				$cam_panel->addAttribute('height', "100%");
 				$cam_panel->addAttribute('width', "100%");
-				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[0]->name);
+				$cam_panel->addAttribute('components_node_id', $streams[0]);
 	
 	}
 
 	// 
 	// Vertical 
 	// 
-	if(count($timestreams_decoded)>1&&$layoutType=="vr"){
+	if(count($streams)>1&&$layoutType=="vr"){
 
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 			$cam_row = $cam_column->addChild('row');
 			$cam_row->addAttribute('height', '100%');
-			for($i = 0; $i < count($timestreams_decoded); $i++){
+			for($i = 0; $i < count($streams); $i++){
 				$cam_panel = $cam_row->addChild('panel');
-				$cam_panel->addAttribute('width', 100/count($timestreams_decoded)."%");
+				$cam_panel->addAttribute('width', 100/count($streams)."%");
 				$cam_panel->addAttribute('height', "100%");
-				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$i]->name);
+				$cam_panel->addAttribute('components_node_id', $streams[$i]);
 			}
 
 		$timebar_panel = $cam_column->addChild('panel');
@@ -225,17 +211,17 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 	// 
 	// horizontal
 	// 
-	if (count($timestreams_decoded)>1&&$layoutType=="hr") {
+	if (count($streams)>1&&$layoutType=="hr") {
 
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 		for($i = 0; $i < count($timestreams_decoded); $i++){
 			$cam_row = $cam_column->addChild('row');
-			$cam_row->addAttribute('height', 100/count($timestreams_decoded)."%");
+			$cam_row->addAttribute('height', 100/count($streams)."%");
 				$cam_panel = $cam_row->addChild('panel');
 				$cam_panel->addAttribute('width', "100%");
 				$cam_panel->addAttribute('height', "100%");
-				$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$i]->name);
+				$cam_panel->addAttribute('components_node_id', $streams[$i]);
 
 		}
 
@@ -253,7 +239,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 	// 
 	// Grid
 	// 
-	if ($layoutType=="gr") {
+	if (count($streams)>1&&$layoutType=="gr") {
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 
@@ -268,7 +254,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 					$cam_panel = $cam_row->addChild('panel');
 					$cam_panel->addAttribute('width', 100/sqrt($number_of_streams)."%");
 					$cam_panel->addAttribute('height', "100%");
-					$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+					$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
 					$tsc++;
 				}
 			}
@@ -287,7 +273,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$num_col_sub."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
 									$tsc++;
 								}
 							}else{
@@ -296,7 +282,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$number_of_rows."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
 									$tsc++;
 								}
 							}
@@ -314,7 +300,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 							$cam_panel = $cam_row->addChild('panel');
 							$cam_panel->addAttribute('width', 100/$number_of_rows."%");
 							$cam_panel->addAttribute('height', "100%");
-							$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+							$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
 							$tsc++;
 						}
 					}
@@ -329,7 +315,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$num_col_sub."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
 									$tsc++;
 								}
 							}else{
@@ -338,7 +324,7 @@ $number_of_streams = count($expts_decoded->experiments[0]->timestreams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$number_of_rows."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $timestreams_decoded[$tsc]->name);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
 									$tsc++;
 								}
 							}

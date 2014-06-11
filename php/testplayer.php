@@ -1,12 +1,14 @@
 <?php 
 session_start(); 
-if(isset($_SESSION['layoutType']))
-	$_SESSION['layoutType'] = $_SESSION['layoutType'];
-else
-	$_SESSION['layoutType']='hr';
-if (isset($_POST['layoutType'])) {
+//if(isset($_SESSION['layoutType']))
+//	$_SESSION['layoutType'] = $_POST['layoutType'];
+//else
+//	$_SESSION['layoutType']='hr';
+//if (isset($_POST['layoutType'])) {
 	$_SESSION['layoutType'] = $_POST['layoutType'];
-}
+	$_SESSION['streamselect'] = $_POST['streamselect'];
+	$_SESSION['experimentID'] = $_POST['experimentID'];
+//}
 ?>
 <html lang="en">
 	<head>
@@ -46,7 +48,7 @@ if (isset($_POST['layoutType'])) {
 		                <option value="gr">Grid</option>
 		            </select>
 		        </div>
-		        <div class="input select" id="exprimentselect">
+		        <div class="input select" id="experimentselect">
 		        	<select name="experimentID" id="experimentID">
 		        		<!--stuff goes in here!-->
 		        	</select>
@@ -65,6 +67,10 @@ if (isset($_POST['layoutType'])) {
 			  	width="100%" height="100%">
 				</embed>
 			</div>
+
+		<div>
+			<embed src="generateTSConfig.php"></embed> 
+		</div>
 		</body>
 
 	<script type="text/javascript">
@@ -77,7 +83,7 @@ if (isset($_POST['layoutType'])) {
 		    		if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
 		    			for (var d = 0; d < expts[0].experiments[i].timestreams.length; d++) {
 		    				var str = expts[0].experiments[i].timestreams[d];
-		    				$(".removeme").append("<input type='checkbox' name='streamselect' value='"+str+ "'>"+str+"</input><br />");
+		    				$(".removeme").append("<input type='checkbox' name='streamselect[]' value='"+str+"'>"+str+"</input><br />");
 		    			}
 		    		}
 		    	}
