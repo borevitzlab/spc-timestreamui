@@ -1,13 +1,16 @@
-<?php
+<?php;
 session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
-//$layoutType = $_POST["layoutType"];
+$expire=time()+60*60*24*30;
+
 $layoutType = $_SESSION["layoutType"];
+setcookie("layoutType", $layoutType, $expire);
 $streams = $_SESSION['streamselect'];
-$expriment_ID = $_SESSION['experimentID'];
+$experiment_ID = $_SESSION['experimentID'];
+	setcookie("experimentID", $_SESSION['experimentID'], $expire);
 // layoutType = hr horizontal
 // layoutType = vr vertical
 // layoutType = gr grid
@@ -179,6 +182,15 @@ $number_of_streams = count($streams);
 				$cam_panel->addAttribute('width', "100%");
 				$cam_panel->addAttribute('components_node_id', $streams[0]);
 	
+		$timebar_panel = $cam_column->addChild('panel');
+		$timebar_panel->addAttribute('height', '25px');
+		$timebar_panel->addAttribute('components_node_id', 'o_timebarmedia');
+		$timebar_panel->addAttribute('panel_padding_top', '0px');
+
+		$timebar = $cam_column->addChild('panel');
+		$timebar->addAttribute('height', '100px');
+		$timebar->addAttribute('components_node_id', 'o_timebar');
+		$timebar->addAttribute('panel_padding_top', '0px');
 	}
 
 	// 
