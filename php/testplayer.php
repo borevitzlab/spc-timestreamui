@@ -10,6 +10,8 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 	$_SESSION['experimentID'] = $_POST['experimentID'];
 }
 ?>
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <html lang="en">
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,29 +27,18 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 	<script src="history/history.js" language="javascript"></script>
 	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<!--  END Browser History required section -->
 
 	<style>
-		body { margin: 0px; overflow:hidden }
 		.hide{ display: none; }
-		input[type="submit"], button {
-		  background: #383838;
-		  border:none;
-		  border-radius: 4px;
-		  color:white;
-		  border: 1px solid rgba(0,0,0,.1);
-		  box-shadow: inset 0 0 1em rgba(20,20,20,.07);
-		  padding: 1em;
-		  width: 7em;
-		}
-
-		input[type="submit"]:hover, button:hover {
-		  box-shadow: inset 0 0 2em rgba(0,0,255,.4);
-		}
-
-		input[type="submit"]:active, button:active {
-		  box-shadow: inset 0 0 .5em rgba(128,128,255,.8);
-		}
 
 	</style>
 
@@ -63,7 +54,7 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 	    }
 	    return "";
 	}
-	
+
 	var expts;
 	 $.getJSON('../json/expts_pretty.json', function(response){
 	       expts = response;
@@ -71,6 +62,8 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 				var element = document.createElement("option");
 	    		    element.innerHTML= expts[0].experiments[i].expt_id;
 				    element.setAttribute("name", expts[0].experiments[i].expt_id);
+
+				    element.setAttribute("class", "form-control");
 				    element.setAttribute("value", expts[0].experiments[i].expt_id);
 		    	var foo = document.getElementById("experimentID");
 		    	foo.appendChild(element);
@@ -90,11 +83,12 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 					    ele.setAttribute("id", "persistbox-"+i+"-"+d);
 					    ele.setAttribute("value", expts[0].experiments[i].timestreams[d]);
 					var label = document.createElement("label");
+						label.setAttribute("class", "checkbox-inline")
 					    label.setAttribute('for', "persistbox-"+i+"-"+d);
-					    label.textContent= expts[0].experiments[i].timestreams[d];
-
+					    label.textContent= expts[0].experiments[i].timestreams[d].substr(0,expts[0].experiments[i].timestreams[d].indexOf('~'));
+					 label.appendChild(ele);
 					element2.appendChild(label);
-			    	element2.appendChild(ele);
+			    	
 			    	element2.appendChild(document.createElement("br"));
 		    	}
 		    	$(element2).hide();
@@ -131,23 +125,19 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 
 	</head>
 	<body>
-<div>
-      <label for="option1">Option 1</label>
-      <input type="checkbox" id="option1">
-    </div>
-		<form id="form" method="POST" action="?">
+		<form id="form" method="POST" action="?" role="form" class="form-inline">
 		    <fieldset>
-		        <legend>Setup</legend>
-		        <div class="input select" id=>
-		            <label for="layoutType">Layout: </label>
-		            <select name="layoutType" id="layoutType">
-		                <option value="vr">Vertical</option>
-		                <option value="hr">Horizontal</option>
-		                <option value="gr">Grid</option>
+		        <div class="form-group">
+		            <label class="sr-only" for="layoutType">Layout: </label>
+		            <select multiple class="form-control" name="layoutType" id="layoutType" width="140px%">
+		                <option class="form-control" value="vr">Vertical</option>
+		                <option class="form-control" value="hr">Horizontal</option>
+		                <option class="form-control" value="gr">Grid</option>
 		            </select>
 		        </div>
-		        <div class="input select" id="experimentselect">
-		        	<select name="experimentID" id="experimentID">
+		        <div class="form-group" id="experimentselect">
+		        	<label class="sr-only" for="experimentID">Experiment: </label>
+		        	<select multiple class="form-control" name="experimentID" id="experimentID" width="140px">
 		        		<!--stuff goes in here!-->
 		        	</select>
 		        </div>
@@ -155,20 +145,15 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 		        	<!--More stuff goes in here!-->
 		        </div>
 		    <div class="submit">
-		        <input type="submit" value="Submit" />
+		        <input type="submit" class="btn btn-default" value="Submit" />
 		    </div>
 		    </fieldset>
-
 		</form>
 
-		<div id="TimeGraphDiv">
+		<div class="container-fluid" id="TimeGraphDiv">
 		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" 
-			  	width="100%" height="100%">
-				</embed>
-			</div>
-
-		<div>
-			<embed src="generateTSConfig.php"></embed> 
+			  	width="100%" height="1000px">
+			</embed>
 		</div>
 		</body>
 
