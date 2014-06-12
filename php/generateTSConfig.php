@@ -108,7 +108,7 @@ $number_of_streams = count($streams);
 					// "exploding" the stream name for the title
 					list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
 					// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
-					$datapath = substr($timestreams_decoded[$i]->webroot, 6);
+					$datapath =$timestreams_decoded[$i]->webroot;//= substr($timestreams_decoded[$i]->webroot, 6);
 
 					// ALL the attribute setting!
 					$tc->addAttribute('id', $timestreams_decoded[$i]->name."-".$check); //this lets the script allow doubles.
