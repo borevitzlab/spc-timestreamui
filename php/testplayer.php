@@ -150,7 +150,7 @@
 		</form>
 
 		<div class="container-fluid" id="TimeGraphDiv">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=license.php&config=generateTSConfig.php"
+		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
 			  	width="100%" height="1000px">
 			</embed>
 		</div>
