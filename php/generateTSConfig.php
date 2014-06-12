@@ -2,6 +2,7 @@
 session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
+
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
 $expire=time()+60*60*24*30;
@@ -95,7 +96,6 @@ $number_of_streams = count($streams);
 		// change this to POST/GET user selection later
 		for ($check=0; $check < count($streams); $check++) { 
 			for ($i=0; $i < count($timestreams_decoded); $i++) { 
-
 				// check against the string names of the timestreams to make a list of the streams 
 				// available for the experiment
 				if ( strcmp($streams[$check], $timestreams_decoded[$i]->name) ==0) {
@@ -111,7 +111,7 @@ $number_of_streams = count($streams);
 					$datapath = substr($timestreams_decoded[$i]->webroot, 6);
 
 					// ALL the attribute setting!
-					$tc->addAttribute('id', $timestreams_decoded[$i]->name);
+					$tc->addAttribute('id', $timestreams_decoded[$i]->name."-".$check); //this lets the script allow doubles.
 					$tc->addAttribute('image_access_mode', 'TIMESTREAM');
 					$tc->addAttribute('title', $prefixname);
 					
@@ -138,9 +138,9 @@ $number_of_streams = count($streams);
 					// 
 					// TODO: server globals, push to serverglobals.php
 					// 
-					$tc->addAttribute('num_images_to_load', 50);
-					$tc->addAttribute('play_num_images', '100');
-					$tc->addAttribute('play_num_images_hires', '50');
+					$tc->addAttribute('num_images_to_load', $num_images_to_load);
+					$tc->addAttribute('play_num_images', $play_num_images);
+					$tc->addAttribute('play_num_images_hires', $play_num_images_hires);
 
 
 					$tc->addAttribute('no_header', 'false');
@@ -206,7 +206,7 @@ $number_of_streams = count($streams);
 				$cam_panel = $cam_row->addChild('panel');
 				$cam_panel->addAttribute('width', 100/count($streams)."%");
 				$cam_panel->addAttribute('height', "100%");
-				$cam_panel->addAttribute('components_node_id', $streams[$i]);
+				$cam_panel->addAttribute('components_node_id', $streams[$i]."-".$i);
 			}
 
 		$timebar_panel = $cam_column->addChild('panel');
@@ -233,7 +233,7 @@ $number_of_streams = count($streams);
 				$cam_panel = $cam_row->addChild('panel');
 				$cam_panel->addAttribute('width', "100%");
 				$cam_panel->addAttribute('height', "100%");
-				$cam_panel->addAttribute('components_node_id', $streams[$i]);
+				$cam_panel->addAttribute('components_node_id', $streams[$i]."-".$i);
 
 		}
 
@@ -266,7 +266,7 @@ $number_of_streams = count($streams);
 					$cam_panel = $cam_row->addChild('panel');
 					$cam_panel->addAttribute('width', 100/sqrt($number_of_streams)."%");
 					$cam_panel->addAttribute('height', "100%");
-					$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
+					$cam_panel->addAttribute('components_node_id', $streams[$tsc]."-".$tsc);
 					$tsc++;
 				}
 			}
@@ -285,7 +285,7 @@ $number_of_streams = count($streams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$num_col_sub."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]."-".$tsc);
 									$tsc++;
 								}
 							}else{
@@ -294,7 +294,7 @@ $number_of_streams = count($streams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$number_of_rows."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]."-".$tsc);
 									$tsc++;
 								}
 							}
@@ -312,7 +312,7 @@ $number_of_streams = count($streams);
 							$cam_panel = $cam_row->addChild('panel');
 							$cam_panel->addAttribute('width', 100/$number_of_rows."%");
 							$cam_panel->addAttribute('height', "100%");
-							$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
+							$cam_panel->addAttribute('components_node_id', $streams[$tsc]."-".$tsc);
 							$tsc++;
 						}
 					}
@@ -327,7 +327,7 @@ $number_of_streams = count($streams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$num_col_sub."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]."-".$tsc);
 									$tsc++;
 								}
 							}else{
@@ -336,7 +336,7 @@ $number_of_streams = count($streams);
 									$cam_panel = $cam_row->addChild('panel');
 									$cam_panel->addAttribute('width', 100/$number_of_rows."%");
 									$cam_panel->addAttribute('height', "100%");
-									$cam_panel->addAttribute('components_node_id', $streams[$tsc]);
+									$cam_panel->addAttribute('components_node_id', $streams[$tsc]."-".$tsc);
 									$tsc++;
 								}
 							}
