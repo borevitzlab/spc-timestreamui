@@ -8,10 +8,12 @@ include "template.php";
 $expire=time()+60*60*24*30;
 
 $layoutType = $_SESSION["layoutType"];
-setcookie("layoutType", $layoutType, $expire);
-$streams = $_SESSION['streamselect'];
+	setcookie("layoutType", $layoutType, $expire);
+
 $experiment_ID = $_SESSION['experimentID'];
 	setcookie("experimentID", $_SESSION['experimentID'], $expire);
+	
+$streams = $_SESSION['streamselect'];
 // layoutType = hr horizontal
 // layoutType = vr vertical
 // layoutType = gr grid

@@ -1,14 +1,12 @@
 <?php
-session_start(); 
-if(isset($_POST['layoutType'])&&!empty($_POST['layoutType'])){
-	$_SESSION['layoutType'] = $_POST['layoutType'];
-}
-if(isset($_POST['streamselect'])&&!empty($_POST['streamselect'])){
-	$_SESSION['streamselect'] = $_POST['streamselect'];
-}
-if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
-	$_SESSION['experimentID'] = $_POST['experimentID'];
-}
+	session_start(); 
+	//session variables 
+	if(isset($_POST['layoutType'])&&!empty($_POST['layoutType']))
+		$_SESSION['layoutType'] = $_POST['layoutType'];
+	if(isset($_POST['streamselect'])&&!empty($_POST['streamselect']))
+		$_SESSION['streamselect'] = $_POST['streamselect'];
+	if(isset($_POST['experimentID'])&&!empty($_POST['experimentID']))
+		$_SESSION['experimentID'] = $_POST['experimentID'];
 ?>
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -27,11 +25,11 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 	<script src="history/history.js" language="javascript"></script>
 	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -56,7 +54,7 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 	}
 
 	var expts;
-	 $.getJSON('../json/expts_pretty.json', function(response){
+	 $.getJSON('https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts_pretty.json', function(response){
 	       expts = response;
 	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
 				var element = document.createElement("option");
@@ -144,14 +142,15 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 		        <div id="hiddenStreams">
 		        	<!--More stuff goes in here!-->
 		        </div>
-		    <div class="submit">
+		        <br />
+		    <div class="form-group">
 		        <input type="submit" class="btn btn-default" value="Submit" />
 		    </div>
 		    </fieldset>
 		</form>
 
 		<div class="container-fluid" id="TimeGraphDiv">
-		  	<embed id="TimeGraphFlex" src="http://phenocam.anu.edu.au/TimeGraphFlex.swf?license=e38df74fcb0d2d3044479ddf5ceedad8&config=generateTSConfig.php"
+		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=e38df74fcb0d2d3044479ddf5ceedad8&config=generateTSConfig.php"
 			  	width="100%" height="1000px">
 			</embed>
 		</div>
