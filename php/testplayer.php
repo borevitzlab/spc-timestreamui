@@ -159,6 +159,10 @@
 			  	width="100%" height="1000px">
 			</embed>
 		</div>
+		<div class="container-fluid" id="TimeGraphDiv">
+		  	<embed src="generateTSConfig.php" />
+			</embed>
+		</div>
 		</body>
 
 	<script type="text/javascript">
