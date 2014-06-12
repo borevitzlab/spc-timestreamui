@@ -2,6 +2,7 @@
 session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
+include "globals.php";
 
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 

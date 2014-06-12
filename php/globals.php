@@ -1,5 +1,3 @@
-<!-- globals.php -->
-
 <?php
 	$timestreamsjson_url = "../json/timestreams_pretty.json";
 	$exptsjson_url = "../json/expts_pretty.json";
