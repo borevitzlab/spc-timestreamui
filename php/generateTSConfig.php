@@ -1,8 +1,9 @@
 <?php;
+
 session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
-include "globals.php";
+//include "globals.php";
 
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
@@ -141,9 +142,9 @@ $number_of_streams = count($streams);
 					// 
 					// TODO: server globals, push to serverglobals.php
 					// 
-					$tc->addAttribute('num_images_to_load', $num_images_to_load);
-					$tc->addAttribute('play_num_images', $play_num_images);
-					$tc->addAttribute('play_num_images_hires', $play_num_images_hires);
+					$tc->addAttribute('num_images_to_load', 50);
+					$tc->addAttribute('play_num_images', 100);
+					$tc->addAttribute('play_num_images_hires', 50);
 
 
 					$tc->addAttribute('no_header', 'false');
