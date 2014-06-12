@@ -151,7 +151,7 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 		</form>
 
 		<div class="container-fluid" id="TimeGraphDiv">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" 
+		  	<embed id="TimeGraphFlex" src="http://phenocam.anu.edu.au/TimeGraphFlex.swf?license=e38df74fcb0d2d3044479ddf5ceedad8&config=generateTSConfig.php"
 			  	width="100%" height="1000px">
 			</embed>
 		</div>
