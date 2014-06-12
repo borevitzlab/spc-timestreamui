@@ -180,7 +180,7 @@ $number_of_streams = count($streams);
 				$cam_panel = $cam_row->addChild('panel');
 				$cam_panel->addAttribute('height', "100%");
 				$cam_panel->addAttribute('width', "100%");
-				$cam_panel->addAttribute('components_node_id', $streams[0]."-".0);
+				$cam_panel->addAttribute('components_node_id', $streams[0]."-0");
 	
 		$timebar_panel = $cam_column->addChild('panel');
 		$timebar_panel->addAttribute('height', '25px');

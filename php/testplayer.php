@@ -149,16 +149,16 @@
 		    </fieldset>
 		</form>
 
-		<!--div class="container-fluid" id="TimeGraphDiv">
+		<div class="container-fluid" id="TimeGraphDiv">
 		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php"
 			  	width="100%" height="1000px">
 			</embed>
-		</div!-->
-		<div class="container-fluid" id="TimeGraphDiv">
+		</div>
+		<!--div class="container-fluid" id="TimeGraphDiv">
 		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
 			  	width="100%" height="1000px">
 			</embed>
-		</div>
+		</div!-->
 		<div class="container-fluid" id="TimeGraphDiv">
 		  	<embed src="generateTSConfig.php" />
 			</embed>
