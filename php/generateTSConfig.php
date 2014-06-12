@@ -1,5 +1,4 @@
-<?php;
-
+<?php
 session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
