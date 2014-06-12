@@ -54,7 +54,7 @@
 	}
 
 	var expts;
-	 $.getJSON('https://raw.githubusercontent.com/borevitzlab/spc-timestreamui/master/json/expts_pretty.json', function(response){
+	 $.getJSON('../json/expts_pretty.json', function(response){
 	       expts = response;
 	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
 				var element = document.createElement("option");
