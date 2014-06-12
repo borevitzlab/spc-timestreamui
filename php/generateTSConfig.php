@@ -2,7 +2,7 @@
 session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
-//include "globals.php";
+include "globals.php";
 
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
@@ -77,9 +77,7 @@ $number_of_streams = count($streams);
 		$start_day = substr($full_backwards_start_date, 8, 2);
 		$start_month = substr($full_backwards_start_date, 5, 2);
 		$start_year = substr($full_backwards_start_date, 0 , 4);
-		// 
-		// TODO:change this to be got from the json
-		// 
+
 		$start_time = $expts_decoded[0]->experiments[$experimentID]->start_time;
 
 		$full_backwards_end_date = $expts_decoded[0]->experiments[$experimentID]->end_date;
@@ -108,7 +106,7 @@ $number_of_streams = count($streams);
 					// "exploding" the stream name for the title
 					list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
 					// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
-					$datapath =$timestreams_decoded[$i]->webroot;//= substr($timestreams_decoded[$i]->webroot, 6);
+					$datapath =$timestreams_decoded[$i]->webroot;
 
 					// ALL the attribute setting!
 					$tc->addAttribute('id', $timestreams_decoded[$i]->name."-".$check); //this lets the script allow doubles.
@@ -138,9 +136,9 @@ $number_of_streams = count($streams);
 					// 
 					// TODO: server globals, push to serverglobals.php
 					// 
-					$tc->addAttribute('num_images_to_load', 50);
-					$tc->addAttribute('play_num_images', 100);
-					$tc->addAttribute('play_num_images_hires', 50);
+					$tc->addAttribute('num_images_to_load', $num_images_to_load);
+					$tc->addAttribute('play_num_images', $play_num_images);
+					$tc->addAttribute('play_num_images_hires', $play_num_images_hires);
 
 
 					$tc->addAttribute('no_header', 'false');
