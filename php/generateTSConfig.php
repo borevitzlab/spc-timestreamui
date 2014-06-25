@@ -11,10 +11,11 @@ $expire=time()+60*60*24*30;
 $layoutType = $_SESSION["layoutType"];
 	setcookie("layoutType", $layoutType, $expire);
 
-$experiment_ID = $_SESSION['experimentID'];
-	setcookie("experimentID", $_SESSION['experimentID'], $expire);
-	
+$experimentID = $_SESSION['experimentID'];
+	setcookie("experimentID", $experimentID, $expire);
+
 $streams = $_SESSION['streamselect'];
+
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
@@ -68,28 +69,34 @@ $number_of_streams = count($streams);
 	}
 
 // all the timecam node stuff and xml setup
+		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
+			if(strcmp($expts_decoded[0]->experiments[$i], $experimentID)==0){
+				$experiment_index=$i;
+			} 
+		
+		}
+		
 		$xml = new SimpleXMLElement($xmlstr);
 		// setting the config name to the expt id (assuming all the config files)
-		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experimentID]->expt_id;
+		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
 
 		//should functionalise this date string screwery.
-		$full_backwards_start_date = $expts_decoded[0]->experiments[$experimentID]->start_date;
+		$full_backwards_start_date = $expts_decoded[0]->experiments[$experiment_index]->start_date;
 		$start_day = substr($full_backwards_start_date, 8, 2);
 		$start_month = substr($full_backwards_start_date, 5, 2);
 		$start_year = substr($full_backwards_start_date, 0 , 4);
 
-		$start_time = $expts_decoded[0]->experiments[$experimentID]->start_time;
+		$start_time = $expts_decoded[0]->experiments[$experiment_index]->start_time;
 
-		$full_backwards_end_date = $expts_decoded[0]->experiments[$experimentID]->end_date;
+		$full_backwards_end_date = $expts_decoded[0]->experiments[$experiment_index]->end_date;
 		$end_day = substr($full_backwards_end_date, 8, 2);
 		$end_month = substr($full_backwards_end_date, 5, 2);
 		$end_year = substr($full_backwards_end_date, 0 , 4);
-		$end_time = $expts_decoded[0]->experiments[$experimentID]->end_time;
+		$end_time = $expts_decoded[0]->experiments[$experiment_index]->end_time;
 
 		// more date string concat screwery setting up the dates for the globals
 		$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
 		$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
-
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
 		for ($check=0; $check < count($streams); $check++) { 

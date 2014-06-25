@@ -12,8 +12,8 @@
     "utc": false,
     "image_type": "JPG",
     "timezone": 0,
-    "webroot": "cloud/data/timestreams/borevitztest/bvz0012/"
-  }, 
+    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+  },
   {
     "name": "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
     "ts_end": "2013_08_26_16_00_00", 
