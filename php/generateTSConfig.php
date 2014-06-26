@@ -69,11 +69,13 @@ $number_of_streams = count($streams);
 	}
 
 // all the timecam node stuff and xml setup
+
+	//echo $experimentID;
+
 		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
-			if(strcmp($expts_decoded[0]->experiments[$i], $experimentID)==0){
+			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
 				$experiment_index=$i;
 			} 
-		
 		}
 		
 		$xml = new SimpleXMLElement($xmlstr);
@@ -95,8 +97,8 @@ $number_of_streams = count($streams);
 		$end_time = $expts_decoded[0]->experiments[$experiment_index]->end_time;
 
 		// more date string concat screwery setting up the dates for the globals
-		$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
-		$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
+		$xml->globals['date_start'] = "$start_month"."/"."$start_day"."/"."$start_year"." "."$start_time"." PM";
+		$xml->globals['date_end'] = "$end_month"."/"."$end_day"."/"."$end_year"." "."$end_time"." PM";
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
 		for ($check=0; $check < count($streams); $check++) { 
@@ -122,15 +124,16 @@ $number_of_streams = count($streams);
 					
 
 					// If stream_name and stream_name_hires is important and breaks things, look HERE1 to fix
-					$tc->addAttribute('url_image_list', "$datapath"."~640/full/");
+					$tc->addAttribute('url_image_list', $datapath.$timestreams_decoded[$i]->name);
 					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name);
 
-					$tc->addAttribute('url_hires', "$datapath"."full/");
-					$tc->addAttribute('stream_name_hires', $timestreams_decoded->name."~hires");
+					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name);
+					$tc->addAttribute('stream_name_hires', $timestreams_decoded[$i]->name);
 
 					// 
 					// TODO: push these changes to the json schema/get from json
 					// 
+					http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitztest/bvz0012/BVZ0012-GC05L-C01~fullres-orig/2013/2013_01/2013_01_04/2013_01_04_12/BVZ0012-GC05L-C01~fullres-orig_2013_01_04_12_00_00_00.jpg
 					$tc->addAttribute('period', $timestreams_decoded[$i]->period_in_minutes." minute");
 					$tc->addAttribute('utc', $timestreams_decoded[$i]->utc);
 					$tc->addAttribute('timezone', $timestreams_decoded[$i]->timezone);

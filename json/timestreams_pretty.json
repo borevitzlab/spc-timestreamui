@@ -1,6 +1,6 @@
 [
   {
-    "name": "BVZ0012-GC05L-CN650D-Cam05~fullres-orig", 
+    "name": "BVZ0012-GC05L-C01~fullres-orig", 
     "ts_end": "2013_04_26_12_40_00", 
     "ts_start": "2013_03_04_17_40_00", 
     "ts_version": 1,
@@ -12,7 +12,8 @@
     "utc": false,
     "image_type": "JPG",
     "timezone": 0,
-    "webroot": "http://phenocam.anu.edu.au/cloud/data/timestreams/borevitztest/bvz0012/"
+    "webroot": 
+"http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitztest/bvz0012/"
   },
   {
     "name": "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
