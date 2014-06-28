@@ -85,6 +85,8 @@ $number_of_streams = count($streams);
 		$start_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->start_date.$expts_decoded[0]->experiments[$experiment_index]->start_time);
 		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
 
+		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
+		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
 		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y H:i:s A');
 		$xml->globals['date_end'] = date_format($end_date_time, 'm/d/Y H:i:s A');
 		// iterating through the first experiment and then the list of timestreams

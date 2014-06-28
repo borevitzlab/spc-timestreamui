@@ -165,7 +165,8 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		    $("#experimentID").change(function(){
+		$("#layoutType").val("gr");
+		    $("#experimentID").click(function(){
 		    	for(var i = 0; i < expts[0].experiments.length; i++){
 		    		if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
 		    			$("#hide-"+expts[0].experiments[i].expt_id).slideDown("slow");
