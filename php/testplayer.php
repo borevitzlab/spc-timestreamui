@@ -37,6 +37,12 @@
 
 	<style>
 		.hide{ display: none; }
+		html,body
+		{
+		  height: 100%;
+		}
+		.container-fluid{height: 100%;}
+		#TimeGraphDiv{height: 100%;}
 	</style>
 
 	<script type="text/javascript">
@@ -127,7 +133,8 @@
 	</head>
 	<body>
 	<div class="container-fluid">
-	<div class="col-md-4">
+	<div class="col-md-2">
+	<br>
 		<form id="form" method="POST" action="?" role="form" class="form-inline">
 		    <fieldset>
 		    <div class="row">
@@ -150,10 +157,10 @@
 			        </div>
 		        </div>
 		    </div>
+		    <br />
 		        <div id="hiddenStreams">
 		        	<!--More stuff goes in here!-->
 		        </div>
-		        <br />
 		    <div class="btn-group btn-group-justified">
 		    	<div class="btn-group">
 		        	<input type="submit" class="btn btn-primary" value="Submit" />
@@ -164,17 +171,16 @@
 		    </div>
 		    </fieldset>
 		</form>
+		<br />
 	</div>
-		<div class="container-fluid" id="TimeGraphDiv">
+
+		<div id="TimeGraphDiv" class="col-md-10">
 		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
-			  	width="100%" height="1000px">
+			  	width="100%" height="100%">
 			</embed>
 		</div>
-		<div class="container-fluid" id="TimeGraphDiv">
-		  	<embed src="generateTSConfig.php" />
-			</embed>
-		</div>
-		</div>
+
+	</div>
 	</body>
 
 	<script type="text/javascript">
