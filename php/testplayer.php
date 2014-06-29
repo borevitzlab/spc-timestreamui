@@ -122,8 +122,6 @@
 		      $.cookie.json = true;
 		      repopulateCheckboxes();
 	 });
-
-
  	</script>
 
 	</head>
