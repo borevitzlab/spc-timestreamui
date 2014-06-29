@@ -37,7 +37,6 @@
 
 	<style>
 		.hide{ display: none; }
-
 	</style>
 
 	<script type="text/javascript">
@@ -49,6 +48,11 @@
 	        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
 	    }
 	    return "";
+	}
+
+	function clearCheckboxCookie(){
+		$(":checkbox").prop("checked", false);
+		$.cookie('checkboxValues', null, { expires: 7, path: '/' });
 	}
 
 	var expts;
@@ -83,8 +87,11 @@
 					    label.setAttribute('for', "persistbox-"+i+"-"+d);
 					    label.textContent= expts[0].experiments[i].timestreams[d].substr(0,expts[0].experiments[i].timestreams[d].indexOf('~'));
 					 label.appendChild(ele);
-					element2.appendChild(label);
-			    	
+
+					 var checkBoxSpan = document.createElement("span");
+					 checkBoxSpan.setAttribute("class", "input-group-addon");
+					 checkBoxSpan.appendChild(label);
+					element2.appendChild(checkBoxSpan);
 			    	element2.appendChild(document.createElement("br"));
 		    	}
 		    	$(element2).hide();
@@ -117,51 +124,60 @@
 	 });
 
 
- 	</script></script>
+ 	</script>
 
 	</head>
 	<body>
+	<div class="container-fluid">
+	<div class="col-md-4">
 		<form id="form" method="POST" action="?" role="form" class="form-inline">
 		    <fieldset>
-		        <div class="form-group">
-		            <label class="sr-only" for="layoutType">Layout: </label>
-		            <select multiple class="form-control" name="layoutType" id="layoutType" width="140px%">
-		                <option class="form-control" value="vr">Vertical</option>
-		                <option class="form-control" value="hr">Horizontal</option>
-		                <option class="form-control" value="gr">Grid</option>
-		            </select>
+		    <div class="row">
+		   		<div class="col-md-6">
+			        <div class="form-group pull-left">
+			            <label class="sr-only" for="layoutType">Layout: </label>
+			            <select multiple class="form-control" name="layoutType" id="layoutType">
+			                <option class="form-control" value="vr">Vertical</option>
+			                <option class="form-control" value="hr">Horizontal</option>
+			                <option class="form-control" value="gr">Grid</option>
+			            </select>
+			        </div>
 		        </div>
-		        <div class="form-group" id="experimentselect">
-		        	<label class="sr-only" for="experimentID">Experiment: </label>
-		        	<select multiple class="form-control" name="experimentID" id="experimentID" width="140px">
-		        		<!--stuff goes in here!-->
-		        	</select>
+		        <div class="col-md-6">
+			        <div class="form-group pull-right" id="experimentselect" >
+			        	<label class="sr-only" for="experimentID">Experiment: </label>
+			        	<select multiple class="form-control" name="experimentID" id="experimentID">
+			        		<!--stuff goes in here!-->
+			        	</select>
+			        </div>
 		        </div>
+		    </div>
 		        <div id="hiddenStreams">
 		        	<!--More stuff goes in here!-->
 		        </div>
 		        <br />
-		    <div class="form-group">
-		        <input type="submit" class="btn btn-default" value="Submit" />
+		    <div class="btn-group btn-group-justified">
+		    	<div class="btn-group">
+		        	<input type="submit" class="btn btn-primary" value="Submit" />
+		        </div>
+		        <div class="btn-group">
+		        	<input type="button" class="btn btn-warning" value="Clear" id="clear" onclick="clearCheckboxCookie();" />
+		        </div>
 		    </div>
 		    </fieldset>
 		</form>
-
+	</div>
 		<div class="container-fluid" id="TimeGraphDiv">
 		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
 			  	width="100%" height="1000px">
 			</embed>
 		</div>
-		<!--div class="container-fluid" id="TimeGraphDiv">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
-			  	width="100%" height="1000px">
-			</embed>
-		</div!-->
 		<div class="container-fluid" id="TimeGraphDiv">
 		  	<embed src="generateTSConfig.php" />
 			</embed>
 		</div>
-		</body>
+		</div>
+	</body>
 
 	<script type="text/javascript">
 	$(document).ready(function(){
