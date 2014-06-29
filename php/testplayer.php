@@ -1,12 +1,14 @@
 <?php
-	session_start(); 
-	//session variables 
+	$expire=time()+60*60*24*30;
 	if(isset($_POST['layoutType'])&&!empty($_POST['layoutType']))
-		$_SESSION['layoutType'] = $_POST['layoutType'];
+		setcookie('layoutType',$_POST['layoutType'],$expire, '/');
+		//$_SESSION['layoutType'] = $_POST['layoutType'];
 	if(isset($_POST['streamselect'])&&!empty($_POST['streamselect']))
-		$_SESSION['streamselect'] = $_POST['streamselect'];
+		setcookie('streamselect',json_encode($_POST['streamselect']),$expire, '/');
+		//$_SESSION['streamselect'] = $_POST['streamselect'];
 	if(isset($_POST['experimentID'])&&!empty($_POST['experimentID']))
-		$_SESSION['experimentID'] = $_POST['experimentID'];
+		setcookie('experimentID',$_POST['experimentID'],$expire,'/');
+		//$_SESSION['experimentID'] = $_POST['experimentID'];
 ?>
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -59,6 +61,7 @@
 	function clearCheckboxCookie(){
 		$(":checkbox").prop("checked", false);
 		$.cookie('checkboxValues', null, { expires: 7, path: '/' });
+		$.cookie('streamselect', null, { expires: 7, path: '/' });
 	}
 
 	var expts;
@@ -173,13 +176,16 @@
 		</form>
 		<br />
 	</div>
+<![def20d85a970dfad6be9f30c32280c17]>
+
 
 		<div id="TimeGraphDiv" class="col-md-10">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
+		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php"
 			  	width="100%" height="100%">
 			</embed>
 		</div>
 
+	<embed src="generateTSConfig.php" />
 	</div>
 	</body>
 

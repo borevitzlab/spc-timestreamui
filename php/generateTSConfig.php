@@ -1,5 +1,4 @@
 <?php
-session_start();
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
 include "globals.php";
@@ -8,14 +7,23 @@ date_default_timezone_set('UTC');
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
 $expire=time()+60*60*24*30;
+if (isset($_COOKIE['streamselect'])){
+	$layoutType = $_COOKIE["layoutType"];
+}else{
+	 $layoutType = array();
+}
+if (isset($_COOKIE['streamselect'])) {
+	$experimentID = $_COOKIE['experimentID'];
+}else{
+	$experimentID = null;
+}
+if (isset($_COOKIE['streamselect'])) {
+	$streams = json_decode($_COOKIE['streamselect']);
+}else{
+	$streams = array();
+}
 
-$layoutType = $_SESSION["layoutType"];
-	setcookie("layoutType", $layoutType, $expire);
 
-$experimentID = $_SESSION['experimentID'];
-	setcookie("experimentID", $experimentID, $expire);
-
-$streams = $_SESSION['streamselect'];
 
 
 // getting json data and decode into php object
@@ -76,6 +84,8 @@ $number_of_streams = count($streams);
 		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
 			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
 				$experiment_index=$i;
+			}else{
+				$experiment_index = 0;
 			} 
 		}
 		
