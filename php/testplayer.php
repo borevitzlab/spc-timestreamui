@@ -176,16 +176,14 @@
 		</form>
 		<br />
 	</div>
-<![def20d85a970dfad6be9f30c32280c17]>
+<![2498382f5249277454ec3a716f31dfea]>
 
 
 		<div id="TimeGraphDiv" class="col-md-10">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php"
+		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php"
 			  	width="100%" height="100%">
 			</embed>
 		</div>
-
-	<embed src="generateTSConfig.php" />
 	</div>
 	</body>
 
