@@ -128,7 +128,7 @@
 		    }
 		    return "";
 		}
-		
+
 		function clearCheckboxCookie(){
 			$(":checkbox").prop("checked", false);
 			$.cookie('checkboxValues', null, { expires: 7, path: '/' });
@@ -155,7 +155,7 @@
 	</head>
 	<body>
 	<div class="container-fluid">
-		<div class="col-md-2">
+		<div class="col-md-3">
 		<br>
 			<form id="form" method="POST" action="?" role="form" class="form-inline">
 			    <fieldset>
@@ -196,7 +196,7 @@
 			<br />
 		</div>
 
-		<div id="TimeGraphDiv" class="col-md-10">
+		<div id="TimeGraphDiv" class="col-md-9">
 		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
 			</embed>
 		</div>
