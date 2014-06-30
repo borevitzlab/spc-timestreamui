@@ -86,6 +86,7 @@
 					streamSelectCheckboxLabelTag.appendChild(streamSelectCheckboxTag);
 					checkBoxSpan.appendChild(streamSelectCheckboxLabelTag);
 					hiddenStreamsDivTag.appendChild(checkBoxSpan);
+
 			    	hiddenStreamsDivTag.appendChild(document.createElement("br"));
 		    	}
 		    	$(hiddenStreamsDivTag).hide();
@@ -127,7 +128,7 @@
 		    }
 		    return "";
 		}
-
+		
 		function clearCheckboxCookie(){
 			$(":checkbox").prop("checked", false);
 			$.cookie('checkboxValues', null, { expires: 7, path: '/' });

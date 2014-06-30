@@ -28,6 +28,62 @@
           "BVZ0012-GC05L-CN650D-Cam04~fullres-orig", 
           "BVZ0012-GC05L-CN650D-Cam05~fullres-orig"
         ]
+      },
+      {
+        "end_date": "2013-04-01",
+        "end_time": "00:00", 
+        "expt_id": "BVZ0014", 
+        "start_date": "2013-02-12", 
+        "start_time": "00:00",
+        "timestreams": [
+          "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
+          "BVZ0012-GC02R-CN650D-Cam02~fullres-orig", 
+          "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam04~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam05~fullres-orig"
+        ]
+      },
+      {
+        "end_date": "2013-04-01",
+        "end_time": "00:00", 
+        "expt_id": "BVZ0015", 
+        "start_date": "2013-02-12", 
+        "start_time": "00:00",
+        "timestreams": [
+          "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
+          "BVZ0012-GC02R-CN650D-Cam02~fullres-orig", 
+          "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam04~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam05~fullres-orig"
+        ]
+      },
+      {
+        "end_date": "2013-04-01",
+        "end_time": "00:00", 
+        "expt_id": "BVZ0016", 
+        "start_date": "2013-02-12", 
+        "start_time": "00:00",
+        "timestreams": [
+          "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
+          "BVZ0012-GC02R-CN650D-Cam02~fullres-orig", 
+          "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam04~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam05~fullres-orig"
+        ]
+      },
+      {
+        "end_date": "2013-04-01",
+        "end_time": "00:00", 
+        "expt_id": "BVZ0017", 
+        "start_date": "2013-02-12", 
+        "start_time": "00:00",
+        "timestreams": [
+          "BVZ0012-GC02L-CN650D-Cam01~fullres-orig", 
+          "BVZ0012-GC02R-CN650D-Cam02~fullres-orig", 
+          "BVZ0012-GC03L-CN650D-Cam03~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam04~fullres-orig", 
+          "BVZ0012-GC05L-CN650D-Cam05~fullres-orig"
+        ]
       }
     ]
   }
