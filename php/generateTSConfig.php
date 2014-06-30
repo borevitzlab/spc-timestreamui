@@ -92,6 +92,7 @@ $number_of_streams = count($streams);
 		$xml = new SimpleXMLElement($xmlstr);
 		// setting the config name to the expt id (assuming all the config files)
 		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
+		$xml->globals['background_color'] = "0x".$bg_color;
 		$start_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->start_date.$expts_decoded[0]->experiments[$experiment_index]->start_time);
 		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
 

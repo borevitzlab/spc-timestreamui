@@ -6,7 +6,7 @@ $xmlstr = <<<XML
   <globals
 
     config_id="UNSET"
-  background_color="0x0099cc"
+  background_color="0x2F4F4F"
   timespan_days_init="7"
   date_start="UNSET"
   date_end="UNSET"
