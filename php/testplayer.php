@@ -56,11 +56,11 @@
 				var experimentIDOptionTag = document.createElement("option");
 	    		    experimentIDOptionTag.innerHTML= expts[0].experiments[i].expt_id;
 				    experimentIDOptionTag.setAttribute("name", expts[0].experiments[i].expt_id);
-
+				    experimentIDOptionTag.setAttribute("id", expts[0].experiments[i].expt_id)
 				    experimentIDOptionTag.setAttribute("class", "form-control");
 				    experimentIDOptionTag.setAttribute("value", expts[0].experiments[i].expt_id);
-		    	var foo = document.getElementById("experimentID");
-		    	foo.appendChild(experimentIDOptionTag);
+		    	var experimentIDDivTag = document.getElementById("experimentID");
+		    	experimentIDDivTag.appendChild(experimentIDOptionTag);
 
 
 		    	var hiddenStreamsDivTag = document.createElement("div");
@@ -116,6 +116,7 @@
 		      }
 		      $.cookie.json = true;
 		      repopulateCheckboxes();
+		    
 	 });
  	</script>
  	<script type="text/javascript">
@@ -133,6 +134,37 @@
 			$(":checkbox").prop("checked", false);
 			$.cookie('checkboxValues', null, { expires: 7, path: '/' });
 			$.cookie('streamselect', null, { expires: 7, path: '/' });
+		}
+
+		function search(val) {
+		    for ( var i in expts[0].experiments) {
+		        if (expts[0].experiments[i].expt_id.toLowerCase().search(val.toLowerCase()) == -1) {
+		            $("#"+expts[0].experiments[i].expt_id).hideOptionGroup();
+		        }else{
+		        	$("#"+expts[0].experiments[i].expt_id).showOptionGroup();
+		        }
+		        if(String(expts[0].experiments[i].expt_id).toLowerCase()==String(val).toLowerCase()){
+		        	$("#experimentID").val(expts[0].experiments[i].expt_id);
+		        	$("#experimentID").trigger( "click" );
+		        }
+		    }
+		}
+		$.fn.hideOptionGroup = function() {
+		 $(this).hide();
+		 $(this).children().each(function(){
+		 $(this).attr("disabled", "disabled").removeAttr("selected");
+		 });
+		 $(this).appendTo($(this).parent());
+
+		}
+
+		$.fn.showOptionGroup = function() {
+		 $(this).show();    
+		 $(this).children().each(function(){
+		 $(this).removeAttr("disabled" );
+		 });
+		 $(this).prependTo($(this).parent());
+		 $(this).parent().animate({scrollTop:0},0);
 		}
 	</script>
 
@@ -170,13 +202,15 @@
 				            </select>
 				        </div>
 			        </div>
-			        <div class="col-md-6">
+			        <div class="col-md-6"><input name="streamsearch" type="text" class="form-control pull-right" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;">
 				        <div class="form-group pull-right" id="experimentselect" >
+			        		
 				        	<label class="sr-only" for="experimentID">Experiment: </label>
 				        	<select multiple class="form-control" name="experimentID" id="experimentID">
 				        		<!--stuff goes in here!-->
 				        	</select>
 				        </div>
+				        	
 			        </div>
 			    </div>
 			    <br />
