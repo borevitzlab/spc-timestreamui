@@ -88,7 +88,22 @@
 					hiddenStreamsDivTag.appendChild(checkBoxSpan);
 
 			    	hiddenStreamsDivTag.appendChild(document.createElement("br"));
+
 		    	}
+		    		var closeButtonSpanTag = document.createElement("span");
+					var	sr_onlyCloseButtonSpan =document.createElement('span');
+					var closeButtonTag = document.createElement("button");
+					closeButtonTag.setAttribute('type', 'button');
+					closeButtonTag.setAttribute('class', 'close');
+					closeButtonTag.setAttribute('onclick', 'closeHidden();');
+					closeButtonSpanTag.setAttribute('aria-hidden', 'true');
+					closeButtonSpanTag.innerHTML = "&times;";
+					sr_onlyCloseButtonSpan.setAttribute('class', 'sr-only');
+					sr_onlyCloseButtonSpan.textContent = "Close";
+
+					closeButtonTag.appendChild(closeButtonSpanTag);
+					closeButtonTag.appendChild(sr_onlyCloseButtonSpan);
+					hiddenStreamsDivTag.appendChild(closeButtonTag);
 		    	$(hiddenStreamsDivTag).hide();
 			}
 			if(getCookie("experimentID")!=""){
@@ -134,6 +149,12 @@
 			$(":checkbox").prop("checked", false);
 			$.cookie('checkboxValues', null, { expires: 7, path: '/' });
 			$.cookie('streamselect', null, { expires: 7, path: '/' });
+		}
+
+		function closeHidden(){
+			for(var i = 0; i < expts[0].experiments.length; i++){
+			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("slow");
+			    	}
 		}
 
 		function search(val) {
