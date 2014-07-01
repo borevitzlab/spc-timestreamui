@@ -98,8 +98,8 @@ $number_of_streams = count($streams);
 
 		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
 		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
-		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y H:i:s A');
-		$xml->globals['date_end'] = date_format($end_date_time, 'm/d/Y H:i:s A');
+		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y h:i:s A');
+		$xml->globals['date_end'] = date_format($end_date_time, 'm/d/Y h:i:s A');
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
 		for ($check=0; $check < count($streams); $check++) { 
