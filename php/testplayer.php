@@ -138,7 +138,7 @@
 			$.cookie('experimentID',null, {expires: 7, path: '/'});
 			}
 		function reloadEmbed(){
-			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">');
+			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
 			    $("#TimeGraphDiv").slideUp("fast");
 			    $('#TimeGraphDiv').empty().append(doc);
 			    if(getCookie("streamselect")!="null")
@@ -271,7 +271,7 @@
 			</div>
 		</div>
 		<div id="TimeGraphDiv" class="col-md-9">
-		  		<embed name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">
+		  		<embed name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
 				</embed>
 		</div>
 		<div class="col-md-12"><input name="streamsearch" type="text" class="form-control" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;"></div>
@@ -288,7 +288,7 @@
 
 	</div>
 		<div><embed src="generateTSConfig.php"></div>
-<!def20d85a970dfad6be9f30c32280c17>
+<!2498382f5249277454ec3a716f31dfea>
 	</div>
 	</body>
 	</html>
