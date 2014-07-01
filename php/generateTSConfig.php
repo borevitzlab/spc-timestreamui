@@ -23,7 +23,10 @@ if ($_COOKIE['streamselect'] != "null") {
 }else{
 	$streams = array();
 }
-
+foreach ($streamsa as $key => $value) {
+	echo $value."<br>";
+}
+echo $experimentID;
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
