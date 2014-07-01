@@ -7,22 +7,23 @@ date_default_timezone_set('UTC');
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
 $expire=time()+60*60*24*30;
-if (isset($_COOKIE['streamselect'])){
-	$layoutType = $_COOKIE["layoutType"];
+if (isset($_COOKIE['layoutType'])){
+	$layoutType = json_encode($_COOKIE["layoutType"])[0];
 }else{
 	 $layoutType = array();
 }
-if (isset($_COOKIE['streamselect'])) {
-	$experimentID = $_COOKIE['experimentID'];
+if (isset($_COOKIE['experimentID'])) {
+	$experimentID = json_decode($_COOKIE['experimentID'])[0];
 }else{
 	$experimentID = null;
 }
 if (isset($_COOKIE['streamselect'])) {
 	$streams = json_decode($_COOKIE['streamselect']);
+
 }else{
 	$streams = array();
 }
-
+echo json_decode($_COOKIE['streamselect']);
 
 
 

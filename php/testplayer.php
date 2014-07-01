@@ -111,16 +111,28 @@
 		    	$("#experimentID").val(getCookie("experimentID"));
 		    }
 		    if(getCookie("layoutType")!=""){
-		    	$("#layoutType").val(getCookie("layoutType"));
+		    	$("#layout").val(getCookie("layoutType"));
 		    }
 		    $(":checkbox").on("change", function(){
 		        var checkboxValues = {};
+		        var streamselect = {};
 		        $(":checkbox").each(function(){
 		          checkboxValues[this.id] = this.checked;
+		          if(this.checked==true){
+		          	streamselect[this.id] = this.value;
+		          }
 		        });
 		        $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
+		        $.cookie('streamselect', streamselect, { expires: 7, path: '/' })
 		      });
-
+		    $("#layout").on("change", function(){
+		    	var layoutType= $("#layout").val();
+		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
+		    });
+		    $("#experimentID").on("change", function(){
+		    	var experimentIDv= $("#experimentID").val();
+		    	$.cookie('experimentID', experimentIDv, { expires: 7, path: '/' })
+		    });
 		    function repopulateCheckboxes(){
 		        var checkboxValues = $.cookie('checkboxValues');
 		        if(checkboxValues){
@@ -152,7 +164,7 @@
 			$.cookie('experimentID',null, {expires: 7, path: '/'});
 			}
 		function reloadEmbed(){
-			    var doc = $('<embed name="timegraph" id="TimeGraphFlex" src=TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
+			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">');
 			    $('#TimeGraphDiv').empty().append(doc);
 		}
 
@@ -217,13 +229,10 @@
 			    		$(".playerclass").slideDown("slow");
 			    	}else{
 			    		for(var i = 0; i < expts[0].experiments.length; i++){
-			    		if(expts[0].experiments[i].expt_id != $("#experimentID").val()){
-			    			$("#hide-"+expts[0].experiments[i].expt_id).slideDown("slow");
-			    		}else{
-			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
-
+				    		if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
+				    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
+				    		}
 			    		}
-			    	}
 			    		$(".playerclass").slideUp("slow");
 			    	}
 
@@ -244,7 +253,7 @@
 				   		<div class="col-md-6">
 						        <div class="form-group">
 						            <label class="sr-only" for="layoutType">Layout: </label>
-						            <select multiple class="form-control" name="layoutType" id="layoutType">
+						            <select multiple class="form-control" name="layoutType" id="layout">
 						                <option class="form-control" value="vr">Vertical</option>
 						                <option class="form-control" value="hr">Horizontal</option>
 						                <option class="form-control" value="gr">Grid</option>
@@ -271,7 +280,7 @@
 				<br />
 			</div>
 			<div id="TimeGraphDiv" class="col-md-9">
-		  		<ifame name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
+		  		<embed name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">
 				</embed>
 			</div>
 		</div>
@@ -290,7 +299,7 @@
 		</div>
 	</div>
 		<div><embed src="generateTSConfig.php"></div>
-<!2498382f5249277454ec3a716f31dfea>
+<!def20d85a970dfad6be9f30c32280c17>
 	</div>
 	</body>
 	</html>
