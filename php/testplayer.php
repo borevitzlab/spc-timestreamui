@@ -242,10 +242,10 @@
 				<form id="form" onsubmit="reloadEmbed();showTimegraph();" role="form" class="form-inline">
 				    <fieldset>
 				    <div class="row">
-				   		<div class="col-md-6">
-						        <div class="form-group">
+				   		<div class="col-md-3">
+						        <div class="form-group" style="width:300px;">
 						            <label class="sr-only" for="layoutType">Layout: </label>
-						            <select multiple class="form-control" name="layoutType" id="layout">
+						            <select multiple class="form-control" name="layoutType" id="layout" style="width:100%;">
 						                <option class="form-control" value="vr">Vertical</option>
 						                <option class="form-control" value="hr">Horizontal</option>
 						                <option class="form-control" value="gr">Grid</option>
@@ -253,6 +253,7 @@
 						        </div>
 						    </div>
 						</div>
+						<br>
 				        <div id="hiddenStreams">
 				        	<!--More stuff goes in here!-->
 				        </div>
