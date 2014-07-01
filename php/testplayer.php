@@ -152,10 +152,8 @@
 			$.cookie('experimentID',null, {expires: 7, path: '/'});
 			}
 		function reloadEmbed(){
-			function loadDocument(){
 			    var doc = $('<embed name="timegraph" id="TimeGraphFlex" src=TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
 			    $('#TimeGraphDiv').empty().append(doc);
-			}
 		}
 
 		function closeHidden(){
@@ -273,7 +271,7 @@
 				<br />
 			</div>
 			<div id="TimeGraphDiv" class="col-md-9">
-		  		<embed name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
+		  		<ifame name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
 				</embed>
 			</div>
 		</div>
