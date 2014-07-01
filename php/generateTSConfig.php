@@ -8,9 +8,9 @@ date_default_timezone_set('UTC');
 
 $expire=time()+60*60*24*30;
 if (isset($_COOKIE['layoutType'])){
-	$layoutTypeAr = json_decode($_COOKIE["layoutType"]);
+	$layoutType = json_decode($_COOKIE["layoutType"])[0];
 }else{
-	 $layoutType = array();
+	 $layoutType = null;
 }
 if (isset($_COOKIE['experimentID'])) {
 	$experimentID = json_decode($_COOKIE['experimentID']);
@@ -27,6 +27,7 @@ foreach ($streamsa as $key => $value) {
 	echo $value."<br>";
 }
 echo $experimentID;
+echo $layoutType;
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
