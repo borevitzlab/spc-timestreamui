@@ -8,12 +8,12 @@ date_default_timezone_set('UTC');
 
 $expire=time()+60*60*24*30;
 if (isset($_COOKIE['layoutType'])){
-	$layoutType = json_decode($_COOKIE["layoutType"])[0];
+	$layoutTypeAr = json_decode($_COOKIE["layoutType"]);
 }else{
 	 $layoutType = array();
 }
 if (isset($_COOKIE['experimentID'])) {
-	$experimentID = json_decode($_COOKIE['experimentID'])[0];
+	$experimentID = json_decode($_COOKIE['experimentID']);
 }else{
 	$experimentID = null;
 }
