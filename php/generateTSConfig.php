@@ -134,7 +134,6 @@ $number_of_streams = count($streams);
 					// 
 					// TODO: push these changes to the json schema/get from json
 					// 
-					http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitztest/bvz0012/BVZ0012-GC05L-C01~fullres-orig/2013/2013_01/2013_01_04/2013_01_04_12/BVZ0012-GC05L-C01~fullres-orig_2013_01_04_12_00_00_00.jpg
 					$tc->addAttribute('period', $timestreams_decoded[$i]->period_in_minutes." minute");
 					$tc->addAttribute('utc', $timestreams_decoded[$i]->utc);
 					$tc->addAttribute('timezone', $timestreams_decoded[$i]->timezone);
