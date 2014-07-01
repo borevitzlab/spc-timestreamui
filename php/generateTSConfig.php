@@ -18,8 +18,8 @@ if (isset($_COOKIE['experimentID'])) {
 	$experimentID = null;
 }
 if ($_COOKIE['streamselect'] != "null") {
-	$streamsa = json_decode($_COOKIE['streamselect'], true);
-	$streams = array_values($streamsa);
+	$streams = (array)json_decode($_COOKIE['streamselect']);
+	//$streams = array_values($streamsa);
 }else{
 	$streams = array();
 }
