@@ -39,6 +39,7 @@
 
 	<style>
 		.hide{ display: none; }
+		.playerclass{display: none; }
 		html,body
 		{
 		  height: 100%;
@@ -144,16 +145,24 @@
 		    }
 		    return "";
 		}
-
 		function clearCheckboxCookie(){
 			$(":checkbox").prop("checked", false);
 			$.cookie('checkboxValues', null, { expires: 7, path: '/' });
 			$.cookie('streamselect', null, { expires: 7, path: '/' });
+			$.cookie('experimentID',null, {expires: 7, path: '/'});
+			}
+		function reloadEmbed(){
+			function loadDocument(){
+			    var doc = $('<embed name="timegraph" id="TimeGraphFlex" src=TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
+			    $('#TimeGraphDiv').empty().append(doc);
+			}
 		}
 
 		function closeHidden(){
 			for(var i = 0; i < expts[0].experiments.length; i++){
 			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("slow");
+			    			$(".playerclass").slideUp("slow");
+			    			$(".playerclass").css
 			    	}
 		}
 
@@ -193,13 +202,33 @@
 		$(document).ready(function(){
 			$("#layoutType").val("gr");
 			    $("#experimentID").click(function(){
-			    	for(var i = 0; i < expts[0].experiments.length; i++){
+			    	/*for(var i = 0; i < expts[0].experiments.length; i++){
 			    		if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
 			    			$("#hide-"+expts[0].experiments[i].expt_id).slideDown("slow");
 			    		}else{
 			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
+
+			    		}
+			    	}*/
+			    	if($(".playerclass").css('display') == 'none' ){
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    			if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
+			    				$("#hide-"+expts[0].experiments[i].expt_id).slideDown("slow");
+			    			}
+			    		}
+			    		$(".playerclass").slideDown("slow");
+			    	}else{
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    		if(expts[0].experiments[i].expt_id != $("#experimentID").val()){
+			    			$("#hide-"+expts[0].experiments[i].expt_id).slideDown("slow");
+			    		}else{
+			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
+
 			    		}
 			    	}
+			    		$(".playerclass").slideUp("slow");
+			    	}
+
 			    });
 
 			});
@@ -208,53 +237,60 @@
 	</head>
 	<?php include "globals.php"; echo "<body style='background-color:#".$bg_color."'>" ?>
 	<div class="container-fluid">
-		<div class="col-md-3">
-		<br>
-			<form id="form" method="POST" action="?" role="form" class="form-inline">
-			    <fieldset>
-			    <div class="row">
-			   		<div class="col-md-6">
-				        <div class="form-group pull-left">
-				            <label class="sr-only" for="layoutType">Layout: </label>
-				            <select multiple class="form-control" name="layoutType" id="layoutType">
-				                <option class="form-control" value="vr">Vertical</option>
-				                <option class="form-control" value="hr">Horizontal</option>
-				                <option class="form-control" value="gr">Grid</option>
-				            </select>
+		<div class="playerclass">
+			<div class="col-md-3">
+				<br>
+				<form id="form" onsubmit="reloadEmbed();" role="form" class="form-inline">
+				    <fieldset>
+				    <div class="row">
+				   		<div class="col-md-6">
+						        <div class="form-group">
+						            <label class="sr-only" for="layoutType">Layout: </label>
+						            <select multiple class="form-control" name="layoutType" id="layoutType">
+						                <option class="form-control" value="vr">Vertical</option>
+						                <option class="form-control" value="hr">Horizontal</option>
+						                <option class="form-control" value="gr">Grid</option>
+						            </select>
+						        </div>
+						    </div>
+						</div>
+				        <div class="playerclass" id="hiddenStreams">
+				        	<!--More stuff goes in here!-->
 				        </div>
-			        </div>
-			        <div class="col-md-6"><input name="streamsearch" type="text" class="form-control pull-right" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;">
-				        <div class="form-group pull-right" id="experimentselect" >
-			        		
-				        	<label class="sr-only" for="experimentID">Experiment: </label>
-				        	<select multiple class="form-control" name="experimentID" id="experimentID">
-				        		<!--stuff goes in here!-->
-				        	</select>
+				    
+				    <div class="btn-group btn-group-justified">
+				    	<div class="btn-group">
+				        	<input type="buttn" class="btn btn-primary" value="Submit" onclick="reloadEmbed();" />
 				        </div>
+				        <div class="btn-group">
+				        	<input type="button" class="btn btn-danger" value="Clear" id="clear" onclick="clearCheckboxCookie();closeHidden();" />
+				        </div>
+				    </div>
+				    </fieldset>
+				    
+				    
+				</form>
+				<br />
+			</div>
+			<div id="TimeGraphDiv" class="col-md-9">
+		  		<embed name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
+				</embed>
+			</div>
+		</div>
+		
+		<div class='row'>
+			<div class="col-md-6"><input name="streamsearch" type="text" class="form-control pull-right" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;">
+		        <div class="form-group pull-right" id="experimentselect" >
+	        		
+		        	<label class="sr-only" for="experimentID">Experiment: </label>
+		        	<select multiple class="form-control" name="experimentID" id="experimentID">
+		        		<!--stuff goes in here!-->
+		        	</select>
+		        </div>
 				        	
-			        </div>
-			    </div>
-			    <br />
-			        <div id="hiddenStreams">
-			        	<!--More stuff goes in here!-->
-			        </div>
-			    <div class="btn-group btn-group-justified">
-			    	<div class="btn-group">
-			        	<input type="submit" class="btn btn-primary" value="Submit" />
-			        </div>
-			        <div class="btn-group">
-			        	<input type="button" class="btn btn-warning" value="Clear" id="clear" onclick="clearCheckboxCookie();" />
-			        </div>
-			    </div>
-			    </fieldset>
-			</form>
-			<br />
+			</div>
 		</div>
-
-		<div id="TimeGraphDiv" class="col-md-9">
-		  	<embed id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
-			</embed>
-		</div>
+	</div>
 		<div><embed src="generateTSConfig.php"></div>
 <!2498382f5249277454ec3a716f31dfea>
 	</div>
