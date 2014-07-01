@@ -106,6 +106,8 @@ $number_of_streams = count($streams);
 			for ($i=0; $i < count($timestreams_decoded); $i++) { 
 				// check against the string names of the timestreams to make a list of the streams 
 				// available for the experiment
+				echo $timestreams_decoded[$i]->name."<br>";
+				echo $streams[$check]."<br>";
 				if ( strcmp($streams[$check], $timestreams_decoded[$i]->name) ==0) {
 					// add new xml child under "components".
 

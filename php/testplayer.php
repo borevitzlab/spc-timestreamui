@@ -164,7 +164,7 @@
 			$.cookie('experimentID',null, {expires: 7, path: '/'});
 			}
 		function reloadEmbed(){
-			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">');
+			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
 			    $('#TimeGraphDiv').empty().append(doc);
 		}
 
