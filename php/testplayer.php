@@ -210,17 +210,19 @@
 			    		}
 			    		$(".playerclass").slideDown("slow");
 			    	}else{
+			    		$(".playerclass").slideUp("fast");
 			    		for(var i = 0; i < expts[0].experiments.length; i++){
-			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
+			    			$("#hide-"+expts[0].experiments[i].expt_id).hide();
 				    		if(expts[0].experiments[i].expt_id == $(this).attr("value")){
-				    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
+				    			$("#hide-"+expts[0].experiments[i].expt_id).hide();
 				    		}
 			    		}
-			    		$(".playerclass").slideUp("fast");
+			    		
 			    		$(".playerclass").slideDown("slow");
 			    		for(var i = 0; i < expts[0].experiments.length; i++){
 			    			if(expts[0].experiments[i].expt_id == $(this).attr("value")){
 			    				$("#hide-"+expts[0].experiments[i].expt_id).show();
+
 			    			}
 			    		}
 			    		
