@@ -33,7 +33,7 @@
 		  height: 100%;
 		}
 		.container-fluid{height: 100%;}
-		#TimeGraphDiv{height: 100%; display: none;}
+		#TimeGraphDiv{height: 100%; display: none;    overflow:hidden;}
 	</style>
 
 	<script type="text/javascript">
@@ -118,10 +118,11 @@
 		      }
 		      $.cookie.json = true;
 		      repopulateCheckboxes();
-		    
+
 	 });
  	</script>
  	<script type="text/javascript">
+ 		
 	 	function getCookie(cname) {
 		    var name = cname + "=";
 		    var ca = document.cookie.split(';');
@@ -138,7 +139,7 @@
 			$.cookie('experimentID',null, {expires: 7, path: '/'});
 			}
 		function reloadEmbed(){
-			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
+			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">');
 			    $("#TimeGraphDiv").slideUp("fast");
 			    $('#TimeGraphDiv').empty().append(doc);
 			    if(getCookie("streamselect")!="null")
@@ -184,6 +185,7 @@
 		 $(this).prependTo($(this).parent());
 		 $(this).parent().animate({scrollTop:0},0);
 		}
+
 	</script>
 
 	<script type="text/javascript">
@@ -271,11 +273,11 @@
 				<br />
 			</div>
 		</div>
-		<div id="TimeGraphDiv" class="col-md-9">
-		  		<embed name="timegraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
+		<div onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';" id="TimeGraphDiv" class="col-md-9">
+		  		<embed name="timegraph" class='TimeGraphFlex' id="TimeGraphFlex" src="TimeGraphFlex.swf?license=2498382f5249277454ec3a716f31dfea&config=generateTSConfig.php" width="100%" height="100%">
 				</embed>
 		</div>
-		<div class="col-md-12"><input name="streamsearch" type="text" class="form-control" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;"></div>
+		<!div class="col-md-12"><!input name="streamsearch" type="text" class="form-control" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;"><!/div>
 		<div class='row'>
 	        <div id="experimentselect" >
         		
@@ -289,7 +291,7 @@
 
 	</div>
 		<div><embed src="generateTSConfig.php"></div>
-<!2498382f5249277454ec3a716f31dfea>
+<!def20d85a970dfad6be9f30c32280c17>
 	</div>
 	</body>
 	</html>

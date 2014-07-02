@@ -3,6 +3,8 @@
     "experiments": [
       {
         "expt_id": "BVZ0006",
+        "user": "Mr. X",
+        "spp": "unknown",
         "end_date": "2012-11-16",
         "end_time": "15:35",
         "start_date": "14:40",
@@ -14,6 +16,8 @@
       },
       {
         "expt_id": "BVZ0007",
+        "user": "Mr. X",
+        "spp": "unknown",
         "end_date": "2012-12-12",
         "end_time": "16:20",
         "start_date": "2012-11-21",
@@ -24,6 +28,8 @@
       },
       {
         "expt_id": "BVZ0011",
+        "user": "Mr. X",
+        "spp": "unknown",
         "end_date": "2013-05-09",
         "end_time": "22:40",
         "start_date": "15:40",
@@ -35,6 +41,8 @@
       },
       {
         "expt_id": "BVZ0012",
+        "user": "Mr. X",
+        "spp": "unknown",
         "end_date": "2013-08-26",
         "end_time": "16:00",
         "start_date": "2013-02-22",
