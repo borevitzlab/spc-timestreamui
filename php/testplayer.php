@@ -275,7 +275,7 @@
 	</head>
 	<?php include "globals.php"; echo "<body style='background-color:#".$bg_color."'>" ?>
 	<div class="container-fluid">
-		<div class="col-md-12">
+		<div class="col-md-12" style="height:100%;">
 		<div class="playerclass">
 			<div class="col-md-3">
 				<br>
