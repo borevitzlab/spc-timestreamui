@@ -1,21 +1,65 @@
 var expts;
- $.getJSON('../json/expts_pretty.json', function(response){
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
+	$.getJSON('../json/expts_pretty.json', function(response){
 	       expts = response;
+	       function parseDateTime(input1, input2) {
+			  var parts1 = input1.split('-');
+			  var parts2 = input2.split(':');
+			  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
+			  return new Date(parts1[0], parts1[1]-1, parts1[2], parts2[0],parts2[1]); // Note: months are 0-based
+			}
 	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
 	       		 
 				var experimentIDImageTag = document.createElement("img");
-	    		    //experimentIDImageTag.innerHTML= expts[0].experiments[i].expt_id;
 				    experimentIDImageTag.setAttribute("name", expts[0].experiments[i].expt_id);
 				    experimentIDImageTag.setAttribute("value", expts[0].experiments[i].expt_id);
 				    experimentIDImageTag.setAttribute("src", "img.svg");
-				    // experimentIDImageTag.setAttribute("class", "experimentselection");
-				var experimentIDLinkTag = document.createElement('a')
-					experimentIDLinkTag.setAttribute("class", "thumbnail col-md-3 col-lg-2 col-sm-4 experimentselection");
-					experimentIDLinkTag.setAttribute("value", expts[0].experiments[i].expt_id);
+				var experimentIDLinkTag = document.createElement('a');
 					experimentIDLinkTag.setAttribute("src", '#')
+					experimentIDLinkTag.setAttribute("value", expts[0].experiments[i].expt_id);
+					experimentIDLinkTag.setAttribute("class", "thumbnail col-lg-2 col-md-2 col-sm-3 col-xs-5 experimentselection");
+					
+				var experimentIDHeadingTag = document.createElement('h4');
+					experimentIDHeadingTag.textContent = expts[0].experiments[i].expt_id;
+					experimentIDHeadingTag.setAttribute('style', 'text-align:center;')
+				var experimentIDList = document.createElement("ul");
+				var	experimentIDUserName = document.createElement("li");
+					experimentIDUserName.textContent= expts[0].experiments[i].user;
+					experimentIDList.appendChild(experimentIDUserName);
+				var experimentIDSPP = document.createElement('li');
+					experimentIDSPP.textContent = expts[0].experiments[i].spp;
+					experimentIDList.appendChild(experimentIDSPP);
+				var experimentIDLocation = document.createElement('li');
+					experimentIDLocation.textContent = expts[0].experiments[i].location;
+					experimentIDList.appendChild(experimentIDLocation);
+					// use this to parse the date/time with a datetime object.
+				/*var startTime = parseDateTime(expts[0].experiments[i].start_date, expts[0].experiments[i].start_time);
+				var endTime = parseDateTime(expts[0].experiments[i].end_date, expts[0].experiments[i].end_time);
+				var experimentIDTimeLi = document.createElement("li");
+					experimentIDTimeLi.textContent = startTime.toDateString()+" "+startTime.toTimeString()+"-"+endTime.toDateString()+" "+endTime.toTimeString();
+					*/
+				var experimentIDTimeLiStart = document.createElement("li");
+					experimentIDTimeLiStart.textContent =  "start: " + expts[0].experiments[i].start_date; 
+				var experimentIDTimeLiEnd = document.createElement("li");
+					experimentIDTimeLiEnd.textContent="end: " +expts[0].experiments[i].end_date;
+					experimentIDList.appendChild(experimentIDTimeLiStart);
+					experimentIDList.appendChild(experimentIDTimeLiEnd);
+
+
 					experimentIDLinkTag.appendChild(experimentIDImageTag);
-		    	var experimentIDDivTag = document.getElementById("experimentID");
-		    	experimentIDDivTag.appendChild(experimentIDLinkTag);
+					experimentIDLinkTag.appendChild(experimentIDHeadingTag);
+					experimentIDLinkTag.appendChild(experimentIDList);
+		    	var experimentIDParentDivTag = document.getElementById("experimentID");
+		    	experimentIDParentDivTag.appendChild(experimentIDLinkTag);
 
 
 		    	var hiddenStreamsDivTag = document.createElement("div");
@@ -78,5 +122,5 @@ var expts;
 		      }
 		      $.cookie.json = true;
 		      repopulateCheckboxes();
-		    
+
 	 });

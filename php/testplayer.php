@@ -39,191 +39,8 @@
 		#TimeGraphDiv{height: 100%; display: none;    overflow:hidden;}
 	</style>
 
-	<script type="text/javascript">
-
-	var expts;
-	 $.getJSON('../json/expts_pretty.json', function(response){
-	       expts = response;
-	       function parseDateTime(input1, input2) {
-			  var parts1 = input1.split('-');
-			  var parts2 = input2.split(':');
-			  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
-			  return new Date(parts1[0], parts1[1]-1, parts1[2], parts2[0],parts2[1]); // Note: months are 0-based
-			}
-	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
-	       		 
-				var experimentIDImageTag = document.createElement("img");
-				    experimentIDImageTag.setAttribute("name", expts[0].experiments[i].expt_id);
-				    experimentIDImageTag.setAttribute("value", expts[0].experiments[i].expt_id);
-				    experimentIDImageTag.setAttribute("src", "img.svg");
-				var experimentIDLinkTag = document.createElement('a');
-					experimentIDLinkTag.setAttribute("src", '#')
-					experimentIDLinkTag.setAttribute("value", expts[0].experiments[i].expt_id);
-					experimentIDLinkTag.setAttribute("class", "thumbnail col-lg-2 col-md-2 col-sm-3 col-xs-5 experimentselection");
-					
-				var experimentIDHeadingTag = document.createElement('h4');
-					experimentIDHeadingTag.textContent = expts[0].experiments[i].expt_id;
-					experimentIDHeadingTag.setAttribute('style', 'text-align:center;')
-				var experimentIDList = document.createElement("ul");
-				var	experimentIDUserName = document.createElement("li");
-					experimentIDUserName.textContent= expts[0].experiments[i].user;
-					experimentIDList.appendChild(experimentIDUserName);
-				var experimentIDSPP = document.createElement('li');
-					experimentIDSPP.textContent = expts[0].experiments[i].spp;
-					experimentIDList.appendChild(experimentIDSPP);
-				var experimentIDLocation = document.createElement('li');
-					experimentIDLocation.textContent = expts[0].experiments[i].location;
-					experimentIDList.appendChild(experimentIDLocation);
-					// use this to parse the date/time with a datetime object.
-				/*var startTime = parseDateTime(expts[0].experiments[i].start_date, expts[0].experiments[i].start_time);
-				var endTime = parseDateTime(expts[0].experiments[i].end_date, expts[0].experiments[i].end_time);
-				var experimentIDTimeLi = document.createElement("li");
-					experimentIDTimeLi.textContent = startTime.toDateString()+" "+startTime.toTimeString()+"-"+endTime.toDateString()+" "+endTime.toTimeString();
-					*/
-				var experimentIDTimeLiStart = document.createElement("li");
-					experimentIDTimeLiStart.textContent =  "start: " + expts[0].experiments[i].start_date; 
-				var experimentIDTimeLiEnd = document.createElement("li");
-					experimentIDTimeLiEnd.textContent="end: " +expts[0].experiments[i].end_date;
-					experimentIDList.appendChild(experimentIDTimeLiStart);
-					experimentIDList.appendChild(experimentIDTimeLiEnd);
-
-
-					experimentIDLinkTag.appendChild(experimentIDImageTag);
-					experimentIDLinkTag.appendChild(experimentIDHeadingTag);
-					experimentIDLinkTag.appendChild(experimentIDList);
-		    	var experimentIDParentDivTag = document.getElementById("experimentID");
-		    	experimentIDParentDivTag.appendChild(experimentIDLinkTag);
-
-
-		    	var hiddenStreamsDivTag = document.createElement("div");
-				    hiddenStreamsDivTag.setAttribute("id", "hide-"+expts[0].experiments[i].expt_id);
-				    hiddenStreamsDivTag.setAttribute("class", ".hide");
-		    	var hs = document.getElementById("hiddenStreams");
-		    	hs.appendChild(hiddenStreamsDivTag);
-
-		    	for (var d = 0; d < expts[0].experiments[i].timestreams.length; d++) {
-			    	 //expts[0].experiments[i].timestreams[d]
-			    	var streamSelectCheckboxTag = document.createElement("input");
-					    streamSelectCheckboxTag.setAttribute("name", 'streamselect[]');
-					    streamSelectCheckboxTag.setAttribute("type", 'checkbox');
-					    streamSelectCheckboxTag.setAttribute("id", "persistbox-"+i+"-"+d);
-					    streamSelectCheckboxTag.setAttribute("value", expts[0].experiments[i].timestreams[d]);
-					var streamSelectCheckboxLabelTag = document.createElement("label");
-						streamSelectCheckboxLabelTag.setAttribute("class", "checkbox-inline")
-					    streamSelectCheckboxLabelTag.setAttribute('for', "persistbox-"+i+"-"+d);
-					    streamSelectCheckboxLabelTag.textContent= expts[0].experiments[i].timestreams[d].substr(0,expts[0].experiments[i].timestreams[d].indexOf('~'));
-					var checkBoxSpan = document.createElement("span");
-						checkBoxSpan.setAttribute("class", "input-group-addon");
-
-					streamSelectCheckboxLabelTag.appendChild(streamSelectCheckboxTag);
-					checkBoxSpan.appendChild(streamSelectCheckboxLabelTag);
-					hiddenStreamsDivTag.appendChild(checkBoxSpan);
-
-			    	hiddenStreamsDivTag.appendChild(document.createElement("br"));
-
-		    	}
-		    	
-		    	$(hiddenStreamsDivTag).hide();
-			}
-		    if(getCookie("layoutType")!=""){
-		    	$("#layout").val(getCookie("layoutType"));
-		    }
-		    $(":checkbox").on("change", function(){
-		        var checkboxValues = {};
-		        var streamselect = {};
-		        $(":checkbox").each(function(){
-		          checkboxValues[this.id] = this.checked;
-		          if(this.checked==true){
-		          	streamselect[this.id] = this.value;
-		          }
-		        });
-		        $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
-		        $.cookie('streamselect', streamselect, { expires: 7, path: '/' })
-		      });
-		    $("#layout").on("change", function(){
-		    	var layoutType= $("#layout").val();
-		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
-		    });
-		    function repopulateCheckboxes(){
-		        var checkboxValues = $.cookie('checkboxValues');
-		        if(checkboxValues){
-		          Object.keys(checkboxValues).forEach(function(element) {
-		            var checked = checkboxValues[element];
-		            $("#" + element).prop('checked', checked);
-		          });
-		        }
-		      }
-		      $.cookie.json = true;
-		      repopulateCheckboxes();
-
-	 });
- 	</script>
- 	<script type="text/javascript">
- 		
-	 	function getCookie(cname) {
-		    var name = cname + "=";
-		    var ca = document.cookie.split(';');
-		    for(var i=0; i<ca.length; i++) {
-		        var c = ca[i].trim();
-		        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-		    }
-		    return "";
-		}
-		function clearCheckboxCookie(){
-			$(":checkbox").prop("checked", false);
-			$.cookie('checkboxValues', null, { expires: 7, path: '/' });
-			$.cookie('streamselect', null, { expires: 7, path: '/' });
-			$.cookie('experimentID',null, {expires: 7, path: '/'});
-			}
-		function reloadEmbed(){
-			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
-			    $("#TimeGraphDiv").slideUp("fast");
-			    $('#TimeGraphDiv').empty().append(doc);
-			    if(getCookie("streamselect")!="null")
-			    $("#TimeGraphDiv").slideDown("fast");
-		}
-
-		function closeHidden(){
-			    	$("#TimeGraphDiv").slideUp("slow");
-			    	$(".playerclass").slideUp("slow");
-			for(var i = 0; i < expts[0].experiments.length; i++){
-			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("slow");
-			    	}
-			    	
-		}
-		
-		function search(val) {
-		    for ( var i in expts[0].experiments) {
-		        if (expts[0].experiments[i].expt_id.toLowerCase().search(val.toLowerCase()) == -1) {
-		            $("#"+expts[0].experiments[i].expt_id).hideOptionGroup();
-		        }else{
-		        	$("#"+expts[0].experiments[i].expt_id).showOptionGroup();
-		        }
-		        if(String(expts[0].experiments[i].expt_id).toLowerCase()==String(val).toLowerCase()){
-		        	$("#experimentID").val(expts[0].experiments[i].expt_id);
-		        	$("#experimentID").trigger( "click" );
-		        }
-		    }
-		}
-		$.fn.hideOptionGroup = function() {
-		 $(this).hide();
-		 $(this).children().each(function(){
-		 $(this).attr("disabled", "disabled").removeAttr("selected");
-		 });
-		 $(this).appendTo($(this).parent());
-
-		}
-
-		$.fn.showOptionGroup = function() {
-		 $(this).show();    
-		 $(this).children().each(function(){
-		 $(this).removeAttr("disabled" );
-		 });
-		 $(this).prependTo($(this).parent());
-		 $(this).parent().animate({scrollTop:0},0);
-		}
-
-	</script>
+	<script type="text/javascript" src="getJson.js"> </script>
+ 	<script type="text/javascript" src="functions.js"> </script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -295,16 +112,20 @@
 						</div>
 						<br>
 				        <div id="hiddenStreams">
-				        	<!--More stuff goes in here!-->
+				        	<! More stuff goes in here >
 				        </div>
 				    
 				    <div class="btn-group btn-group-justified">
 				    	<div class="btn-group">
-				        	<input type="button" class="btn btn-primary" value="Submit" id="sub" onclick="reloadEmbed();" />
+				        	<input type="button" class="btn btn-primary" value="Submit" id="sub" onclick="reloadEmbed();generatePreview();" />
 				        </div>
 				        <div class="btn-group">
-				        	<input type="button" class="btn btn-danger" value="Clear" id="clear" onclick="clearCheckboxCookie();closeHidden();hideTimeGraph();" />
+				        	<input type="button" class="btn btn-danger" value="Clear" id="clear" onclick="clearCheckboxCookie();closeHidden();" />
 				        </div>
+				    </div>
+				    <br />
+				    <div class="col-md-3" id="hiddenPreview"  style="height:100%; width:100%; text-align:center;">
+				    <! yarr! here be some hidden preview! >
 				    </div>
 				    </fieldset>
 				</form>

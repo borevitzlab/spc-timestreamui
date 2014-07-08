@@ -262,8 +262,6 @@ $number_of_streams = count($streams);
 	if (count($streams)>1&&$layoutType=="gr") {
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
-
-
 		$tsc = 0;
 
 		if(is_square_number($number_of_streams)){
