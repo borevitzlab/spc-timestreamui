@@ -36,157 +36,16 @@
 		#TimeGraphDiv{height: 100%; display: none;}
 	</style>
 
-	<script type="text/javascript">
-
-	var expts;
-	 $.getJSON('../json/expts_pretty.json', function(response){
-	       expts = response;
-	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
-	       		 
-				var experimentIDImageTag = document.createElement("img");
-	    		    //experimentIDImageTag.innerHTML= expts[0].experiments[i].expt_id;
-				    experimentIDImageTag.setAttribute("name", expts[0].experiments[i].expt_id);
-				    experimentIDImageTag.setAttribute("value", expts[0].experiments[i].expt_id);
-				    experimentIDImageTag.setAttribute("src", "img.svg");
-				    // experimentIDImageTag.setAttribute("class", "experimentselection");
-				var experimentIDLinkTag = document.createElement('a')
-					experimentIDLinkTag.setAttribute("class", "thumbnail col-md-3 col-lg-2 col-sm-4 experimentselection");
-					experimentIDLinkTag.setAttribute("value", expts[0].experiments[i].expt_id);
-					experimentIDLinkTag.setAttribute("src", '#')
-					experimentIDLinkTag.appendChild(experimentIDImageTag);
-		    	var experimentIDDivTag = document.getElementById("experimentID");
-		    	experimentIDDivTag.appendChild(experimentIDLinkTag);
-
-
-		    	var hiddenStreamsDivTag = document.createElement("div");
-				    hiddenStreamsDivTag.setAttribute("id", "hide-"+expts[0].experiments[i].expt_id);
-				    hiddenStreamsDivTag.setAttribute("class", ".hide");
-		    	var hs = document.getElementById("hiddenStreams");
-		    	hs.appendChild(hiddenStreamsDivTag);
-
-		    	for (var d = 0; d < expts[0].experiments[i].timestreams.length; d++) {
-			    	 //expts[0].experiments[i].timestreams[d]
-			    	var streamSelectCheckboxTag = document.createElement("input");
-					    streamSelectCheckboxTag.setAttribute("name", 'streamselect[]');
-					    streamSelectCheckboxTag.setAttribute("type", 'checkbox');
-					    streamSelectCheckboxTag.setAttribute("id", "persistbox-"+i+"-"+d);
-					    streamSelectCheckboxTag.setAttribute("value", expts[0].experiments[i].timestreams[d]);
-					var streamSelectCheckboxLabelTag = document.createElement("label");
-						streamSelectCheckboxLabelTag.setAttribute("class", "checkbox-inline")
-					    streamSelectCheckboxLabelTag.setAttribute('for', "persistbox-"+i+"-"+d);
-					    streamSelectCheckboxLabelTag.textContent= expts[0].experiments[i].timestreams[d].substr(0,expts[0].experiments[i].timestreams[d].indexOf('~'));
-					var checkBoxSpan = document.createElement("span");
-						checkBoxSpan.setAttribute("class", "input-group-addon");
-
-					streamSelectCheckboxLabelTag.appendChild(streamSelectCheckboxTag);
-					checkBoxSpan.appendChild(streamSelectCheckboxLabelTag);
-					hiddenStreamsDivTag.appendChild(checkBoxSpan);
-
-			    	hiddenStreamsDivTag.appendChild(document.createElement("br"));
-
-		    	}
-		    	
-		    	$(hiddenStreamsDivTag).hide();
-			}
-		    if(getCookie("layoutType")!=""){
-		    	$("#layout").val(getCookie("layoutType"));
-		    }
-		    $(":checkbox").on("change", function(){
-		        var checkboxValues = {};
-		        var streamselect = {};
-		        $(":checkbox").each(function(){
-		          checkboxValues[this.id] = this.checked;
-		          if(this.checked==true){
-		          	streamselect[this.id] = this.value;
-		          }
-		        });
-		        $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
-		        $.cookie('streamselect', streamselect, { expires: 7, path: '/' })
-		      });
-		    $("#layout").on("change", function(){
-		    	var layoutType= $("#layout").val();
-		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
-		    });
-		    function repopulateCheckboxes(){
-		        var checkboxValues = $.cookie('checkboxValues');
-		        if(checkboxValues){
-		          Object.keys(checkboxValues).forEach(function(element) {
-		            var checked = checkboxValues[element];
-		            $("#" + element).prop('checked', checked);
-		          });
-		        }
-		      }
-		      $.cookie.json = true;
-		      repopulateCheckboxes();
-		    
-	 });
+	<script type="text/javascript" src="getJson.js">
  	</script>
- 	<script type="text/javascript">
-	 	function getCookie(cname) {
-		    var name = cname + "=";
-		    var ca = document.cookie.split(';');
-		    for(var i=0; i<ca.length; i++) {
-		        var c = ca[i].trim();
-		        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-		    }
-		    return "";
-		}
-		function clearCheckboxCookie(){
-			$(":checkbox").prop("checked", false);
-			$.cookie('checkboxValues', null, { expires: 7, path: '/' });
-			$.cookie('streamselect', null, { expires: 7, path: '/' });
-			$.cookie('experimentID',null, {expires: 7, path: '/'});
-			}
-		function reloadEmbed(){
-			    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
-			    $("#TimeGraphDiv").slideUp("fast");
-			    $('#TimeGraphDiv').empty().append(doc);
-			    if(getCookie("streamselect")!="null")
-			    $("#TimeGraphDiv").slideDown("fast");
-		}
+ 	<script type="text/javascript" src="functions.js">
 
-		function closeHidden(){
-			    	$("#TimeGraphDiv").slideUp("slow");
-			    	$(".playerclass").slideUp("slow");
-			for(var i = 0; i < expts[0].experiments.length; i++){
-			    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("slow");
-			    	}
-			    	
-		}
-		
-		function search(val) {
-		    for ( var i in expts[0].experiments) {
-		        if (expts[0].experiments[i].expt_id.toLowerCase().search(val.toLowerCase()) == -1) {
-		            $("#"+expts[0].experiments[i].expt_id).hideOptionGroup();
-		        }else{
-		        	$("#"+expts[0].experiments[i].expt_id).showOptionGroup();
-		        }
-		        if(String(expts[0].experiments[i].expt_id).toLowerCase()==String(val).toLowerCase()){
-		        	$("#experimentID").val(expts[0].experiments[i].expt_id);
-		        	$("#experimentID").trigger( "click" );
-		        }
-		    }
-		}
-		$.fn.hideOptionGroup = function() {
-		 $(this).hide();
-		 $(this).children().each(function(){
-		 $(this).attr("disabled", "disabled").removeAttr("selected");
-		 });
-		 $(this).appendTo($(this).parent());
-
-		}
-
-		$.fn.showOptionGroup = function() {
-		 $(this).show();    
-		 $(this).children().each(function(){
-		 $(this).removeAttr("disabled" );
-		 });
-		 $(this).prependTo($(this).parent());
-		 $(this).parent().animate({scrollTop:0},0);
-		}
 	</script>
 
 	<script type="text/javascript">
+
+	//animation stuff
+
 		$(document).ready(function(){
 			$("#layoutType").val("gr");
 
