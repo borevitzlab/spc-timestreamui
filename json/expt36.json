@@ -5,11 +5,18 @@
         "end_date": "2013-07-31",
         "end_time": "00:00",
         "expt_id": "BVZ0036",
+        "user": "user",
+        "spp": "spp",
+        "location":"location",
         "start_date": "2014-06-22",
         "start_time": "00:00",
         "timestreams": [
-	  "BVZ0036-GC02L-C01~fullres-orig",
-	  "BVZ0036-GC02L-C01~fullres-corr",
+      	  "BVZ0036-GC02L-C01~fullres-orig",
+      	  "BVZ0036-GC02L-C01~fullres-corr"
+        ],
+        "thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/TimeStreams/Borevitz/BVZ0036/BVZ0036-GC02L-C01~fullres-corr/_data/BVZ0036-GC02L-C01~320-thumb-corr.jpg",
+          "http://phenocam.anu.edu.au/cloud/a_data/TimeStreams/Borevitz/BVZ0036/BVZ0036-GC02L-C01~fullres-orig/_data/BVZ0036-GC02L-C01~320-thumb-orig.jpg"
         ]
       }
     ]

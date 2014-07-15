@@ -26,8 +26,8 @@ if ($_COOKIE['streamselect'] != "null") {
 }
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
-$timestreams_decoded = json_decode(file_get_contents("../json/timestreams_pretty.json"));
+$expts_decoded = json_decode(file_get_contents("../json/expt36.json"));
+$timestreams_decoded = json_decode(file_get_contents("../json/ts_exp36.json"));
 $number_of_streams = count($streams);
 //echo $streams[1];
 // useful functions

@@ -9,7 +9,7 @@ function getCookie(cname) {
     return "";
 }
 
-	$.getJSON('../json/expts_pretty.json', function(response){
+	$.getJSON('../json/expt36.json', function(response){
 	       expts = response;
 	       function parseDateTime(input1, input2) {
 			  var parts1 = input1.split('-');
@@ -22,9 +22,10 @@ function getCookie(cname) {
 				var experimentIDImageTag = document.createElement("img");
 				    experimentIDImageTag.setAttribute("name", expts[0].experiments[i].expt_id);
 				    experimentIDImageTag.setAttribute("value", expts[0].experiments[i].expt_id);
-				    experimentIDImageTag.setAttribute("src", "img.svg");
+				    experimentIDImageTag.setAttribute("src", expts[0].experiments[i].thumbnails[0]);
+				    experimentIDImageTag.setAttribute("width", "100%");
 				var experimentIDLinkTag = document.createElement('a');
-					experimentIDLinkTag.setAttribute("src", '#')
+					experimentIDLinkTag.setAttribute("src", '#');
 					experimentIDLinkTag.setAttribute("value", expts[0].experiments[i].expt_id);
 					experimentIDLinkTag.setAttribute("class", "thumbnail col-lg-2 col-md-2 col-sm-3 col-xs-5 experimentselection");
 					
