@@ -1,15 +1,3 @@
-<?php
-session_start(); 
-if(isset($_POST['layoutType'])&&!empty($_POST['layoutType'])){
-	$_SESSION['layoutType'] = $_POST['layoutType'];
-}
-if(isset($_POST['streamselect'])&&!empty($_POST['streamselect'])){
-	$_SESSION['streamselect'] = $_POST['streamselect'];
-}
-if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
-	$_SESSION['experimentID'] = $_POST['experimentID'];
-}
-?>
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <html lang="en">
@@ -23,152 +11,148 @@ if(isset($_POST['experimentID'])&&!empty($_POST['experimentID'])){
 	<title></title>
 	<script src="AC_OETags.js" language="javascript"></script>
 
-	<!--  BEGIN Browser History required section -->
+	<!--  BEGIN Browser required section -->
 	<script src="history/history.js" language="javascript"></script>
-	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<!--  END Browser History required section -->
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!--  END Browser required section -->
 
 	<style>
 		.hide{ display: none; }
-
+		.playerclass{display: none; }
+		html,body
+		{
+		  height: 100%;
+		}
+		a.experimentselection{
+			text-decoration: none;
+		}
+		.container-fluid{height: 100%;}
+		#TimeGraphDiv{height: 100%; display: none;    overflow:hidden;}
 	</style>
 
-
+	<script type="text/javascript" src="getJson.js"> </script>
+ 	<script type="text/javascript" src="functions.js"> </script>
 
 	<script type="text/javascript">
-	function getCookie(cname) {
-	    var name = cname + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i=0; i<ca.length; i++) {
-	        var c = ca[i].trim();
-	        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-	    }
-	    return "";
-	}
+		$(document).ready(function(){
+			$("#layoutType").val("gr");
 
-	var expts;
-	 $.getJSON('../json/expts_pretty.json', function(response){
-	       expts = response;
-	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
-				var element = document.createElement("option");
-	    		    element.innerHTML= expts[0].experiments[i].expt_id;
-				    element.setAttribute("name", expts[0].experiments[i].expt_id);
+				$("#sub").click(function () {
+					if($("#TimeGraphDiv").css('display')=='none'){
+						$("#TimeGraphDiv").slideDown("slow");
+					}
+				});
 
-				    element.setAttribute("class", "form-control");
-				    element.setAttribute("value", expts[0].experiments[i].expt_id);
-		    	var foo = document.getElementById("experimentID");
-		    	foo.appendChild(element);
+			    // $("#experimentID").click(function(){
+			    	 $("#experimentID").delegate('.experimentselection', 'click', function(){
+			    	clearCheckboxCookie();
+			    	reloadEmbed();
+			    	var eid = $(this).attr("value");
+			    	$.cookie('experimentID', eid, { expires: 7, path: '/' });
+			    	if($(".playerclass").css('display') == 'none' ){
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    			if(expts[0].experiments[i].expt_id == $(this).attr("value")) {
+			    				$("#hide-"+expts[0].experiments[i].expt_id).show();
+			    			}
+			    		}
+			    		$(".playerclass").slideDown("slow");
+			    	}else{
+			    		$(".playerclass").slideUp("fast");
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    			$("#hide-"+expts[0].experiments[i].expt_id).hide();
+				    		if(expts[0].experiments[i].expt_id == $(this).attr("value")){
+				    			$("#hide-"+expts[0].experiments[i].expt_id).hide();
+				    		}
+			    		}
+			    		
+			    		$(".playerclass").slideDown("slow");
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    			if(expts[0].experiments[i].expt_id == $(this).attr("value")){
+			    				$("#hide-"+expts[0].experiments[i].expt_id).show();
 
+			    			}
+			    		}
+			    		
+			    	}
 
-		    	var element2 = document.createElement("div");
-				    element2.setAttribute("id", "hide-"+expts[0].experiments[i].expt_id);
-				    element2.setAttribute("class", ".hide");
-		    	var hs = document.getElementById("hiddenStreams");
-		    	hs.appendChild(element2);
+			    });
 
-		    	for (var d = 0; d < expts[0].experiments[i].timestreams.length; d++) {
-			    	 //expts[0].experiments[i].timestreams[d]
-			    	var ele = document.createElement("input");
-					    ele.setAttribute("name", 'streamselect[]');
-					    ele.setAttribute("type", 'checkbox');
-					    ele.setAttribute("id", "persistbox-"+i+"-"+d);
-					    ele.setAttribute("value", expts[0].experiments[i].timestreams[d]);
-					var label = document.createElement("label");
-						label.setAttribute("class", "checkbox-inline")
-					    label.setAttribute('for', "persistbox-"+i+"-"+d);
-					    label.textContent= expts[0].experiments[i].timestreams[d].substr(0,expts[0].experiments[i].timestreams[d].indexOf('~'));
-					 label.appendChild(ele);
-					element2.appendChild(label);
-			    	
-			    	element2.appendChild(document.createElement("br"));
-		    	}
-		    	$(element2).hide();
-			}
-			if(getCookie("experimentID")!=""){
-		    	$("#experimentID").val(getCookie("experimentID"));
-		    }
-		    if(getCookie("layoutType")!=""){
-		    	$("#layoutType").val(getCookie("layoutType"));
-		    }
-		    $(":checkbox").on("change", function(){
-		        var checkboxValues = {};
-		        $(":checkbox").each(function(){
-		          checkboxValues[this.id] = this.checked;
-		        });
-		        $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
-		      });
-
-		    function repopulateCheckboxes(){
-		        var checkboxValues = $.cookie('checkboxValues');
-		        if(checkboxValues){
-		          Object.keys(checkboxValues).forEach(function(element) {
-		            var checked = checkboxValues[element];
-		            $("#" + element).prop('checked', checked);
-		          });
-		        }
-		      }
-		      $.cookie.json = true;
-		      repopulateCheckboxes();
-	 });
-
-
- 	</script></script>
+			});
+ 	</script>
 
 	</head>
-	<body>
-		<form id="form" method="POST" action="?" role="form" class="form-inline">
-		    <fieldset>
-		        <div class="form-group">
-		            <label class="sr-only" for="layoutType">Layout: </label>
-		            <select multiple class="form-control" name="layoutType" id="layoutType" width="140px%">
-		                <option class="form-control" value="vr">Vertical</option>
-		                <option class="form-control" value="hr">Horizontal</option>
-		                <option class="form-control" value="gr">Grid</option>
-		            </select>
-		        </div>
-		        <div class="form-group" id="experimentselect">
-		        	<label class="sr-only" for="experimentID">Experiment: </label>
-		        	<select multiple class="form-control" name="experimentID" id="experimentID" width="140px">
-		        		<!--stuff goes in here!-->
-		        	</select>
-		        </div>
-		        <div id="hiddenStreams">
-		        	<!--More stuff goes in here!-->
-		        </div>
-		    <div class="submit">
-		        <input type="submit" class="btn btn-default" value="Submit" />
-		    </div>
-		    </fieldset>
-		</form>
+	<?php include "globals.php"; echo "<body style='background-color:#".$bg_color."'>" ?>
+	<div class="container-fluid">
+		<div class="col-md-12">
+		<div class="playerclass">
+			<div class="col-md-3">
+				<br>
+				<form id="form" onsubmit="reloadEmbed();showTimegraph();" role="form" class="form-inline">
+				    <fieldset>
+				    <div class="row">
+				   		<div class="col-md-3">
+						        <div class="form-group" style="width:300px;">
+						            <label class="sr-only" for="layoutType">Layout: </label>
+						            <select multiple class="form-control" name="layoutType" id="layout" style="width:100%;">
+						                <option class="form-control" value="vr">Vertical</option>
+						                <option class="form-control" value="hr">Horizontal</option>
+						                <option class="form-control" value="gr">Grid</option>
+						            </select>
+						        </div>
+						    </div>
+						</div>
+						<br>
+				        <div id="hiddenStreams">
+				        	<! More stuff goes in here >
+				        </div>
+				    
+				    <div class="btn-group btn-group-justified">
+				    	<div class="btn-group">
+				        	<input type="button" class="btn btn-primary" value="Submit" id="sub" onclick="reloadEmbed();generatePreview();" />
+				        </div>
+				        <div class="btn-group">
+				        	<input type="button" class="btn btn-danger" value="Clear" id="clear" onclick="clearCheckboxCookie();closeHidden();" />
+				        </div>
+				    </div>
+				    <br />
+				    <div class="col-md-3" id="hiddenPreview"  style="height:100%; width:100%; text-align:center;">
+				    <! yarr! here be some hidden preview! >
+				    </div>
+				    </fieldset>
+				</form>
 
-		<div class="container-fluid" id="TimeGraphDiv">
-		  	<embed id="TimeGraphFlex" src="http://phenocam.anu.edu.au/TimeGraphFlex.swf?license=e38df74fcb0d2d3044479ddf5ceedad8&config=generateTSConfig.php"
-			  	width="100%" height="1000px">
-			</embed>
+				<br />
+			</div>
 		</div>
-		</body>
+		<div onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';" id="TimeGraphDiv" class="col-md-9">
+		  		<embed name="timegraph" class='TimeGraphFlex' id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
+				</embed>
+		</div>
+	</div>
+		<!div class="col-md-12"><!input name="streamsearch" type="text" class="form-control" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;"><!/div>
+		<div class='row'>
+	        <div id="experimentselect" >
+        		
+	        	<label class="sr-only" for="experimentID">Experiment: </label>
+	        	<div id="experimentID">
+	        		<! stuff in here >
+	        	</div>
+	        </div>
+			        	
+		</div>
 
-	<script type="text/javascript">
-	$(document).ready(function(){
-		    $("#experimentID").change(function(){
-		    	for(var i = 0; i < expts[0].experiments.length; i++){
-		    		if(expts[0].experiments[i].expt_id == $("#experimentID").val()){
-		    			$("#hide-"+expts[0].experiments[i].expt_id).slideDown("slow");
-		    		}else{
-		    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("fast");
-		    		}
-		    	}
-		    });
-
-		});
- 	</script>
+	</div>
+		<div><embed src="generateTSConfig.php"></div>
+<!2498382f5249277454ec3a716f31dfea>
+	</div>
+	</body>
 	</html>

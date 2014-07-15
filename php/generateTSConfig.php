@@ -1,20 +1,29 @@
-<?php;
-session_start();
+<?php
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
+include "globals.php";
 
+date_default_timezone_set('UTC');
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
 $expire=time()+60*60*24*30;
-
-$layoutType = $_SESSION["layoutType"];
-setcookie("layoutType", $layoutType, $expire);
-$streams = $_SESSION['streamselect'];
-$experiment_ID = $_SESSION['experimentID'];
-	setcookie("experimentID", $_SESSION['experimentID'], $expire);
-// layoutType = hr horizontal
-// layoutType = vr vertical
-// layoutType = gr grid
+if (isset($_COOKIE['layoutType'])){
+	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
+	$layoutType = $layoutTypeAr[0];
+}else{
+	 $layoutType = null;
+}
+if (isset($_COOKIE['experimentID'])) {
+	$experimentID = json_decode($_COOKIE['experimentID']);
+}else{
+	$experimentID = null;
+}
+if ($_COOKIE['streamselect'] != "null") {
+	$streamsa = json_decode($_COOKIE['streamselect'], true);
+	$streams = array_values($streamsa);
+}else{
+	$streams = array();
+}
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/expts_pretty.json"));
@@ -68,36 +77,35 @@ $number_of_streams = count($streams);
 	}
 
 // all the timecam node stuff and xml setup
+
+	//echo $experimentID;
+
+		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
+			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
+				$experiment_index=$i;
+			}else{
+				$experiment_index = 0;
+			} 
+		}
+		
 		$xml = new SimpleXMLElement($xmlstr);
 		// setting the config name to the expt id (assuming all the config files)
-		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experimentID]->expt_id;
+		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
+		$xml->globals['background_color'] = "0x".$bg_color;
+		$start_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->start_date.$expts_decoded[0]->experiments[$experiment_index]->start_time);
+		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
 
-		//should functionalise this date string screwery.
-		$full_backwards_start_date = $expts_decoded[0]->experiments[$experimentID]->start_date;
-		$start_day = substr($full_backwards_start_date, 8, 2);
-		$start_month = substr($full_backwards_start_date, 5, 2);
-		$start_year = substr($full_backwards_start_date, 0 , 4);
-		// 
-		// TODO:change this to be got from the json
-		// 
-		$start_time = $expts_decoded[0]->experiments[$experimentID]->start_time;
-
-		$full_backwards_end_date = $expts_decoded[0]->experiments[$experimentID]->end_date;
-		$end_day = substr($full_backwards_end_date, 8, 2);
-		$end_month = substr($full_backwards_end_date, 5, 2);
-		$end_year = substr($full_backwards_end_date, 0 , 4);
-		$end_time = $expts_decoded[0]->experiments[$experimentID]->end_time;
-
-		// more date string concat screwery setting up the dates for the globals
-		$xml->globals['date_start'] = "$start_day"."/"."$start_month"."/"."$start_year"." "."$start_time"." PM";
-		$xml->globals['date_end'] = "$end_day"."/"."$end_month"."/"."$end_year"." "."$end_time"." PM";
-
+		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
+		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
+		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y h:i:s A');
+		$xml->globals['date_end'] = date_format($end_date_time, 'm/d/Y h:i:s A');
 		// iterating through the first experiment and then the list of timestreams
 		// change this to POST/GET user selection later
 		for ($check=0; $check < count($streams); $check++) { 
 			for ($i=0; $i < count($timestreams_decoded); $i++) { 
 				// check against the string names of the timestreams to make a list of the streams 
 				// available for the experiment
+				
 				if ( strcmp($streams[$check], $timestreams_decoded[$i]->name) ==0) {
 					// add new xml child under "components".
 
@@ -108,7 +116,7 @@ $number_of_streams = count($streams);
 					// "exploding" the stream name for the title
 					list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
 					// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
-					$datapath = substr($timestreams_decoded[$i]->webroot, 6);
+					$datapath =$timestreams_decoded[$i]->webroot;
 
 					// ALL the attribute setting!
 					$tc->addAttribute('id', $timestreams_decoded[$i]->name."-".$check); //this lets the script allow doubles.
@@ -117,11 +125,11 @@ $number_of_streams = count($streams);
 					
 
 					// If stream_name and stream_name_hires is important and breaks things, look HERE1 to fix
-					$tc->addAttribute('url_image_list', "$datapath"."~640/full/");
+					$tc->addAttribute('url_image_list', $datapath.$timestreams_decoded[$i]->name);
 					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name);
 
-					$tc->addAttribute('url_hires', "$datapath"."full/");
-					$tc->addAttribute('stream_name_hires', $timestreams_decoded->name."~hires");
+					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name);
+					$tc->addAttribute('stream_name_hires', $timestreams_decoded[$i]->name);
 
 					// 
 					// TODO: push these changes to the json schema/get from json
@@ -180,7 +188,7 @@ $number_of_streams = count($streams);
 				$cam_panel = $cam_row->addChild('panel');
 				$cam_panel->addAttribute('height', "100%");
 				$cam_panel->addAttribute('width', "100%");
-				$cam_panel->addAttribute('components_node_id', $streams[0]);
+				$cam_panel->addAttribute('components_node_id', $streams[0]."-0");
 	
 		$timebar_panel = $cam_column->addChild('panel');
 		$timebar_panel->addAttribute('height', '25px');
@@ -254,8 +262,6 @@ $number_of_streams = count($streams);
 	if (count($streams)>1&&$layoutType=="gr") {
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
-
-
 		$tsc = 0;
 
 		if(is_square_number($number_of_streams)){
