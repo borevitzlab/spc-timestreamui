@@ -126,10 +126,11 @@ $number_of_streams = count($streams);
 
 					// explodey for the lowres
 					$loresname = explode('~', $timestreams_decoded[$i]->name)[0].'~'.$timestreams_decoded[$i]->width.'-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
+					echo $loresname."<br>";
 					$tc->addAttribute('url_image_list', $datapath.$loresname);
 					$tc->addAttribute('stream_name', $loresname);
 					$hiresname = explode('~', $timestreams_decoded[$i]->name)[0].'~'.$timestreams_decoded[$i]->width_hires.'-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
-
+					echo $hiresname."<br>";
 					$tc->addAttribute('url_hires', $datapath.$hiresname);
 					$tc->addAttribute('stream_name_hires', $hiresname);
 
