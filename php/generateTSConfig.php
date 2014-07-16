@@ -124,9 +124,10 @@ $number_of_streams = count($streams);
 					$tc->addAttribute('title', $prefixname);
 					
 
-					// If stream_name and stream_name_hires is important and breaks things, look HERE1 to fix
-					$tc->addAttribute('url_image_list', $datapath.$timestreams_decoded[$i]->name);
-					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name);
+					// explodey for the lowres
+					$loresname = explode('~', $timestreams_decoded[$i]->name)[0].'~lowres-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
+					$tc->addAttribute('url_image_list', $datapath.$loresname);
+					$tc->addAttribute('stream_name', $loresname);
 
 					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name);
 					$tc->addAttribute('stream_name_hires', $timestreams_decoded[$i]->name);
