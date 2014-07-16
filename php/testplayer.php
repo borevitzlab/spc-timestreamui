@@ -94,7 +94,7 @@
 	<div class="container-fluid">
 		<div class="col-md-12">
 		<div class="playerclass">
-			<div class="col-md-3">
+			<div class="col-md-3" style="padding:0px;">
 				<br>
 				<form id="form" onsubmit="reloadEmbed();showTimegraph();" role="form" class="form-inline">
 				    <fieldset>
@@ -140,14 +140,17 @@
 	</div>
 		<!div class="col-md-12"><!input name="streamsearch" type="text" class="form-control" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;"><!/div>
 		<div class='row'>
-	        <div id="experimentselect" >
-        		
-	        	<label class="sr-only" for="experimentID">Experiment: </label>
-	        	<div id="experimentID">
-	        		<! stuff in here >
-	        	</div>
-	        </div>
-			        	
+			<div class="col-md-12">
+				<div class="col-md-12">
+			        <div id="experimentselect" >
+			        	<label class="sr-only" for="experimentID">Experiment: </label>
+			        	<div id="experimentID">
+			        	<br>
+			        		<! stuff in here >
+			        	</div>
+			        </div>
+				</div>
+			</div>
 		</div>
 
 	</div>
