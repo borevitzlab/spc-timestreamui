@@ -124,13 +124,13 @@ $number_of_streams = count($streams);
 					$tc->addAttribute('title', $prefixname);
 					
 
-					// explodey for the lowres
-					$loresname = explode('~', $timestreams_decoded[$i]->name)[0].'~'.$timestreams_decoded[$i]->width.'-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
-					echo $loresname."<br>";
+					// explodey for the res
+					$loresname = str_replace("fullres", $timestreams_decoded[$i]->width, $timestreams_decoded[$i]->name);
 					$tc->addAttribute('url_image_list', $datapath.$loresname);
 					$tc->addAttribute('stream_name', $loresname);
-					$hiresname = explode('~', $timestreams_decoded[$i]->name)[0].'~'.$timestreams_decoded[$i]->width_hires.'-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
-					echo $hiresname."<br>";
+					
+					
+					$hiresname = str_replace("fullres", $timestreams_decoded[$i]->width_hires, $timestreams_decoded[$i]->name);
 					$tc->addAttribute('url_hires', $datapath.$hiresname);
 					$tc->addAttribute('stream_name_hires', $hiresname);
 
