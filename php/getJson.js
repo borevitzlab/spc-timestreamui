@@ -94,7 +94,11 @@ function getCookie(cname) {
 		    	$(hiddenStreamsDivTag).hide();
 			}
 		    if(getCookie("layoutType")!=""){
-		    	$("#layout").val(getCookie("layoutType"));
+		    	var lyt = $.parseJSON(decodeURIComponent(getCookie("layoutType")));
+		    	$("#layout").val(lyt);
+		    }else{
+		    	var lyt = "hr";
+		    	$("#layout").val(lyt);
 		    }
 		    $(":checkbox").on("change", function(){
 		        var checkboxValues = {};
@@ -110,6 +114,7 @@ function getCookie(cname) {
 		      });
 		    $("#layout").on("change", function(){
 		    	var layoutType= $("#layout").val();
+
 		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
 		    });
 		    function repopulateCheckboxes(){
