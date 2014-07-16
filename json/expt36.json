@@ -9,7 +9,7 @@
         "spp": "Arabidopsis",
         "location":"Climatron",
         "start_date": "2014-06-22",
-        "start_time": "2014-07-12",
+        "start_time": "00:00",
         "timestreams": [
       	  "BVZ0036-GC02L-C01~fullres-orig",
       	  "BVZ0036-GC02L-C01~fullres-corr"

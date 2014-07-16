@@ -79,7 +79,7 @@ function getCookie(cname) {
 					var streamSelectCheckboxLabelTag = document.createElement("label");
 						streamSelectCheckboxLabelTag.setAttribute("class", "checkbox-inline")
 					    streamSelectCheckboxLabelTag.setAttribute('for', "persistbox-"+i+"-"+d);
-					    streamSelectCheckboxLabelTag.textContent= expts[0].experiments[i].timestreams[d].substr(0,expts[0].experiments[i].timestreams[d].indexOf('~'));
+					    streamSelectCheckboxLabelTag.textContent = expts[0].experiments[i].timestreams[d].split("~")[0] + "-" + expts[0].experiments[i].timestreams[d].split("~")[1].split('-')[1];
 					var checkBoxSpan = document.createElement("span");
 						checkBoxSpan.setAttribute("class", "input-group-addon");
 

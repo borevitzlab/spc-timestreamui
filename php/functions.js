@@ -126,7 +126,7 @@ function generatePreview(){
                     thispreviewhref.setAttribute("class","thumbnail");
                     thispreviewhref.setAttribute("href", '#');
                     thispreviewdiv.setAttribute("style", "width:100%; float:left; height: " + (100/prevar.length) + "%");
-                    thispreviewhref.textContent = prevar[0].split("~")[0];
+                    thispreviewhref.textContent = prevar[0].split("~")[0] + "-" + prevar[0].split("~")[1].split('-')[1];
                     thispreviewdiv.appendChild(thispreviewhref);
                     hiddenPreview.appendChild(thispreviewdiv);
         }
@@ -138,7 +138,7 @@ function generatePreview(){
                     thispreviewhref.setAttribute("class","thumbnail");
                     thispreviewhref.setAttribute("href", '#');
                     thispreviewdiv.setAttribute("style", "width:" +(100/prevar.length)+"%; height:100%; float:left;");
-                    thispreviewhref.textContent = prevar[i].split("~")[0];
+                    thispreviewhref.textContent = prevar[i].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
                     thispreviewdiv.appendChild(thispreviewhref);
                     hiddenPreview.appendChild(thispreviewdiv);
             }
@@ -151,7 +151,7 @@ function generatePreview(){
                     thispreviewhref.setAttribute("class","thumbnail");
                     thispreviewhref.setAttribute("href", '#');
                     thispreviewdiv.setAttribute("style", "width:100%; float:left; height: " + (100/prevar.length) + "%");
-                    thispreviewhref.textContent = prevar[i].split("~")[0];
+                    thispreviewhref.textContent = prevar[i].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
                     thispreviewdiv.appendChild(thispreviewhref);
                     hiddenPreview.appendChild(thispreviewdiv);
             }
@@ -167,7 +167,7 @@ function generatePreview(){
                             thispreviewhref.setAttribute("class","thumbnail");
                             thispreviewhref.setAttribute("href", '#');
                             thispreviewdiv.setAttribute("style", "width:" +(100/Math.sqrt(prevar.length))+"%; float:left; height: " + (100/Math.sqrt(prevar.length)) + "%");
-                            thispreviewhref.textContent = prevar[delta].split("~")[0];
+                            thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];;
                             thispreviewdiv.appendChild(thispreviewhref);
                             hiddenPreview.appendChild(thispreviewdiv);
                             delta++;
@@ -189,7 +189,7 @@ function generatePreview(){
                                     thispreviewhref.setAttribute("class","thumbnail");
                                     thispreviewhref.setAttribute("href", '#');
                                     thispreviewdiv.setAttribute("style", "width:" +(100/num_col_sub)+"%; float:left; height: " + (100/number_of_rows) + "%");
-                                    thispreviewhref.textContent = prevar[delta].split("~")[0];
+                                    thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
                                     thispreviewdiv.appendChild(thispreviewhref);
                                     hiddenPreview.appendChild(thispreviewdiv);
                                     delta++;
@@ -201,7 +201,7 @@ function generatePreview(){
                                     thispreviewhref.setAttribute("class","thumbnail");
                                     thispreviewhref.setAttribute("href", '#');
                                     thispreviewdiv.setAttribute("style", "width:" +(100/number_of_columns)+"%; float:left; height: " + (100/number_of_rows) + "%");
-                                    thispreviewhref.textContent = prevar[delta].split("~")[0];
+                                    thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];;
                                     thispreviewdiv.appendChild(thispreviewhref);
                                     hiddenPreview.appendChild(thispreviewdiv);
                                 delta++;
@@ -220,7 +220,7 @@ function generatePreview(){
                                 thispreviewhref.setAttribute("class","thumbnail");
                                 thispreviewhref.setAttribute("href", '#');
                                 thispreviewdiv.setAttribute("style", "width:" +(100/number_of_columns)+"%; float:left; height: " + (100/number_of_rows) + "%");
-                                thispreviewhref.textContent = prevar[delta].split("~")[0];
+                                thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
                                 thispreviewdiv.appendChild(thispreviewhref);
                                 hiddenPreview.appendChild(thispreviewdiv);
                             delta++;

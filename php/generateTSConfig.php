@@ -125,12 +125,13 @@ $number_of_streams = count($streams);
 					
 
 					// explodey for the lowres
-					$loresname = explode('~', $timestreams_decoded[$i]->name)[0].'~lowres-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
+					$loresname = explode('~', $timestreams_decoded[$i]->name)[0].'~'.$timestreams_decoded[$i]->width.'-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
 					$tc->addAttribute('url_image_list', $datapath.$loresname);
 					$tc->addAttribute('stream_name', $loresname);
+					$hiresname = explode('~', $timestreams_decoded[$i]->name)[0].'~'.$timestreams_decoded[$i]->width_hires.'-'.explode('-',explode('~', $timestreams_decoded[$i]->name)[1])[1];
 
-					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name);
-					$tc->addAttribute('stream_name_hires', $timestreams_decoded[$i]->name);
+					$tc->addAttribute('url_hires', $datapath.$hiresname);
+					$tc->addAttribute('stream_name_hires', $hiresname);
 
 					// 
 					// TODO: push these changes to the json schema/get from json
