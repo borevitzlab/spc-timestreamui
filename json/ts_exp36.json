@@ -25,7 +25,7 @@
     "height_hires": 1080,
     "period_in_minutes": 20,
     "utc": false,
-    "image_type": "PNG",
+    "image_type": "JPG",
     "timezone": 0,
     "webroot": "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/bvz0036/"
   }
