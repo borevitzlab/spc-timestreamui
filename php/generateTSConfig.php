@@ -29,7 +29,7 @@ if ($_COOKIE['streamselect'] != "null") {
 $expts_decoded = json_decode(file_get_contents("../json/expt36.json"));
 $timestreams_decoded = json_decode(file_get_contents("../json/ts_exp36.json"));
 $number_of_streams = count($streams);
-//echo $streams[1];
+// echo $number_of_streams;
 // useful functions
 	// checks to see whether a number is whole
 	function is_whole_number($var){
