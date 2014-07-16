@@ -99,6 +99,7 @@ function getCookie(cname) {
 		    }else{
 		    	var lyt = "hr";
 		    	$("#layout").val(lyt);
+		    	$.cookie('layoutType', lyt, { expires: 7, path: '/' });
 		    }
 		    $(":checkbox").on("change", function(){
 		        var checkboxValues = {};
