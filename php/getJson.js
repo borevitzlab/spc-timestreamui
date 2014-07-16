@@ -97,9 +97,11 @@ function getCookie(cname) {
 		    	var lyt = $.parseJSON(decodeURIComponent(getCookie("layoutType")));
 		    	$("#layout").val(lyt);
 		    }else{
-		    	var lyt = "hr";
+		    	var lyt = "gr";
 		    	$("#layout").val(lyt);
-		    	$.cookie('layoutType', lyt, { expires: 7, path: '/' });
+				var layoutType= $("#layout").val();
+				$.cookie.json = true;
+		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' });
 		    }
 		    $(":checkbox").on("change", function(){
 		        var checkboxValues = {};
