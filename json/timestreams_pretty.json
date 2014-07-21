@@ -12,7 +12,36 @@
       "utc": false,
       "image_type": "JPG",
       "timezone": 0,
-      "webroot": "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/bvz0006/"
+      "webroot": "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/bvz0006/",
+      "graph_data":[
+        "area_data":[
+            "label":"Area",
+            "side":"left",
+            "range_top":"100",
+            "range_bottom":"0",
+            "color":"red",
+            "dataset_column_daily":"dataset_column_daily",
+            "dataset_column":"dataset_column",
+            "plot_method_daily": "plot_method_daily",
+            "plot_method":"plot_method",
+            "plot_line_method_daily": "plot_line_method_daily",
+            "plot_line_method":"plot_line_method"
+
+        ],
+        "temp_data":[
+            "label":"Temp",
+            "side":"left",
+            "range_top":"100",
+            "range_bottom":"0",
+            "color":"red",
+            "dataset_column_daily":"dataset_column_daily",
+            "dataset_column":"dataset_column",
+            "plot_method_daily": "plot_method_daily",
+            "plot_method":"plot_method",
+            "plot_line_method_daily": "plot_line_method_daily",
+            "plot_line_method":"plot_line_method"
+        ]
+    ]
   },
   {
     "name": "BVZ0006-GC02R-C01~fullres-orig",

@@ -11,8 +11,20 @@
         "start_date": "2012-11-13",
         "start_time": "14:40",
         "timestreams": [
-          "BVZ0006-GC02L-C01~fullres-orig",
-          "BVZ0006-GC02R-C01~fullres-orig"
+          "BVZ0006-GC02L-C01~fullres-orig":[
+              "area": "area_url",
+              "temp_data":"temp_data_url"
+              "data_chlog": "url"
+            ],
+          "BVZ0006-GC02R-C01~fullres-orig":[
+              "area": "area_url",
+              "temp_data":"temp_data_url"
+              "data_chlog": "url"
+            ]
+        ],
+        "thumbnails":[
+          "<url>.jpg",
+          "<url>.jpg"
         ]
       },
       {
