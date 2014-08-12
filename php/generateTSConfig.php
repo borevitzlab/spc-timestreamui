@@ -83,11 +83,16 @@ $number_of_streams = count($streams);
 		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
 			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
 				$experiment_index=$i;
+				break 1;
 			}else{
-				$experiment_index = 0;
+				$experiment_index = -1;
 			} 
 		}
-		
+		if($experiment_index==-1){
+			echo "Broken script at line 85.";
+			return;
+		}
+
 		$xml = new SimpleXMLElement($xmlstr);
 		// setting the config name to the expt id (assuming all the config files)
 		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
