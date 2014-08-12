@@ -1,0 +1,88 @@
+[
+  {
+    "experiments": [
+      {
+        "end_date": "2013-04-31",
+        "end_time": "10:00",
+        "expt_id": "BVZ0012",
+        "user": "Kevin",
+        "spp": "Arabidopsis",
+        "location":"Climatron",
+        "start_date": "2013-02-13",
+        "start_time": "05:00",
+        "timestreams": [
+          "BVZ0012-GC02L-C01~fullres-orig",
+          "BVZ0012-GC02R-C01~fullres-orig",
+          "BVZ0012-GC04L-C01~fullres-orig",
+          "BVZ0012-GC03L-C01~fullres-orig",
+          "BVZ0012-GC05L-C01~fullres-orig",
+          "BVZ0012-GC05R-C01~fullres-orig"
+        ],
+        "thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
+        ]
+      },
+      {
+        "end_date": "2013-09-13",
+        "end_time": "10:00",
+        "expt_id": "BVZ0018",
+        "user": "Keng",
+        "spp": "Arabidopsis",
+        "location":"Climatron",
+        "start_date": "2013-08-06",
+        "start_time": "05:00",
+        "timestreams": [
+          "BVZ0018-GC05L-C01~fullres-orig",
+          "BVZ0018-GC04L-C01~fullres-orig",
+          "BVZ0018-GC05R-C01~fullres-orig",
+          "BVZ0018-GC04R-C01~fullres-orig"
+        ],
+        "thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0018/thumbnail.png"
+        ]
+      },
+      {
+        "end_date": "2014-08-14",
+        "end_time": "10:00",
+        "expt_id": "BVZ0032",
+        "user": "Pip",
+        "spp": "Brachypodium",
+        "location":"Climatron",
+        "start_date": "2014-04-16",
+        "start_time": "05:00",
+        "timestreams": [
+          "BVZ0032-GC03L-C01~fullres-orig",
+          "BVZ0032-GC04L-C01~fullres-orig",
+          "BVZ0032-GC03R-C01~fullres-orig",
+          "BVZ0032-GC04R-C01~fullres-orig"
+        ],
+        "thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0032/thumbnail.png"
+        ]
+      },
+      {
+        "end_date": "2014-08-14",
+        "end_time": "10:00",
+        "expt_id": "BVZ0036",
+        "user": "Keng",
+        "spp": "Arabidopsis",
+        "location":"Climatron",
+        "start_date": "2014-06-03",
+        "start_time": "05:00",
+        "timestreams": [
+          "BVZ0036-GC02L-C01~fullres-orig",
+          "BVZ0036-GC02L-C01~fullres-corr",
+          "BVZ0036-GC02R-C01~fullres-orig",
+          "BVZ0036-GC02R-C01~fullres-corr",
+          "BVZ0036-GC05L-C01~fullres-orig",
+          "BVZ0036-GC05L-C01~fullres-corr",
+          "BVZ0036-GC05R-C01~fullres-orig",
+          "BVZ0036-GC05R-C01~fullres-corr"
+        ],
+        "thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0036/thumbnail.png"
+        ]
+      }
+    ]
+  }
+]
