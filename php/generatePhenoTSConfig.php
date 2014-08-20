@@ -26,7 +26,7 @@ if ($_COOKIE['streamselect'] != "null") {
 }
 
 // getting json data and decode into php object
-$expts_decoded = json_decode(file_get_contents("../json/phenocams_expts.json"));
+$expts_decoded = json_decode(file_get_contents("../json/phenocams_expt.json"));
 $timestreams_decoded = json_decode(file_get_contents("../json/phenocams_timestreams.json"));
 $number_of_streams = count($streams);
 // echo $number_of_streams;
