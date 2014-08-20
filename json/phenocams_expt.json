@@ -1,0 +1,66 @@
+[
+  {
+    "experiments": [
+      {
+        "end_date": "2014-09-30",
+        "end_time": "00:00",
+        "expt_id": "TERN Daintree",
+        "user": "TERN",
+        "spp": "Phenocam",
+        "location":"Daintree, FNQ",
+        "start_date": "2013-06-02",
+        "start_time": "07:00",
+        "timestreams": [
+      	  "TRN-NC-DSC-01",
+        ],
+        "thumbnails":[
+        ]
+      },
+      {
+        "expt_id": "Mesquite",
+        "end_date": "2014-09-30",
+        "end_time": "00:00",
+        "user": "Tim",
+        "spp": "Mesquite Phenocam",
+        "location":"Mesquite",
+        "start_date": "2012-03-22",
+        "start_time": "00:00",
+        "timestreams": [
+      	  "mesqite-phenocam"
+        ],
+        "thumbnails":[
+        ]
+      },
+      {
+        "end_date": "2014-09-30",
+        "end_time": "00:00",
+        "expt_id": "CRFS",
+        "user": "CRFS",
+        "spp": "Capitol Reef Field Station",
+        "location":"Capitol Reef",
+        "start_date": "2011-05-24",
+        "start_time": "05:00",
+        "timestreams": [
+      	  "crfs-eastcam"
+        ],
+        "thumbnails":[
+        ]
+      },
+      {
+        "end_date": "2013-10-15",
+        "end_time": "00:00",
+        "expt_id": "Glines Dam",
+        "user": "Tim",
+        "spp": "Gline's Dam Removal",
+        "location":"Gline's Dam",
+        "start_date": "2011-10-06",
+        "start_time": "05:00",
+        "timestreams": [
+      	  "GlinesCanyonDam"
+        ],
+        "thumbnails":[
+        ]
+      }
+    ]
+  }
+]
