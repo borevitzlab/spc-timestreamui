@@ -9,7 +9,7 @@ function getCookie(cname) {
     return "";
 }
 
-	$.getJSON('../json/experiments.json', function(response){
+	$.getJSON('../json/expts.json', function(response){
 	       expts = response;
 	       function parseDateTime(input1, input2) {
 			  var parts1 = input1.split('-');

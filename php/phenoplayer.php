@@ -40,7 +40,7 @@
 	</style>
 
 	<script type="text/javascript" src="pheno_getJson.js"> </script>
- 	<script type="text/javascript" src="functions.js"> </script>
+ 	<script type="text/javascript" src="pheno_functions.js"> </script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -134,7 +134,7 @@
 			</div>
 		</div>
 		<div onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';" id="TimeGraphDiv" class="col-md-9">
-		  		<embed name="timegraph" class='TimeGraphFlex' id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
+		  		<embed name="timegraph" class='TimeGraphFlex' id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generatePhenoTSConfig.php" width="100%" height="100%">
 				</embed>
 		</div>
 	</div>
@@ -154,7 +154,7 @@
 		</div>
 
 	</div>
-		<div><embed src="generateTSConfig.php"></div>
+		<div><embed src="generatePhenoTSConfig.php"></div>
 <!2498382f5249277454ec3a716f31dfea>
 	</div>
 	</body>
