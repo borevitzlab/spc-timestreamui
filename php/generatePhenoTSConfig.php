@@ -140,7 +140,7 @@ $number_of_streams = count($streams);
 					
 					
 					$hiresname = str_replace("fullres", $timestreams_decoded[$i]->width_hires, $timestreams_decoded[$i]->name);
-					$tc->addAttribute('url_hires', $datapath.$hiresname);
+					$tc->addAttribute('url_hires', $datapath);
 					$tc->addAttribute('stream_name_hires', $hiresname);
 
 					// 
