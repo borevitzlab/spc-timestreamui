@@ -119,7 +119,11 @@ $number_of_streams = count($streams);
 					// but it is there. 
 					
 					// "exploding" the stream name for the title
-					list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
+					if(strpos($a, '~') !== false){ 
+						list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
+					}else{
+						$prefixname = $timestreams_decoded[$i]->name;
+					}
 					// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
 					$datapath =$timestreams_decoded[$i]->webroot;
 

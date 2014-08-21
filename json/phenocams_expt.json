@@ -13,7 +13,8 @@
         "timestreams": [
       	  "TRN-NC-DSC-01"
         ],
-        "thumbnails":[
+"thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
         ]
       },
       {
@@ -28,7 +29,8 @@
         "timestreams": [
       	  "mesqite-phenocam"
         ],
-        "thumbnails":[
+"thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
         ]
       },
       {
@@ -43,13 +45,14 @@
         "timestreams": [
       	  "crfs-eastcam"
         ],
-        "thumbnails":[
+"thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
         ]
       },
       {
         "end_date": "2013-10-15",
         "end_time": "00:00",
-        "expt_id": "Glines Dam",
+        "expt_id": "Glines_Dam",
         "user": "Tim",
         "spp": "Gline's Dam Removal",
         "location":"Gline's Dam",
@@ -58,7 +61,8 @@
         "timestreams": [
       	  "GlinesCanyonDam"
         ],
-        "thumbnails":[
+"thumbnails":[
+          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
         ]
       }
     ]
