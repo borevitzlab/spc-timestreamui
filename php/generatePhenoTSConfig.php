@@ -132,16 +132,12 @@ $number_of_streams = count($streams);
 					$tc->addAttribute('image_access_mode', 'TIMESTREAM');
 					$tc->addAttribute('title', $prefixname);
 					
-
-					// explodey for the res
-					$loresname = str_replace("fullres", $timestreams_decoded[$i]->width, $timestreams_decoded[$i]->name);
 					$tc->addAttribute('url_image_list', $datapath.$timestreams_decoded[$i]->name."~640/full");
-					$tc->addAttribute('stream_name', $loresname);
+					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name."~640");
 					
 					
-					$hiresname = str_replace("fullres", $timestreams_decoded[$i]->width_hires, $timestreams_decoded[$i]->name);
 					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name."/full");
-					$tc->addAttribute('stream_name_hires', $hiresname);
+					$tc->addAttribute('stream_name_hires', $datapath.$timestreams_decoded[$i]->name);
 
 					// 
 					// TODO: push these changes to the json schema/get from json
