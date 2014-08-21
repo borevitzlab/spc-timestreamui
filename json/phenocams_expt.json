@@ -27,7 +27,7 @@
         "start_date": "2012-03-22",
         "start_time": "00:00",
         "timestreams": [
-      	  "mesqite-phenocam"
+      	  "mesquite-phenocam"
         ],
 "thumbnails":[
           "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
