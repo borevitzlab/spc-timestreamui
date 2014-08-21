@@ -146,7 +146,7 @@ function generatePreview(){
                     thispreviewhref.setAttribute("class","thumbnail");
                     thispreviewhref.setAttribute("href", '#');
                     thispreviewdiv.setAttribute("style", "width:" +(100/prevar.length)+"%; height:100%; float:left;");
-                    if(prevar[i].indexOf("~")==-1)
+                    if(prevar[i].indexOf("~")===-1)
                         thispreviewhref.textContent = prevar[i];
                     else
                     thispreviewhref.textContent = prevar[i].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
@@ -162,7 +162,7 @@ function generatePreview(){
                     thispreviewhref.setAttribute("class","thumbnail");
                     thispreviewhref.setAttribute("href", '#');
                     thispreviewdiv.setAttribute("style", "width:100%; float:left; height: " + (100/prevar.length) + "%");
-                    if(prevar[i].indexOf("~")==-1)
+                    if(prevar[i].indexOf("~")===-1)
                         thispreviewhref.textContent = prevar[i];
                     else
                     thispreviewhref.textContent = prevar[i].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
@@ -181,7 +181,7 @@ function generatePreview(){
                             thispreviewhref.setAttribute("class","thumbnail");
                             thispreviewhref.setAttribute("href", '#');
                             thispreviewdiv.setAttribute("style", "width:" +(100/Math.sqrt(prevar.length))+"%; float:left; height: " + (100/Math.sqrt(prevar.length)) + "%");
-                            if(prevar[delta].indexOf("~")==-1)
+                            if(prevar[delta].indexOf("~")===-1)
                                 thispreviewhref.textContent = prevar[delta];
                             else
                             thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];;
@@ -206,7 +206,7 @@ function generatePreview(){
                                     thispreviewhref.setAttribute("class","thumbnail");
                                     thispreviewhref.setAttribute("href", '#');
                                     thispreviewdiv.setAttribute("style", "width:" +(100/num_col_sub)+"%; float:left; height: " + (100/number_of_rows) + "%");
-                                    if(prevar[delta].indexOf("~")==-1)
+                                    if(prevar[delta].indexOf("~")===-1)
                                         thispreviewhref.textContent = prevar[delta];
                                     else
                                         thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
@@ -221,7 +221,7 @@ function generatePreview(){
                                     thispreviewhref.setAttribute("class","thumbnail");
                                     thispreviewhref.setAttribute("href", '#');
                                     thispreviewdiv.setAttribute("style", "width:" +(100/number_of_columns)+"%; float:left; height: " + (100/number_of_rows) + "%");
-                                    if(prevar[delta].indexOf("~")==-1)
+                                    if(prevar[delta].indexOf("~")===-1)
                                 thispreviewhref.textContent = prevar[delta];
                                     else
                                     thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];;
@@ -243,7 +243,7 @@ function generatePreview(){
                                 thispreviewhref.setAttribute("class","thumbnail");
                                 thispreviewhref.setAttribute("href", '#');
                                 thispreviewdiv.setAttribute("style", "width:" +(100/number_of_columns)+"%; float:left; height: " + (100/number_of_rows) + "%");
-                                if(prevar[delta].indexOf("~")==-1)
+                                if(prevar[delta].indexOf("~")===-1)
                                     thispreviewhref.textContent = prevar[delta];
                                 else
                                 thispreviewhref.textContent = prevar[delta].split("~")[0] + "-" + prevar[delta].split("~")[1].split('-')[1];
