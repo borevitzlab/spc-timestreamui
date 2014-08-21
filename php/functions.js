@@ -20,6 +20,9 @@ function is_prime(num) {
     }
     return true;
 }
+function replaceunderscore(inputstring){
+    return inputstring.split('_').join(' ');
+}
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');

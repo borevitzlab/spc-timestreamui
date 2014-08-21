@@ -30,7 +30,7 @@ function getCookie(cname) {
 					experimentIDLinkTag.setAttribute("class", "thumbnail col-lg-2 col-md-2 col-sm-3 col-xs-5 experimentselection");
 					
 				var experimentIDHeadingTag = document.createElement('h4');
-					experimentIDHeadingTag.textContent = expts[0].experiments[i].expt_id;
+					experimentIDHeadingTag.textContent = replaceunderscore(expts[0].experiments[i].expt_id);
 					experimentIDHeadingTag.setAttribute('style', 'text-align:center;')
 				var experimentIDList = document.createElement("ul");
 				var	experimentIDUserName = document.createElement("li");

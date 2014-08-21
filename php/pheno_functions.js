@@ -43,6 +43,10 @@ function get_factors(num) {
 	 return n_factors;
 }
 
+function replaceunderscore(inputstring){
+    return inputstring.split('_').join(' ');
+}
+
 // returns an array of the two median factors
 function find_median_factors(array) {
 	    var result = [0,0];

@@ -7,7 +7,7 @@
 		"ts_end": "2014_09_30_00_00_00",
 		"image_type": "JPG",
 		"height_hires": "1280",
-		"expt": "TERN Daintree",
+		"expt": "TERN_Daintree",
 		"width": "640",
 		"webroot": "http://phenocam.anu.edu.au/data/timestreams/TERN/TRN-NC-DSC-01/full/",
 		"period_in_minutes": "15",
