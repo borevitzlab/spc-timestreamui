@@ -23,6 +23,7 @@ function is_prime(num) {
 function replaceunderscore(inputstring){
     return inputstring.split('_').join(' ');
 }
+
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
