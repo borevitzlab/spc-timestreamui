@@ -2,11 +2,12 @@
 // incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
 include "template.php";
 include "globals.php";
-
 date_default_timezone_set('UTC');
-// read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
+
 
 $expire=time()+60*60*24*30;
+
+// get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
 	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
 	$layoutType = $layoutTypeAr[0];
@@ -29,7 +30,7 @@ if ($_COOKIE['streamselect'] != "null") {
 $expts_decoded = json_decode(file_get_contents("../json/expts.json"));
 $timestreams_decoded = json_decode(file_get_contents("../json/timestreams.json"));
 $number_of_streams = count($streams);
-// echo $number_of_streams;
+
 // useful functions
 	// checks to see whether a number is whole
 	function is_whole_number($var){
@@ -78,18 +79,19 @@ $number_of_streams = count($streams);
 
 // all the timecam node stuff and xml setup
 
-	//echo $experimentID;
 
+		// run through and get the index of this experiment.
 		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
 			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
 				$experiment_index=$i;
 				break 1;
+				// get out of the loop when the experiment index has been found.
 			}else{
 				$experiment_index = -1;
 			} 
 		}
 		if($experiment_index==-1){
-			echo "Broken script at line 85.";
+			echo "Invalid experiment index, contact a programmer";
 			return;
 		}
 
@@ -115,7 +117,7 @@ $number_of_streams = count($streams);
 					// add new xml child under "components".
 
 					$tc = $xml->components->addChild('timecam');
-					// anything under "components" does not show up under "view source" in chrome, 
+					// anything under "components" does not show up under "view source" in chrome,
 					// but it is there. 
 					
 					// "exploding" the stream name for the title
@@ -123,7 +125,7 @@ $number_of_streams = count($streams);
 					// substr the data path, because the timestreamconfig doesnt expect the /cloud/ bit.
 					$datapath =$timestreams_decoded[$i]->webroot;
 
-					// ALL the attribute setting!
+					// attribute setting!
 					$tc->addAttribute('id', $timestreams_decoded[$i]->name."-".$check); //this lets the script allow doubles.
 					$tc->addAttribute('image_access_mode', 'TIMESTREAM');
 					$tc->addAttribute('title', $prefixname);
