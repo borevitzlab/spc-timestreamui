@@ -14,7 +14,7 @@
       	  "TRN-NC-DSC-01"
         ],
 "thumbnails":[
-          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
+          "http://phenocam.anu.edu.au/data/timestreams/TERN/TRN-NC-DSC-01~640/full/2014/2014_08/2014_08_18/2014_08_18_12/TRN-NC-DSC-01~640_2014_08_18_12_00_00_00.jpg"
         ]
       },
       {
@@ -30,7 +30,7 @@
       	  "mesquite-phenocam"
         ],
 "thumbnails":[
-          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
+          "http://ufsn-data.chpc.utah.edu/mediablock/timestreams/MSQ/mesquite-phenocam~640/full//2014/2014_08/2014_08_02/2014_08_02_02/mesquite-phenocam~640_2014_08_02_02_55_00_00.jpg"
         ]
       },
       {
@@ -46,7 +46,7 @@
       	  "crfs-eastcam"
         ],
 "thumbnails":[
-          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
+          "http://ufsn-data.chpc.utah.edu/mediablock/timestreams/crfs/crfs-eastcam~640/full/2014/2014_06/2014_06_04/2014_06_04_12/crfs-eastcam~640_2014_06_04_12_00_00_00.jpg"
         ]
       },
       {
@@ -62,7 +62,7 @@
       	  "GlinesCanyonDam"
         ],
 "thumbnails":[
-          "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
+          "http://155.101.15.238/mediablock/timestreams/Elwha/GlinesCanyonDam/full/2011/2011_10/2011_10_26/2011_10_26_12/GlinesCanyonDam_2011_10_26_12_00_00_00.jpg"
         ]
       }
     ]
