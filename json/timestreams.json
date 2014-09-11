@@ -947,19 +947,16 @@
 		"name": "BVZ0036-GC05R-C01~fullres-seg",
 		"expt": "BVZ0036",
 		"utc": "false",
-		"width_hires"		: "1920",
-		g
-"
-		"
-width": "640",
-		height": "426",
-		hires": "1280",
+		"width_hires" : "1920",
+		"width": "640",
+		"height": "426",
+		"height_hires": "1280",
 		"ts_version": "1",
 		"image_type": "JPG",
 		"webroot": "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0036/",
 		"period_in_minutes": "5",
 		"timezone": "0",
-		"ts_start": "2014_06_18_18_30,_00"
-	"ts_end": "2014_08_06_07_30_00"
+		"ts_start": "2014_06_18_18_30_00",
+		"ts_end": "2014_08_06_07_30_00"
 	}
 ]
