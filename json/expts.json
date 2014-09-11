@@ -71,12 +71,16 @@
         "start_time": "05:00",
         "timestreams": [
           "BVZ0036-GC02L-C01~fullres-orig",
+          "BVZ0036-GC02L-C01~fullres-orig-segg",
           "BVZ0036-GC02L-C01~fullres-corr",
           "BVZ0036-GC02R-C01~fullres-orig",
+          "BVZ0036-GC02R-C01~fullres-orig-segg",
           "BVZ0036-GC02R-C01~fullres-corr",
           "BVZ0036-GC05L-C01~fullres-orig",
+          "BVZ0036-GC05L-C01~fullres-orig-segg",
           "BVZ0036-GC05L-C01~fullres-corr",
           "BVZ0036-GC05R-C01~fullres-orig",
+          "BVZ0036-GC05R-C01~fullres-orig-segg",
           "BVZ0036-GC05R-C01~fullres-corr"
         ],
         "thumbnails":[

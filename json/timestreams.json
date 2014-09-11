@@ -896,7 +896,7 @@
 		"ts_end": "2014_08_08_17_15_00"
 	},
 	{
-		"name": "BVZ0036-GC02L-C01~fullres-seg",
+		"name": "BVZ0036-GC02L-C01~fullres-orig-segg",
 		"expt": "BVZ0036",
 		"utc": "false",
 		"height": "426",
@@ -912,7 +912,7 @@
 		"ts_end": "2014_08_01_17_00_00"
 	},
 	{
-		"name": "BVZ0036-GC02R-C01~fullres-seg",
+		"name": "BVZ0036-GC02R-C01~fullres-orig-segg",
 		"expt": "BVZ0036",
 		"utc": "false",
 		"height": "426",
@@ -928,7 +928,7 @@
 		"ts_end": "2014_07_26_17_30_00"
 	},
 	{
-		"name": "BVZ0036-GC05L-C01~fullres-seg",
+		"name": "BVZ0036-GC05L-C01~fullres-orig-segg",
 		"expt": "BVZ0036",
 		"utc": "false",
 		"height": "426",
@@ -944,7 +944,7 @@
 		"ts_end": "2014_08_08_09_30_00"
 	},
 	{
-		"name": "BVZ0036-GC05R-C01~fullres-seg",
+		"name": "BVZ0036-GC05R-C01~fullres-orig-segg",
 		"expt": "BVZ0036",
 		"utc": "false",
 		"width_hires" : "1920",
