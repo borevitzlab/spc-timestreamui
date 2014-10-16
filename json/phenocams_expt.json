@@ -1,7 +1,28 @@
 [
   {
     "experiments": [
-      {
+           {
+		"height": "426",
+		"width": "640",
+		"width_hires": "1920",
+		"height_hires": "1280",
+        "end_time": "00:00",
+        "expt_id": "Arboretum_Hill_C01",
+        "user": "Arboretum",
+        "spp": "Phenocam",
+        "location":"National Arboretum, ACT",
+        "start_date": "2014-10-15",
+        "start_time": "15:00",
+        "end_date": "now",
+        "end_time": "",
+        "timestreams": [
+      	  "ARB-PH-Hill-C01"
+        ],
+"thumbnails":[
+          "http://phenocam.anu.edu.au/data%5Ctimestreams%5CArboretum%5CARB-PH-Hill-C01~640%5Cfull%5C2014%5C2014_10%5C2014_10_16%5C2014_10_16_12%5CARB-PH-Hill-C01~640_2014_10_16_12_12_00_00.jpg"
+        ]
+      },
+	  {
         "end_date": "2014-09-30",
         "end_time": "00:00",
         "expt_id": "TERN_Daintree",
