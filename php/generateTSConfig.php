@@ -1,9 +1,9 @@
 <?php
-// incude the template, a (soon to be) barebones xml with some additional extraneos data and structure. 
+// incude the template, a barebones xml with some additional extraneos data and structure. 
 include "template.php";
 include "globals.php";
+// need to set default timezone.
 date_default_timezone_set('UTC');
-
 
 $expire=time()+60*60*24*30;
 
@@ -273,7 +273,7 @@ $number_of_streams = count($streams);
 		$cam_column = $layout->addChild('column');
 		$cam_column->addAttribute('width', '100%');
 		$tsc = 0;
-
+		// If there is a square number of streams
 		if(is_square_number($number_of_streams)){
 			for($x = 0; $x<sqrt($number_of_streams); $x++){
 				$cam_row = $cam_column->addChild('row');
@@ -287,6 +287,7 @@ $number_of_streams = count($streams);
 				}
 			}
 		}else{
+			// if there number of streams is prime
 			if(is_prime($number_of_streams)){
 				$closest_factors = find_median_factors(get_factors($number_of_streams+1));
 				$number_of_columns = $closest_factors[0];
@@ -316,6 +317,7 @@ $number_of_streams = count($streams);
 							}
 						}
 			}else{
+				// non prime, non square
 				$closest_factors = find_median_factors(get_factors($number_of_streams));
 				$number_of_columns = $closest_factors[0];
 				$number_of_rows = $closest_factors[1];

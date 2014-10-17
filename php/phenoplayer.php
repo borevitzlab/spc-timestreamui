@@ -27,7 +27,7 @@
 
 	<style>
 		.hide{ display: none; }
-		.playerclass{display: none; }
+		.playerclass{display: none; height: 100%;}
 		html,body
 		{
 		  height: 100%;
@@ -36,7 +36,10 @@
 			text-decoration: none;
 		}
 		.container-fluid{height: 100%;}
-		#TimeGraphDiv{height: 100%; display: none;    overflow:hidden;}
+		#TimeGraphDiv{
+			height: 100%; display: none;    overflow:hidden;
+		}
+ 		 
 	</style>
 
 	<script type="text/javascript" src="pheno_getJson.js"> </script>
@@ -91,8 +94,7 @@
 
 	</head>
 	<?php include "globals.php"; echo "<body style='background-color:#".$bg_color."'>" ?>
-	<div class="container-fluid">
-		<div class="col-md-12">
+	<div class="container-fluid" style="height:100%;">
 		<div class="playerclass">
 			<div class="col-md-3" style="padding:0px;">
 				<br>
@@ -132,7 +134,6 @@
 
 				<br />
 			</div>
-		</div>
 		<div onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';" id="TimeGraphDiv" class="col-md-9">
 		  		<embed name="timegraph" class='TimeGraphFlex' id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generatePhenoTSConfig.php" width="100%" height="100%">
 				</embed>
