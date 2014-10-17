@@ -101,7 +101,7 @@ $number_of_streams = count($streams);
 		$now = new DateTime('now');
 		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
 		if(strcmp($expts_decoded[0]->experiments[$experiment_index]->end_date, "now")==0){
-			$end_date = $now
+			$end_date_time = $now;
 		}
 		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
 		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
