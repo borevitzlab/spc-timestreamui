@@ -2,19 +2,14 @@
   {
     "experiments": [
            {
-		"height": "426",
-		"width": "640",
-		"width_hires": "1920",
-		"height_hires": "1280",
         "end_time": "00:00",
+        "end_date": "now",
         "expt_id": "Arboretum_Hill_C01",
         "user": "Arboretum",
         "spp": "Phenocam",
         "location":"National Arboretum, ACT",
         "start_date": "2014-10-15",
         "start_time": "15:00",
-        "end_date": "now",
-        "end_time": "",
         "timestreams": [
       	  "ARB-PH-Hill-C01"
         ],

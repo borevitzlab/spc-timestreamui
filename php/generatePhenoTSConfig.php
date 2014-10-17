@@ -98,8 +98,11 @@ $number_of_streams = count($streams);
 		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
 		$xml->globals['background_color'] = "0x".$bg_color;
 		$start_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->start_date.$expts_decoded[0]->experiments[$experiment_index]->start_time);
-		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
-
+		if(strcmp($expts_decoded[0]->experiments[$experiment_index]->end_date, "now")){
+			$end_date = new DateTime('now');
+		}else{
+			$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
+		}
 		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
 		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
 		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y h:i:s A');

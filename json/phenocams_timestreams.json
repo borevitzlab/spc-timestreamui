@@ -1,5 +1,21 @@
 [
 	{
+		"name": "ARB-PH-Hill-C01",
+		"utc": "false",
+		"width_hires": "1920",
+		"ts_version": "1",
+		"ts_end": "now",
+		"image_type": "JPG",
+		"height_hires": "1280",
+		"expt": "TERN_Daintree",
+		"width": "640",
+		"webroot": "http://phenocam.anu.edu.au/data/timestreams/TERN/",
+		"period_in_minutes": "15",
+		"timezone": "0",
+		"ts_start": "2013_06_02_07_00_00",
+		"height": "480"
+	},
+	{
 		"name": "TRN-NC-DSC-01",
 		"utc": "false",
 		"width_hires": "1920",

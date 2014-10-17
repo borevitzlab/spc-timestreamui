@@ -92,7 +92,6 @@
 	</head>
 	<?php include "globals.php"; echo "<body style='background-color:#".$bg_color."'>" ?>
 	<div class="container-fluid">
-		<div class="col-md-12">
 		<div class="playerclass">
 			<div class="col-md-3" style="padding:0px;">
 				<br>
@@ -137,7 +136,6 @@
 		  		<embed name="timegraph" class='TimeGraphFlex' id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">
 				</embed>
 		</div>
-	</div>
 		<!div class="col-md-12"><!input name="streamsearch" type="text" class="form-control" placeholder="Filter" onkeyup="search(this.value)" style="width:101px;"><!/div>
 		<div class='row'>
 			<div class="col-md-12">
