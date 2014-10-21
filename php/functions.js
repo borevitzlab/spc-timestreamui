@@ -20,10 +20,38 @@ function is_prime(num) {
     }
     return true;
 }
+function getQueryParams(qs) {
+        qs = qs.split("+").join(" ");
+
+        var params = {}, tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])]
+                = decodeURIComponent(tokens[2]);
+        }
+
+        return params;
+    }
 function replaceunderscore(inputstring){
     return inputstring.split('_').join(' ');
 }
-
+function copyAllCookies(){
+    var lt = $.parseJSON(decodeURIComponent(getCookie("layoutType")));
+    var ssa = decodeURIComponent(getCookie("streamselect"));
+    var exid = $.parseJSON(decodeURIComponent(getCookie("experimentID")));
+    var returndiv = document.getElementById("showLink");
+        returndiv.innerHTML = "";
+        var url = [location.protocol, '//', location.host, location.pathname].join('');
+        var textele = document.createElement("a");
+            textele.setAttribute("class","thumbnail");
+            textele.setAttribute("style", "width:100%;");
+            textele.textContent = "Link to this (right click, copy address)"
+            textele.setAttribute('href', url+"?lt="+lt+'&exid='+exid+'&ss='+ssa);
+        returndiv.appendChild(document.createElement("br"));
+        returndiv.appendChild(textele);
+        $("#showLink").slideDown("slow");
+}
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -80,6 +108,7 @@ function closeHidden(){
 	    			$("#hide-"+expts[0].experiments[i].expt_id).slideUp("slow");
 	    	}
 	    	$('#hiddenPreview').slideUp("slow").empty();
+            $('#showLink').slideUp("slow").empty();
 }
 
 //search stuff, broken at the moment.

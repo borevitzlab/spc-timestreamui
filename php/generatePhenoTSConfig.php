@@ -7,9 +7,9 @@ date_default_timezone_set('UTC');
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
 $expire=time()+60*60*24*30;
+// get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
-	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
-	$layoutType = $layoutTypeAr[0];
+	$layoutType = json_decode($_COOKIE["layoutType"]);
 }else{
 	 $layoutType = null;
 }
@@ -24,6 +24,7 @@ if ($_COOKIE['streamselect'] != "null") {
 }else{
 	$streams = array();
 }
+
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/phenocams_expt.json"));
@@ -83,6 +84,7 @@ $number_of_streams = count($streams);
 		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
 			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
 				$experiment_index=$i;
+				echo $experiment_index;
 				break 1;
 			}else{
 				$experiment_index = -1;
@@ -97,7 +99,7 @@ $number_of_streams = count($streams);
 		// setting the config name to the expt id (assuming all the config files)
 		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
 		$xml->globals['background_color'] = "0x".$bg_color;
-		$xml->globals['timespan_days_init'] = $expts_decoded[0]->experiments[$experiment_index]->timespan_days
+		$xml->globals['timespan_days_init'] = $expts_decoded[0]->experiments[$experiment_index]->timespan_days;
 		$start_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->start_date.$expts_decoded[0]->experiments[$experiment_index]->start_time);
 		$now = new DateTime('now');
 		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);
@@ -123,7 +125,7 @@ $number_of_streams = count($streams);
 					// but it is there. 
 					
 					// "exploding" the stream name for the title
-					if(strpos($a, '~') !== false){ 
+					if(strpos($timestreams_decoded[$i]->name, '~') !== false){ 
 						list($prefixname, $suffixname) = explode('~', $timestreams_decoded[$i]->name);
 					}else{
 						$prefixname = $timestreams_decoded[$i]->name;

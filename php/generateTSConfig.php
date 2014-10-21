@@ -9,8 +9,7 @@ $expire=time()+60*60*24*30;
 
 // get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
-	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
-	$layoutType = $layoutTypeAr[0];
+	$layoutType = json_decode($_COOKIE["layoutType"]);
 }else{
 	 $layoutType = null;
 }
@@ -99,7 +98,7 @@ $number_of_streams = count($streams);
 		// setting the config name to the expt id (assuming all the config files)
 		$xml->globals['config_id'] = $expts_decoded[0]->experiments[$experiment_index]->expt_id;
 		$xml->globals['background_color'] = "0x".$bg_color;
-		$xml->globals['timespan_days_init'] = $expts_decoded[0]->experiments[$experiment_index]->timespan_days
+		$xml->globals['timespan_days_init'] = $expts_decoded[0]->experiments[$experiment_index]->timespan_days;
 		$start_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->start_date.$expts_decoded[0]->experiments[$experiment_index]->start_time);
 		$now = new DateTime('now');
 		$end_date_time = new DateTime($expts_decoded[0]->experiments[$experiment_index]->end_date.$expts_decoded[0]->experiments[$experiment_index]->end_time);

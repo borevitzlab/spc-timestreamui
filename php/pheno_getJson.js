@@ -74,12 +74,12 @@ function getCookie(cname) {
 			    	var streamSelectCheckboxTag = document.createElement("input");
 					    streamSelectCheckboxTag.setAttribute("name", 'streamselect[]');
 					    streamSelectCheckboxTag.setAttribute("type", 'checkbox');
-					    streamSelectCheckboxTag.setAttribute("id", "persistbox-"+i+"-"+d);
+					    streamSelectCheckboxTag.setAttribute("id", "pb-"+i+"-"+d);
 					    streamSelectCheckboxTag.setAttribute("value", expts[0].experiments[i].timestreams[d]);
 					var streamSelectCheckboxLabelTag = document.createElement("label");
 						streamSelectCheckboxLabelTag.setAttribute("class", "checkbox-inline")
-					    streamSelectCheckboxLabelTag.setAttribute('for', "persistbox-"+i+"-"+d);
-					    if(expts[0].experiments[i].timestreams[d].indexOf('~') === -1){
+					    streamSelectCheckboxLabelTag.setAttribute('for', "pb-"+i+"-"+d);
+						if(expts[0].experiments[i].timestreams[d].indexOf('~') === -1){
 					    	streamSelectCheckboxLabelTag.textContent = expts[0].experiments[i].timestreams[d];
 					    }else{
 					    	streamSelectCheckboxLabelTag.textContent = expts[0].experiments[i].timestreams[d].split("~")[0] + "-" + expts[0].experiments[i].timestreams[d].split("~")[1].split('-')[1];
@@ -116,6 +116,7 @@ function getCookie(cname) {
 		          	streamselect[this.id] = this.value;
 		          }
 		        });
+		        $.cookie.json = true;
 		        $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
 		        $.cookie('streamselect', streamselect, { expires: 7, path: '/' })
 		      });
@@ -135,5 +136,31 @@ function getCookie(cname) {
 		      }
 		      $.cookie.json = true;
 		      repopulateCheckboxes();
+		      var query = getQueryParams(document.location.search);
+				if(typeof query.exid !== 'undefined'&&typeof query.lt !== 'undefined'&&typeof query.ss !== 'undefined'){	
+				$.cookie.json = true;
+		    	$.cookie('experimentID', query.exid, { expires: 7, path: '/' });
 
+		    	$('#layoutType').val(query.lt);
+				$.cookie.json = true;
+		    	$.cookie('layoutType', query.lt, { expires: 7, path: '/' });
+		    	$.cookie.json = false;
+		    	$.cookie('streamselect', query.ss, { expires: 7, path: '/' });
+		    	reloadEmbed();
+		    	//console.log(query.exid);
+		    	//console.log(expts[0].experiments[0]);
+		    	
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    			if(expts[0].experiments[i].expt_id === query.exid) {
+			    				$("#hide-"+expts[0].experiments[i].expt_id).show();
+			    			}
+			    		}
+			    		$(".playerclass").slideDown("slow");
+			    		var qqar = JSON.parse(query.ss);
+			    		Object.keys(qqar).forEach(function(element) {
+				            $("#" + element).prop('checked', true);
+				          });
+			    	
+			    	generatePreview();
+			}
 	 });

@@ -43,21 +43,23 @@
  	<script type="text/javascript" src="functions.js"> </script>
 
 	<script type="text/javascript">
+	
 		$(document).ready(function(){
-			$("#layoutType").val("gr");
-
+			 var query = getQueryParams(document.location.search);
+			if(typeof query.lt === 'undefined'){
+				$("#layoutType").val("gr");	
+			}
 				$("#sub").click(function () {
 					if($("#TimeGraphDiv").css('display')=='none'){
 						$("#TimeGraphDiv").slideDown("slow");
 					}
 				});
 
-			    // $("#experimentID").click(function(){
-			    	 $("#experimentID").delegate('.experimentselection', 'click', function(){
+			 $("#experimentID").delegate('.experimentselection', 'click', function(){
 			    	clearCheckboxCookie();
 			    	reloadEmbed();
 			    	var eid = $(this).attr("value");
-			    	$.cookie('experimentID', eid, { expires: 7, path: '/' });
+			    	$.cookie('experimentID', JSON.stringify(eid), { expires: 7, path: '/' });
 			    	if($(".playerclass").css('display') == 'none' ){
 			    		for(var i = 0; i < expts[0].experiments.length; i++){
 			    			if(expts[0].experiments[i].expt_id == $(this).attr("value")) {
@@ -81,11 +83,8 @@
 
 			    			}
 			    		}
-			    		
 			    	}
-
 			    });
-
 			});
  	</script>
 
@@ -119,8 +118,16 @@
 				        	<input type="button" class="btn btn-primary" value="Submit" id="sub" onclick="reloadEmbed();generatePreview();" />
 				        </div>
 				        <div class="btn-group">
+				        	<input type="button" class="btn btn-warning" value="Copy" id="save" onclick="copyAllCookies();" />
+				        </div>
+				        <div class="btn-group">
 				        	<input type="button" class="btn btn-danger" value="Clear" id="clear" onclick="clearCheckboxCookie();closeHidden();" />
 				        </div>
+				    </div>
+				    <div class="btn-group btn-group-justified">
+				    <div class="btn-group" id="showLink">
+				        	
+				    </div>
 				    </div>
 				    <br />
 				    <div class="col-md-3" id="hiddenPreview"  style="height:100%; width:100%; text-align:center;">
