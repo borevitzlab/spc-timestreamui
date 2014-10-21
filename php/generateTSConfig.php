@@ -25,7 +25,7 @@ if ($_COOKIE['streamselect'] != "null") {
 }else{
 	$streams = array();
 }
-echo $layoutType + $experimentID + $streams;
+
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/expts.json"));
 $timestreams_decoded = json_decode(file_get_contents("../json/timestreams.json"));
@@ -92,7 +92,8 @@ $number_of_streams = count($streams);
 		}
 		if($experiment_index==-1){
 			echo "Invalid experiment index, contact a programmer";
-			return;
+			echo $layoutType + $experimentID + $streams;
+			//return;
 		}
 
 		$xml = new SimpleXMLElement($xmlstr);
