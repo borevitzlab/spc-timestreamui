@@ -11,6 +11,7 @@ $expire=time()+60*60*24*30;
 if (isset($_COOKIE['layoutType'])){
 	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
 	$layoutType = $layoutTypeAr[0];
+	echo "$layoutType";
 }else{
 	 $layoutType = null;
 }
