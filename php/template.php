@@ -7,7 +7,7 @@ $xmlstr = <<<XML
 
     config_id="UNSET"
   background_color="0x2F4F4F"
-  timespan_days_init="UNSET"
+  timespan_days_init="14"
   date_start="UNSET"
   date_end="UNSET"
   show_status="true"

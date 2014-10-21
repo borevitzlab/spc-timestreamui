@@ -1,4 +1,7 @@
 <?php
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
 // incude the template, a barebones xml with some additional extraneos data and structure. 
 include "template.php";
 include "globals.php";
@@ -11,7 +14,6 @@ $expire=time()+60*60*24*30;
 if (isset($_COOKIE['layoutType'])){
 	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
 	$layoutType = $layoutTypeAr[0];
-	echo "$layoutType";
 }else{
 	 $layoutType = null;
 }
