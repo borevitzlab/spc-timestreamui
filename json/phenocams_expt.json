@@ -13,7 +13,8 @@
         "timestreams": [
       	  "ARB-PH-Hill-C01"
         ],
-"thumbnails":[
+        "timespan_days": "90",
+        "thumbnails":[
           "http://phenocam.anu.edu.au/data%5Ctimestreams%5CArboretum%5CARB-PH-Hill-C01~640%5Cfull%5C2014%5C2014_10%5C2014_10_16%5C2014_10_16_12%5CARB-PH-Hill-C01~640_2014_10_16_12_12_00_00.jpg"
         ]
       },
@@ -29,7 +30,8 @@
         "timestreams": [
       	  "TRN-NC-DSC-01"
         ],
-"thumbnails":[
+        "timespan_days": "90",
+        "thumbnails":[
           "http://phenocam.anu.edu.au/data/timestreams/TERN/TRN-NC-DSC-01~640/full/2014/2014_08/2014_08_18/2014_08_18_12/TRN-NC-DSC-01~640_2014_08_18_12_00_00_00.jpg"
         ]
       },
@@ -45,7 +47,8 @@
         "timestreams": [
       	  "mesquite-phenocam"
         ],
-"thumbnails":[
+        "timespan_days": "90",
+        "thumbnails":[
           "http://ufsn-data.chpc.utah.edu/mediablock/timestreams/MSQ/mesquite-phenocam~640/full//2014/2014_08/2014_08_02/2014_08_02_02/mesquite-phenocam~640_2014_08_02_02_55_00_00.jpg"
         ]
       },
@@ -61,7 +64,8 @@
         "timestreams": [
       	  "crfs-eastcam"
         ],
-"thumbnails":[
+        "timespan_days": "90",
+        "thumbnails":[
           "http://ufsn-data.chpc.utah.edu/mediablock/timestreams/crfs/crfs-eastcam~640/full/2014/2014_06/2014_06_04/2014_06_04_12/crfs-eastcam~640_2014_06_04_12_00_00_00.jpg"
         ]
       },
@@ -77,7 +81,8 @@
         "timestreams": [
       	  "GlinesCanyonDam"
         ],
-"thumbnails":[
+        "timespan_days": "90",
+        "thumbnails":[
           "http://155.101.15.238/mediablock/timestreams/Elwha/GlinesCanyonDam/full/2011/2011_10/2011_10_26/2011_10_26_12/GlinesCanyonDam_2011_10_26_12_00_00_00.jpg"
         ]
       }
