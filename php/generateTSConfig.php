@@ -1,7 +1,4 @@
 <?php
-ini_set('display_startup_errors',1);
-ini_set('display_errors',1);
-error_reporting(-1);
 // incude the template, a barebones xml with some additional extraneos data and structure. 
 include "template.php";
 include "globals.php";
@@ -28,7 +25,7 @@ if ($_COOKIE['streamselect'] != "null") {
 }else{
 	$streams = array();
 }
-
+echo $layoutType + $experimentID + $streams;
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/expts.json"));
 $timestreams_decoded = json_decode(file_get_contents("../json/timestreams.json"));
