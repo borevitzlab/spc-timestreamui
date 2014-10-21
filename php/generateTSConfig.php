@@ -9,7 +9,8 @@ $expire=time()+60*60*24*30;
 
 // get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
-	$layoutType = json_decode($_COOKIE["layoutType"]);
+	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
+	$layoutType = $layoutTypeAr[0];
 }else{
 	 $layoutType = null;
 }
