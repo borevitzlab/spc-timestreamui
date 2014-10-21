@@ -18,7 +18,7 @@
           "BVZ0012-GC05L-C01~fullres-orig",
           "BVZ0012-GC05R-C01~fullres-orig"
         ],
-        "timespan_days": "80",
+        "timespan_days": "14",
         "thumbnails":[
           "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0012/thumbnail.png"
         ]
@@ -38,7 +38,7 @@
           "BVZ0018-GC05R-C01~fullres-orig",
           "BVZ0018-GC04R-C01~fullres-orig"
         ],
-        "timespan_days": "80",
+        "timespan_days": "14",
         "thumbnails":[
           "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0018/thumbnail.png"
         ]
@@ -58,7 +58,7 @@
           "BVZ0032-GC03R-C01~fullres-orig",
           "BVZ0032-GC04R-C01~fullres-orig"
         ],
-        "timespan_days": "80",
+        "timespan_days": "14",
         "thumbnails":[
           "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0032/thumbnail.png"
         ]
@@ -86,7 +86,7 @@
           "BVZ0036-GC05R-C01~fullres-orig-segg",
           "BVZ0036-GC05R-C01~fullres-corr"
         ],
-        "timespan_days": "80",
+        "timespan_days": "14",
         "thumbnails":[
           "http://phenocam.anu.edu.au/cloud/a_data/timestreams/borevitz/BVZ0036/thumbnail.png"
         ]
