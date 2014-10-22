@@ -10,13 +10,12 @@ $expire=time()+60*60*24*30;
 // get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
 	$layoutType = $_COOKIE["layoutType"];
-	echo $layoutType;
+
 }else{
 	 $layoutType = null;
 }
 if (isset($_COOKIE['experimentID'])) {
 	$experimentID = $_COOKIE['experimentID'];
-	echo $experimentID;
 }else{
 	$experimentID = null;
 }

@@ -7,14 +7,16 @@ date_default_timezone_set('UTC');
 // read the xml template as an xml string into a SimpleXMLElement so that we can play around with it.
 
 $expire=time()+60*60*24*30;
+
 // get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
-	$layoutType = json_decode($_COOKIE["layoutType"]);
+	$layoutType = $_COOKIE["layoutType"];
+
 }else{
 	 $layoutType = null;
 }
 if (isset($_COOKIE['experimentID'])) {
-	$experimentID = json_decode($_COOKIE['experimentID']);
+	$experimentID = $_COOKIE['experimentID'];
 }else{
 	$experimentID = null;
 }
@@ -24,7 +26,6 @@ if ($_COOKIE['streamselect'] != "null") {
 }else{
 	$streams = array();
 }
-
 
 // getting json data and decode into php object
 $expts_decoded = json_decode(file_get_contents("../json/phenocams_expt.json"));
