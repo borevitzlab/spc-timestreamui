@@ -94,7 +94,9 @@ function reloadEmbed(){
     var path = window.location.pathname;
         var page = path.split("/").pop();
         var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
-        
+        if(page == "phenoplayer.php"){
+             doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generatePhenoTSConfig.php" width="100%" height="100%">');
+        }
     	    $("#TimeGraphDiv").slideUp("fast");
             $("#hiddenPreview").slideUp("fast");
     	    $('#TimeGraphDiv').empty().append(doc);
