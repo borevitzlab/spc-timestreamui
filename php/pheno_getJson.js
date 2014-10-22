@@ -17,6 +17,9 @@ function getCookie(cname) {
 			  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
 			  return new Date(parts1[0], parts1[1]-1, parts1[2], parts2[0],parts2[1]); // Note: months are 0-based
 			}
+			function replaceunderscore(inputstring){
+			    return inputstring.split('_').join(' ');
+			}
 	       	for (var i = 0; i < expts[0].experiments.length; i++) { 
 	       		 
 				var experimentIDImageTag = document.createElement("img");
