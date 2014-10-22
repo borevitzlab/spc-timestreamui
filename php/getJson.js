@@ -97,14 +97,41 @@ function getCookie(cname) {
 		    	
 		    	$(hiddenStreamsDivTag).hide();
 			}
+			 var query = getQueryParams(document.location.search);
+				if(typeof query.exid !== 'undefined'&&typeof query.ss !== 'undefined'){	
+				$.cookie.json = false;
+		    	$.cookie('experimentID', query.exid, { expires: 7, path: '/' });
+		    	console.log("exid: " + query.exid);
+		    	console.log("tl: " + query.lt);
+		    	console.log("ss: " + query.ss);
+		    	$('#layoutType').val(query.lt);
+		    	$.cookie('layoutType', query.lt, { expires: 7, path: '/' });
+		    	$.cookie('streamselect', query.ss, { expires: 7, path: '/' });
+		    	reloadEmbed();
+		    	//console.log(query.exid);
+		    	//console.log(expts[0].experiments[0]);
+		    	
+			    		for(var i = 0; i < expts[0].experiments.length; i++){
+			    			if(expts[0].experiments[i].expt_id == query.exid) {
+			    				$("#hide-"+expts[0].experiments[i].expt_id).show();
+			    			}
+			    		}
+			    		$(".playerclass").slideDown("slow");
+			    		var qqar = JSON.parse(query.ss);
+			    		Object.keys(qqar).forEach(function(element) {
+				           console.log(JSON.stringify(element));
+				            $("#" + element).prop('checked', true);
+				          });
+			    	generatePreview();
+			    }
 		    if(getCookie("layoutType")!=""){
-		    	var lyt = $.parseJSON(decodeURIComponent(getCookie("layoutType")));
+		    	var lyt = decodeURIComponent(getCookie("layoutType"));
 		    	$("#layout").val(lyt);
 		    }else{
 		    	var lyt = "gr";
 		    	$("#layout").val(lyt);
 				var layoutType= $("#layout").val();
-				$.cookie.json = true;
+				$.cookie.json = false;
 		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' });
 		    }
 		    $(":checkbox").on("change", function(){
@@ -127,41 +154,12 @@ function getCookie(cname) {
 		    });
 		    function repopulateCheckboxes(){
 		        var checkboxValues = $.cookie('checkboxValues');
-		        if(checkboxValues){
+		        if(checkboxValues!=="null"&&checkboxValues){
 		          Object.keys(checkboxValues).forEach(function(element) {
 		            var checked = checkboxValues[element];
 		            $("#" + element).prop('checked', checked);
 		          });
 		        }
 		      }
-		      $.cookie.json = true;
 		      repopulateCheckboxes();
-		      var query = getQueryParams(document.location.search);
-				if(typeof query.exid !== 'undefined'&&typeof query.lt !== 'undefined'&&typeof query.ss !== 'undefined'){	
-				$.cookie.json = true;
-		    	$.cookie('experimentID', query.exid, { expires: 7, path: '/' });
-
-		    	$('#layoutType').val(query.lt);
-				$.cookie.json = true;
-		    	$.cookie('layoutType', query.lt, { expires: 7, path: '/' });
-		    	$.cookie.json = false;
-		    	$.cookie('streamselect', query.ss, { expires: 7, path: '/' });
-		    	reloadEmbed();
-		    	//console.log(query.exid);
-		    	//console.log(expts[0].experiments[0]);
-		    	
-			    		for(var i = 0; i < expts[0].experiments.length; i++){
-			    			if(expts[0].experiments[i].expt_id === query.exid) {
-			    				$("#hide-"+expts[0].experiments[i].expt_id).show();
-			    			}
-			    		}
-			    		$(".playerclass").slideDown("slow");
-			    		var qqar = JSON.parse(query.ss);
-			    		Object.keys(qqar).forEach(function(element) {
-				           console.log(JSON.stringify(element));
-				            $("#" + element).prop('checked', true);
-				          });
-			    	
-			    	generatePreview();
-			}
 	 });

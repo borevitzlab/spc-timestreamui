@@ -9,13 +9,14 @@ $expire=time()+60*60*24*30;
 
 // get cookie values if set. Otherwise set to null.
 if (isset($_COOKIE['layoutType'])){
-	$layoutTypeAr = array_values(json_decode($_COOKIE["layoutType"]));
-	$layoutType = $layoutTypeAr[0];
+	$layoutType = $_COOKIE["layoutType"];
+	echo $layoutType;
 }else{
 	 $layoutType = null;
 }
 if (isset($_COOKIE['experimentID'])) {
-	$experimentID = json_decode($_COOKIE['experimentID']);
+	$experimentID = $_COOKIE['experimentID'];
+	echo $experimentID;
 }else{
 	$experimentID = null;
 }
@@ -92,8 +93,7 @@ $number_of_streams = count($streams);
 		}
 		if($experiment_index==-1){
 			echo "Invalid experiment index, contact a programmer";
-			echo $layoutType + $experimentID + $streams;
-			//return;
+			return;
 		}
 
 		$xml = new SimpleXMLElement($xmlstr);

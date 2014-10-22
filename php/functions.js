@@ -37,9 +37,9 @@ function replaceunderscore(inputstring){
     return inputstring.split('_').join(' ');
 }
 function copyAllCookies(){
-    var lt = $.parseJSON(decodeURIComponent(getCookie("layoutType")));
+    var lt = decodeURIComponent(getCookie("layoutType"));
     var ssa = decodeURIComponent(getCookie("streamselect"));
-    var exid = $.parseJSON(decodeURIComponent(getCookie("experimentID")));
+    var exid = decodeURIComponent(getCookie("experimentID"));
     var returndiv = document.getElementById("showLink");
         returndiv.innerHTML = "";
         var url = [location.protocol, '//', location.host, location.pathname].join('');
@@ -91,7 +91,10 @@ function clearCheckboxCookie(){
 }
 
 function reloadEmbed(){
-	    var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
+    var path = window.location.pathname;
+        var page = path.split("/").pop();
+        var doc = $('<embed name="TimeGraph" id="TimeGraphFlex" src="TimeGraphFlex.swf?license=def20d85a970dfad6be9f30c32280c17&config=generateTSConfig.php" width="100%" height="100%">');
+        
     	    $("#TimeGraphDiv").slideUp("fast");
             $("#hiddenPreview").slideUp("fast");
     	    $('#TimeGraphDiv').empty().append(doc);
@@ -147,7 +150,7 @@ $.fn.showOptionGroup = function() {
 function generatePreview(){
    //if(getCookie("streamselect")!="null"){
     var previewarray = $.parseJSON(decodeURIComponent(getCookie("streamselect")));
-    var layoutType = $.parseJSON(decodeURIComponent(getCookie("layoutType")));
+    var layoutType = decodeURIComponent(getCookie("layoutType"));
     var prevar = $.map(previewarray,function(value,index){ return [value];});
     var hiddenPreview = document.getElementById("hiddenPreview");
         hiddenPreview.innerHTML = '';

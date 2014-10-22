@@ -61,7 +61,7 @@
 			    	clearCheckboxCookie();
 			    	reloadEmbed();
 			    	var eid = $(this).attr("value");
-			    	$.cookie('experimentID', JSON.stringify(eid), { expires: 7, path: '/' });
+			    	$.cookie('experimentID', eid, { expires: 7, path: '/' });
 			    	if($(".playerclass").css('display') == 'none' ){
 			    		for(var i = 0; i < expts[0].experiments.length; i++){
 			    			if(expts[0].experiments[i].expt_id == $(this).attr("value")) {
