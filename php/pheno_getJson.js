@@ -127,6 +127,7 @@ function getCookie(cname) {
 				          });
 			    	generatePreview();
 			    }
+
 		    if(getCookie("layoutType")!=""){
 		    	var lyt = decodeURIComponent(getCookie("layoutType"));
 		    	$("#layout").val(lyt);
@@ -152,7 +153,7 @@ function getCookie(cname) {
 		      });
 		    $("#layout").on("change", function(){
 		    	var layoutType= $("#layout").val();
-
+				$.cookie.json = false;
 		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
 		    });
 		    function repopulateCheckboxes(){
