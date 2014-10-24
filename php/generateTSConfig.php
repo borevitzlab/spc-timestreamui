@@ -106,8 +106,7 @@ $number_of_streams = count($streams);
 		if(strcmp($expts_decoded[0]->experiments[$experiment_index]->end_date, "now")==0){
 			$end_date_time = $now;
 		}
-		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
-		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
+		
 		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y h:i:s A');
 		$xml->globals['date_end'] = date_format($end_date_time, 'm/d/Y h:i:s A');
 		// iterating through the first experiment and then the list of timestreams
@@ -136,7 +135,7 @@ $number_of_streams = count($streams);
 					
 
 					// explodey for the res
-					$loresname = str_replace("fullres", $timestreams_decoded[$i]->width, $timestreams_decoded[$i]->name);
+					/*$loresname = str_replace("fullres", $timestreams_decoded[$i]->width, $timestreams_decoded[$i]->name);
 					$tc->addAttribute('url_image_list', $datapath.$loresname);
 					$tc->addAttribute('stream_name', $loresname);
 					
@@ -144,6 +143,13 @@ $number_of_streams = count($streams);
 					$hiresname = str_replace("fullres", $timestreams_decoded[$i]->width_hires, $timestreams_decoded[$i]->name);
 					$tc->addAttribute('url_hires', $datapath.$hiresname);
 					$tc->addAttribute('stream_name_hires', $hiresname);
+					*/
+					$tc->addAttribute('url_image_list', $datapath.$timestreams_decoded[$i]->name."~640/full");
+					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name."~640");
+					
+					
+					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name."/full");
+					$tc->addAttribute('stream_name_hires', $datapath.$timestreams_decoded[$i]->name);
 
 					// 
 					// TODO: push these changes to the json schema/get from json

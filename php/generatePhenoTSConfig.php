@@ -31,7 +31,7 @@ if ($_COOKIE['streamselect'] != "null") {
 $expts_decoded = json_decode(file_get_contents("../json/phenocams_expt.json"));
 $timestreams_decoded = json_decode(file_get_contents("../json/phenocams_timestreams.json"));
 $number_of_streams = count($streams);
-// echo $number_of_streams;
+
 // useful functions
 	// checks to see whether a number is whole
 	function is_whole_number($var){
@@ -107,8 +107,6 @@ $number_of_streams = count($streams);
 		if(strcmp($expts_decoded[0]->experiments[$experiment_index]->end_date, "now")==0){
 			$end_date_time = $now;
 		}
-		//echo date_format($start_date_time, 'm/d/Y H:i:s A');
-		//echo date_format($end_date_time, 'm/d/Y H:i:s A');
 		$xml->globals['date_start'] = date_format($start_date_time, 'm/d/Y h:i:s A');
 		$xml->globals['date_end'] = date_format($end_date_time, 'm/d/Y h:i:s A');
 		// iterating through the first experiment and then the list of timestreams
