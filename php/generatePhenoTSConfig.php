@@ -141,11 +141,10 @@ $number_of_streams = count($streams);
 					
 					$tc->addAttribute('url_image_list', $datapath.$timestreams_decoded[$i]->name."~640/full");
 					$tc->addAttribute('stream_name', $timestreams_decoded[$i]->name."~640");
-					
+
 					
 					$tc->addAttribute('url_hires', $datapath.$timestreams_decoded[$i]->name."/full");
-					$tc->addAttribute('stream_name_hires', $datapath.$timestreams_decoded[$i]->name);
-
+					$tc->addAttribute('stream_name_hires', $timestreams_decoded[$i]->name);
 					// 
 					// TODO: push these changes to the json schema/get from json
 					// 
