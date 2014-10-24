@@ -156,6 +156,7 @@ function getCookie(cname) {
 		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
 		    });
 		    function repopulateCheckboxes(){
+		    	$.cookie.json = true;
 		        var checkboxValues = $.cookie('checkboxValues');
 		        if(checkboxValues!=="null"&&checkboxValues){
 		          Object.keys(checkboxValues).forEach(function(element) {

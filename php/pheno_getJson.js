@@ -106,7 +106,7 @@ function getCookie(cname) {
 		    	$.cookie('experimentID', query.exid, { expires: 7, path: '/' });
 		    	console.log("exid: " + query.exid);
 		    	console.log("tl: " + query.lt);
-		    	console.log("ss: " + query.ss);
+					    	console.log("ss: " + query.ss);
 		    	$('#layoutType').val(query.lt);
 		    	$.cookie('layoutType', query.lt, { expires: 7, path: '/' });
 		    	$.cookie('streamselect', query.ss, { expires: 7, path: '/' });
@@ -127,7 +127,6 @@ function getCookie(cname) {
 				          });
 			    	generatePreview();
 			    }
-
 		    if(getCookie("layoutType")!=""){
 		    	var lyt = decodeURIComponent(getCookie("layoutType"));
 		    	$("#layout").val(lyt);
@@ -157,6 +156,7 @@ function getCookie(cname) {
 		    	$.cookie('layoutType', layoutType, { expires: 7, path: '/' })
 		    });
 		    function repopulateCheckboxes(){
+		    	$.cookie.json = true;
 		        var checkboxValues = $.cookie('checkboxValues');
 		        if(checkboxValues!=="null"&&checkboxValues){
 		          Object.keys(checkboxValues).forEach(function(element) {

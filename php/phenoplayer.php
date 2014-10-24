@@ -15,6 +15,7 @@
 	<script src="history/history.js" language="javascript"></script>
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
@@ -60,6 +61,7 @@
 			    $("#experimentID").delegate('.experimentselection', 'click', function(){
 			    	clearCheckboxCookie();
 			    	reloadEmbed();
+			    	$.cookie.json = false;
 			    	var eid = $(this).attr("value");
 			    	$.cookie('experimentID', eid, { expires: 7, path: '/' });
 			    	if($(".playerclass").css('display') == 'none' ){

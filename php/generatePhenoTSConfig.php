@@ -14,17 +14,20 @@ if (isset($_COOKIE['layoutType'])){
 
 }else{
 	 $layoutType = null;
+	 echo "broken";
 }
 if (isset($_COOKIE['experimentID'])) {
 	$experimentID = $_COOKIE['experimentID'];
 }else{
 	$experimentID = null;
+	echo "broken experimentID";
 }
 if ($_COOKIE['streamselect'] != "null") {
 	$streamsa = json_decode($_COOKIE['streamselect'], true);
 	$streams = array_values($streamsa);
 }else{
 	$streams = array();
+	echo "broken streamselect";
 }
 
 // getting json data and decode into php object
@@ -85,7 +88,6 @@ $number_of_streams = count($streams);
 		for($i = 0; $i < count($expts_decoded[0]->experiments); $i++){
 			if(strcmp($expts_decoded[0]->experiments[$i]->expt_id, $experimentID)==0){
 				$experiment_index=$i;
-				echo $experiment_index;
 				break 1;
 			}else{
 				$experiment_index = -1;
